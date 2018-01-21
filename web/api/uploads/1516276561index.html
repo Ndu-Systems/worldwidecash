@@ -1,0 +1,44 @@
+ <html>
+ <head>
+ <title>Ndu Awesome</title>
+ 
+ </head>
+ <body>
+<script>
+//alert("Fuck you");
+var var1 = 44;
+var var2 = 54;
+var password = "64037ccc0085adf6272d5d69fb657ddc";
+
+// take the input from the user 
+function SetVals(id,val){
+document.getElementById(id).innerHTML  = val;
+}
+
+function GetVals(id){
+return document.getElementById(id).value;
+}
+
+function Process(){
+var userin1 = GetVals("userin1");
+var userin2 = GetVals("userin2");
+var dateTime = Date();
+//alert(userin1 + " " + userin2)
+//alert(dateTime);
+var splitTime = dateTime.split(" ");
+var time = splitTime[4];
+SetVals("time", time)
+//alert(time);
+//for(var i = 0 ; i < splitTime.length; i++){
+//alert(splitTime[i])
+//}
+}
+</script>
+
+<input type= "text" id="userin1"><br>
+<input type= "text" id="userin2"><br>
+<input type= "button" id="btnUserINboth"  value= "Process" onclick="Process()"><br>
+
+<h1 id="time"></h1>
+ </body>
+ </html>
