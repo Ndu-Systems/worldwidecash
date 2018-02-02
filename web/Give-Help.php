@@ -33,7 +33,7 @@ require 'nav2.php';
 	 <select ng-model="amount" class="myInput" ng-options="amount for amount in packeges"></select><br><br>
   </div>
    <div class="col-sm-12">
-   <label>Investment Peroid</label><br>
+   <label>Investment Peroid in <b>Months</b></label><br>
 	 <select ng-model="peroid" class="myInput" ng-options="peroid for peroid in peroids"></select><br><br>
   </div>
   

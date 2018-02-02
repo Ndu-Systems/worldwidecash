@@ -12,15 +12,67 @@ body {
 	font-family: 'Trebuchet MS';
 	background: #fff;
 }
+.client{
+	background:#2980b9;
+	color:white;
+	padding:1%;
+}
+.sidemenu{
+	background:#2c3e50;
+	height: 100%;
+}
+.mainmenu{
+	background:#2c3e50;
+	padding:1%;
+	
+}
+.usericon{
+	    text-align: center;
+    color: #ffffff;
+    padding: 6%;
+    font-size: 77px;
+}
+.username{
+	text-align: center;
+    color: #ffffff;
+    padding: 6%;
+    font-size: 16px;
+}
+.activedream{
+	  background: #6ce86e;
+	   padding: 2%;
+}
+.activedream table{
+	width:50%;
+	    background: #6ce86e;
+   
+    color: white;
+    font-weight: bolder;
+   
+}
+.activedream b{
+	color: #554d5a;
+}
+.allocated{
+	  background: #f1c40f;
+	   padding: 2%;
+	     color: black;
+}.pending{
+	  background: #e67e22;
+	   padding: 2%;
+	     color: black;
+}
+
+
 .how{
 	width:100%;
 }
 .wait{
-	padding:2%;
+	padding:1%;
 	text-align:center;
 	width:100%;
-	background:green;
-	color:white;
+
+	color:#34495e;
 }
 .form{
 	-webkit-box-shadow: 13px 20px 25px 6px rgba(219,219,219,1);
@@ -429,6 +481,9 @@ b.fa.fa-caret-right {
 		width: 100%;
 		background: #eee;
 		margin-top: 1em;
+	}
+	.activedream table{
+	width:100%;
 	}
 }
 

@@ -1,6 +1,11 @@
-﻿app.controller('joinController', function ($http, $scope, $window) {
-	
-    var me = this;
+app.controller('joinController', function ($http, $scope, $window,$location) {
+// CHECK FOR THE PARENT Link
+	var baseUrlMain = $location.absUrl();
+	if(baseUrlMain.includes("link=")){
+		$scope.parentlink = baseUrlMain;
+	}else{
+		$scope.parentlink="";
+	}
  
     $scope.Join = function () {
         $scope.message = undefined;
@@ -11,11 +16,15 @@
         var email =$scope.email;
         var password =$scope.password;
         var passwordConfirm =$scope.passwordConfirm;
+		var code =  Math.floor(4000*(Math.random()+1));
         var data = {
             name: name,
             surname:surname,
             email:email,
-			password:password
+			password:password,
+			code:code,
+			baseUrl :base,
+			parentlink: $scope.parentlink
         
         };
         if(name ==undefined || surname== undefined){
@@ -28,8 +37,18 @@
             $scope.isValid = false;
          return;
         }
-		  if(password ==undefined || passwordConfirm== undefined){
+		  if(password ==undefined){
 			   $scope.message = "Please create your password!"
+            $scope.isValid = false;
+         return;
+		  }
+		   if(password.length < 8){
+			   $scope.message = "Your password has to be at least 8 characters long."
+            $scope.isValid = false;
+         return;
+		  }
+		   if(passwordConfirm== undefined){
+			   $scope.message = "Please confirm your password!"
             $scope.isValid = false;
          return;
 		  }
@@ -46,7 +65,9 @@
                 if (parseInt(response)===1) {
                     localStorage.setItem("name", $scope.name);
                     localStorage.setItem("email", $scope.email);
-                    $window.location.href = "Personal-Information";
+					 localStorage.setItem("code", code);
+					 localStorage.setItem("isEmailVerified", 0);
+				     $window.location.href = "Personal-Information";
                    }
                else{
 				   $scope.message = response;
@@ -59,22 +80,28 @@
         }
     };
 	
-	function SendEmailToClient(message,emailFrom, subject){
-		var data = {
-			emailTo: localStorage.getItem("email"),
-			emailFrom: emailFrom,
-			subject :subject
-		}
-		$http.post(GetApiUrl("EmailClient"), data)
-            .success(function (response, status) {
-				console.log("Email send");
-            });
-	}
+	
 });
 
 app.controller('moreDetailsController', function ($http, $scope, $window) {
 	
-    var me = this;
+ //mail data
+ if(parseInt(localStorage.getItem("code")) !== 0){
+		var maildata = {
+			emailTo: localStorage.getItem("email"),
+			emailFrom: "account@worldwidecash.co.za",
+			subject :"Verification Code",
+			name:localStorage.getItem("name"),
+			msg  : "Welcome to World wide cash,Your verification code is "+ localStorage.getItem("code")
+			}
+					
+			//send mail
+			$http.post("http://ndu-systems.net/demo/worldwidecash2/api/emailClient.php", maildata)
+				.success(function (response, status) {
+				console.log("Email sent");
+            });
+ }
+			//send mail
  $scope.countries = ['South Africa','Unite States']
     $scope.Save = function () {
         $scope.message = undefined;
@@ -106,6 +133,12 @@ if(cell ==undefined || address== undefined || idnum ==undefined || country== und
             $http.post(GetApiUrl("UpdatePersonalInfo"), data)
             .success(function (response, status) {
                 if (parseInt(response)===1) {
+					localStorage.setItem("cell", $scope.cell);
+					localStorage.setItem("address", $scope.address);
+					localStorage.setItem("idnum", $scope.idnum);
+					localStorage.setItem("country", $scope.country);
+					localStorage.setItem("city", $scope.city);
+
                     $window.location.href = "Banking-Details";
                    }
                else{
@@ -145,21 +178,26 @@ app.controller('bankingDetailsController', function ($http, $scope, $window) {
 'Investec Bank Limited',
 'Sasfin Bank Limited'
 ];
+
+$scope.accountTypes = ['Cheque','Savings'];
     $scope.Save = function () {
         $scope.message = undefined;
         $scope.isValid= true;
 //				bankname, accountnumber
 		var bankname     = $scope.bankname; 
 		var accountnumber  = $scope.accountnumber;  
-		
+		var accountType  = $scope.accountType;  
+		var branch  = $scope.branch;  
 		
         var data = {
             bankname: bankname,
             accountnumber:accountnumber,
+			accountType:accountType,
+			branch:branch,
 			email: localStorage.getItem("email")
         
         };
-if(bankname ==undefined || accountnumber== undefined ){
+if(bankname ==undefined || accountnumber== undefined || accountType == undefined || branch == undefined ){
             $scope.isValid = false;
             $scope.message = "Please fill in the form completely";
 			return;
@@ -171,6 +209,10 @@ if(bankname ==undefined || accountnumber== undefined ){
             .success(function (response, status) {
                 if (parseInt(response)===1) {
 					localStorage.setItem("isLoggedIn", true);
+					localStorage.setItem("bankname", $scope.bankname);
+					localStorage.setItem("accountnumber", $scope.accountnumber);
+					localStorage.setItem("accountType", $scope.accountType);
+					localStorage.setItem("branch", $scope.branch);
                     $window.location.href = "Dashboard";
                    }
                else{
@@ -205,7 +247,7 @@ app.controller('logoutController', function ($http, $scope, $window) {
 
 
 app.controller('loginController', function ($http, $scope, $window) {
-    if(localStorage.getItem("isLoggedIn") === "true" && localStorage.getItem("idnum") === "admin"){
+    if(localStorage.getItem("isLoggedIn") === "true" && localStorage.getItem("role") === "admin"){
         $window.location.href = "Admin-dashboard";
     }
 	 else if(localStorage.getItem("isLoggedIn") === "true"){
@@ -236,7 +278,6 @@ app.controller('loginController', function ($http, $scope, $window) {
            }
           
            if ($scope.isValid) {
-   
                $http.post(GetApiUrl("Login"), data)
                .success(function (response, status) {
                 if (response.length !== 0) {
@@ -250,8 +291,12 @@ app.controller('loginController', function ($http, $scope, $window) {
                     localStorage.setItem("idnum", user.idnum);
                     localStorage.setItem("bankname", user.bankname);
                     localStorage.setItem("accountnumber", user.accountnumber);
+                    localStorage.setItem("role", user.role);
+					localStorage.setItem("isEmailVerified", user.isEmailVerified);
+                    localStorage.setItem("code", user.code);
+					
                     localStorage.setItem("isLoggedIn", true);
-					if(user.idnum ==="admin"){
+					if(user.role ==="admin"){
 						$window.location.href = "Admin-dashboard";
 					}else{
                     $window.location.href = "Dashboard";
@@ -271,70 +316,3 @@ app.controller('loginController', function ($http, $scope, $window) {
 
 });
 
-app.controller('adminController', function ($http, $scope, $window,$timeout) {
-    if(localStorage.getItem("isLoggedIn") !== "true"){
-        $window.location.href = "Login";
-    }
-    $scope.name = localStorage.getItem("name");
-    $scope.wait = "Please wait...";
-
-    $timeout(function () {
-        //Get investments    
-    var data = {
-        email: localStorage.getItem("email")
-    };
-    $http.post(GetApiUrl("GetInvestmentsAdmin"), data)
-    .success(function (response, status) {
-		    $scope.wait = undefined;
-
-        if (response.data !== undefined) {
-            $scope.investments = response.data;
-        }
-    });
-    }, 2000)
-	
-	// get users
-	
-	 //Get Customers   
- $timeout(function () {	 
-    var data = {
-        table: "user",
-		condition: " 1 "
-    };
-    $http.post(GetApiUrl("Get"), data)
-    .success(function (response, status) {
-		    $scope.wait = undefined;
-
-        if (response.data !== undefined) {
-            $scope.users = response.data;
-        }
-    });
-    }, 2000)
-	
-	// Selected UserId
-	$scope.More = function(user){
-		alert(user.name);
-	}
-	//selected investemnt
-	// Selected UserId
-	$scope.Verify = function(investemnt){
-		 $scope.message = undefined;
-           var data = {
-               id:investemnt.id,
-			   status: "Active"
-           };
-         
-        $http.post(GetApiUrl("Verify"), data)
-               .success(function (response, status) {
-                if (parseInt(response)=== 1) {
-				   investemnt.status = "Active";
-                 }
-                else {
-                 //   $scope.message = "Oops! Your username or password is incorrect please CHECK and try again.";
-                }
-   
-               });
-          
-       };
-	
-});

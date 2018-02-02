@@ -5,7 +5,7 @@
 		<div class="top-bar_w3agileits">
 			<div class="top-logo_info_w3layouts">
 				<div class="col-md-3 logo">
-					<h1><a class="navbar-brand" href="Home">WorldWideCash<span>Life changer of the century</span></a></h1>
+					<h1><a class="navbar-brand" href="Home">Funders<font color="green">Life</font></a></h1>
 				</div>
 				<div class="col-md-9 adrress_top">
 					<div class="adrees_info">
@@ -20,7 +20,7 @@
 							</div>
 							<div class="col-md-10 col-sm-10 col-xs-10 contact-text">
 								<h4>Mail us</h4>
-								<p><a href="mailto:info@worldwidecash.com">info@worldwidecash.com</a></p>
+								<p><a href="mailto:info@worldwidecash.com">info@funderslife.com</a></p>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -32,34 +32,6 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="header-nav">
-				<div class="inner-nav_wthree_agileits">
-					<nav class="navbar navbar-default">
-						<!-- Brand and toggle get grouped for better mobile display -->
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-									<span class="sr-only">Toggle navigation</span>
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-								</button>
-						</div>
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-							<nav>
-								<ul class="nav navbar-nav">
-								<li><a href="Home" class="active">Home</a></li>
-
-									<li><a href="Dashboard">My Dashboard</a></li>
-									
-									<li><a href="Invest">New Investment</a></li>
-									<li><a href="Logout">Logout</a></li>
-								</ul>
-							</nav>
-
-						</div>
-					</nav>
 				
-					<div class="clearfix"></div>
-				</div>
 			</div>
 		</div>

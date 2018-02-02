@@ -17,7 +17,6 @@ Hello {{name}}
   <li class="list-group-item"><a href="Messages"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
   <li class="list-group-item"><a href="Give-Help"><span class="glyphicon glyphicon-heart-empty"></span> Donate</a></li>
   <li class="list-group-item"><a href="Dashboard"><span class="glyphicon glyphicon-th"></span> Dashboard</a></li>
-  <li class="list-group-item"><a href="History"><span class="glyphicon glyphicon-th-list"></span> History</a></li>
   <li class="list-group-item"><a href="Logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
 
 </ul>
@@ -75,7 +74,7 @@ Hello {{name}}
 					  <div class="col-sm-4">
 					  Date: <b>{{ investment.dateInvested }}</b> <br>
 					  Status: <b>Waiting for payment</b> <br>
-					  Date  Allocated: <b>{{ investment.timeallocated }}</b> <br>
+					  Date: <b>{{ investment.dateInvested }}</b> <br>
 					  </div>
 					  <div class="col-sm-4"> 
 					  Beneficiary Name: <b>{{ investment.keepername }}</b> <br>

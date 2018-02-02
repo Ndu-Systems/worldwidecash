@@ -10,7 +10,7 @@ require 'nav.php';
 					<li>
 						<div class="banner-top">
 							<div class="banner-info_agileits_w3ls">
-								<h3>Investment Solutions</h3>
+								<h3>Earn 80% Interest Per month and live your dream.</h3>
 								
 							</div>
 
@@ -19,7 +19,7 @@ require 'nav.php';
 					<li>
 						<div class="banner-top1">
 							<div class="banner-info_agileits_w3ls">
-							<h3>Investment Solutions</h3>
+							<h3>See your everyday growth.</h3>
 								</div>
 
 						</div>
@@ -27,7 +27,7 @@ require 'nav.php';
 					<li>
 						<div class="banner-top2">
 							<div class="banner-info_agileits_w3ls">
-							<h3>Investment Solutions</h3>
+							<h3>Get support every day</h3>
 								</div>
 
 						</div>
@@ -55,7 +55,6 @@ require 'nav.php';
 
 					</div>
 					<div class="col-md-6 b_right">
-						<img src="images/ab1.jpg" alt=" " class="img-responsive">
 
 					</div>
 				</div>
@@ -63,7 +62,7 @@ require 'nav.php';
 					<h4>About Us</h4>
 					
 					<p>
-					Summarry
+					This is a community of ordinary people, selflessly helping each other, a kind of the Global Fund of mutual aid. This is the first sprout of something new in modern soulless and ruthless world of greed and hard cash. The goal here is not the money. The goal is to destroy the world's unjust financial system.
 					</p>
 				</div>
 			</div>

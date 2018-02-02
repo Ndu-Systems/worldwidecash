@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <html ng-app="App">
 
 <head>
-	<title>WorldWideCash Life changer of the century</title>
+	<title>Funders Life </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	   <link rel="shortcut icon"  href="images/icon.PNG" />
 	<meta charset="utf-8">
@@ -26,7 +25,9 @@
 	<script type="text/javascript" src="angularjs/angular.min.js"></script>
 	<script type="text/javascript" src="angularjs/app.js"></script>
 	<script type="text/javascript" src="angularjs/config.js"></script>
+	<script type="text/javascript" src="services/getData.js"></script>
 	
 	<script type="text/javascript" src="controllers/accountController.js"></script>
 	<script type="text/javascript" src="controllers/homeController.js"></script>
+	<script type="text/javascript" src="controllers/adminController.js"></script>
 </head>

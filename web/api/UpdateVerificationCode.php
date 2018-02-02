@@ -15,10 +15,7 @@ $data = json_decode(file_get_contents("php://input"));
            
 		   $sql = "
 				UPDATE  user  SET	 
-                 bankname ='$bankname',
-                 accountnumber ='$accountnumber',
-                 branch ='$branch',
-				 accountType = '$accountType'
+                 // code ='$code'
 				WHERE email= '$email' 		
 				";								
 								

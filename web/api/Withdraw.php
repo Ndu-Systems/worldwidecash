@@ -6,16 +6,17 @@ require "conn.php";
 $data = json_decode(file_get_contents("php://input"));
 
 if (isset($data->email) ){  
-$dateInvested   		=date("Y/m/d");
-$amountInvested        =$data->amount;
-$status               ="pending";
-$email= $data->email;
- $package= $data->peroid;
-$dream= $data->dream;
-$name= $data->name;
+	$amount= $data->amount;
+	$dateInvested= $data->dateInvested;
+	$investemntId= $data->investemntId;
+	$amountInvested= $data->amountInvested;
+	$email= $data->email;
+	$package= $data->package;
+	$name= $data->name;
+	$status="pending";
 
-        $sql = "INSERT INTO investment (dateInvested, amountInvested, status,email,package,name,dream,expecedDate)
-                VALUES (NOW(), '$amountInvested', '$status', '$email', '$package','$name','$dream',NOW() + INTERVAL $package*30 DAY)";        
+	$sql = "INSERT INTO withdraw (amount ,  package ,  createdate ,  email ,  donneremail ,  status ,  investemntId, name )
+                VALUES ('$amount', $package , NOW(), '$email','','$status', $investemntId,'$name')";        
         
         if ($conn->query($sql) === TRUE) {
 			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1

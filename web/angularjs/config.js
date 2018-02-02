@@ -1,6 +1,10 @@
-﻿var extention = ".php";
-var host = "http://localhost/sfiso/api/";
-
+var extention = ".php";
+//var host = "http://localhost/git.fknloans/loans/api/";
+var host = "https://funderslife.com/api/";
+//var host = "http://localhost:8080/sfiso/api/";
+var mail = "http://ndu-systems.net/demo/worldwidecash2/api/emailClient2.php";
+//var base = "http://localhost:8080/sfiso";
+var base = "https://funderslife.com";
 function GetApiUrl(serviceName) {
 
     var url = host + serviceName + extention;
@@ -18,7 +22,20 @@ function getDate() {
 }
 // email tempates 
 
-function WelcomeMessage() {
-    var msg = "";
-    return "";
+
+function SendMail(emailFrom,to,name,subject,msg){
+	
+	$.post(mail,
+    {
+        emailFrom: emailFrom,
+        to: to,
+        name: name,
+        subject: subject,
+        msg: msg,
+    },
+    function(data, status){
+    });
 }
+
+
+//emails

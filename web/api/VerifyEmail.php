@@ -5,20 +5,16 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 require "conn.php";
 $data = json_decode(file_get_contents("php://input"));
 
-              $bankname     = $data->bankname; 
-			  $accountnumber  = $data->accountnumber;            
+                   
 			  $email     = $data->email;              
-			  $accountType     = $data->accountType;              
-			  $branch     = $data->branch;              
-			  $email     = $data->email;              
+			  $code     = $data->code;              
+			           
                  
            
 		   $sql = "
 				UPDATE  user  SET	 
-                 bankname ='$bankname',
-                 accountnumber ='$accountnumber',
-                 branch ='$branch',
-				 accountType = '$accountType'
+                 isEmailVerified =1,
+				 code = $code
 				WHERE email= '$email' 		
 				";								
 								

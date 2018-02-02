@@ -29,8 +29,16 @@ require 'nav.php';
 	 <select ng-model="bankname" class="myInput" ng-options="bank for bank in banks"></select><br><br>
   </div>
    <div class="col-sm-12">
+   <label>Account Type</label><br>
+	 <select ng-model="accountType" class="myInput" ng-options="acctype for acctype in accountTypes"></select><br><br>
+  </div>
+   <div class="col-sm-12">
+   <label>Branch Name/Code</label><br>
+	 <input type="text" ng-model="branch" class="myInput" ><br><br>
+  </div>
+   <div class="col-sm-12">
    <label>Account Number</label><br>
-	<input type="text" class="myInput" ng-model="accountnumber"/><br><br>
+	<input type="number" class="myInput" ng-model="accountnumber"/><br><br>
   </div>
   
    <div class="col-sm-12">

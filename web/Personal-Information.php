@@ -27,11 +27,11 @@ require 'nav.php';
 				<div class="row">
   <div class="col-sm-12">
    <label>Id Number</label><br>
-	<input type="text" class="myInput" ng-model="id"/><br><br>
+	<input type="number" class="myInput" ng-model="id"/><br><br>
   </div>
    <div class="col-sm-12">
    <label>Cellphone Number</label><br>
-	<input type="text" class="myInput" ng-model="cell"/><br><br>
+	<input type="number" class="myInput" ng-model="cell"/><br><br>
   </div>
   <div class="col-sm-12">
    <label>Address Line</label><br>

@@ -5,7 +5,7 @@
 		<div class="top-bar_w3agileits">
 			<div class="top-logo_info_w3layouts">
 				<div class="col-md-3 logo">
-					<h1><a class="navbar-brand" href="Home">WorldWideCash<span>Life changer of the century</span></a></h1>
+					<h1><a class="navbar-brand" href="Home">Funders<font color="green">Life</font></a></h1>
 				</div>
 				<div class="col-md-9 adrress_top">
 					<div class="adrees_info">
@@ -20,7 +20,7 @@
 							</div>
 							<div class="col-md-10 col-sm-10 col-xs-10 contact-text">
 								<h4>Mail us</h4>
-								<p><a href="mailto:info@worldwidecash.com">info@worldwidecash.com</a></p>
+								<p><a href="mailto:info@worldwidecash.com">info@funderslife.com</a></p>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -49,7 +49,7 @@
 								<ul class="nav navbar-nav">
 								<li><a href="Home" class="active">Home</a></li>
 
-									<li><a href="Dashboard">My Dashboard</a></li>
+									<li><a href="Admin-dashboard">My Dashboard</a></li>
 									
 									<li><a href="Logout">Logout</a></li>
 								</ul>

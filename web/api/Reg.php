@@ -10,13 +10,16 @@ if (isset($data->email) ){
  $surname 	=$data->surname;
  $email 	=$data->email;
  $password 	=$data->password;
+ $code 	=$data->code;
+ $parentlink 	=$data->parentlink;
+ $mylink 	=$data->baseUrl."?link=".time().$code;
  
  // check if user exits
 $check = $conn->query("SELECT * FROM user WHERE email = '$email'");
 if ($check->num_rows ==0) {
    
-        $sql = "INSERT INTO user (name, surname, email, password, createdate, role)
-                VALUES ('$name', '$surname', '$email','$password', now(),'Client')";        
+        $sql = "INSERT INTO user (name, surname, email, password, createdate, role,code,isEmailVerified,mylink,parentlink)
+                VALUES ('$name', '$surname', '$email','$password', now(),'Client',$code,0,'$mylink','$parentlink')";        
         
         if ($conn->query($sql) === TRUE) {
 			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1

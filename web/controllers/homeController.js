@@ -1,25 +1,126 @@
-﻿app.controller('homeController', function ($http, $scope, $window) {
+﻿app.controller('dashController', function ($http, $scope, $window,$timeout) {
+	
+    if(localStorage.getItem("isLoggedIn") !== "true" || localStorage.getItem("name") === undefined || localStorage.getItem("email") === undefined || localStorage.getItem("name") === "" || localStorage.getItem("email") === ""){
+        $window.location.href = "Login";
+    }
+    $scope.name = localStorage.getItem("name");
+    $scope.email = localStorage.getItem("email");
+    $scope.code = localStorage.getItem("code");
+    $scope.cell = localStorage.getItem("cell");
+    $scope.isEmailVerified = localStorage.getItem("isEmailVerified");
+    $scope.wait = "Please wait...";
+    $scope.success = "";
+	// pannels to show
+	$scope.showContent = true;
+
+	$scope.showCompleteYourDetails = false;
+	// Check if infromation is complete
+	if($scope.cell === undefined  || $scope.cell === ""){
+		$scope.showCompleteYourDetails = true;
+		$scope.showContent = false;
+	}
+	
+	$scope.Complete = function(){
+		
+	$window.location.href = "Personal-Information";
+
+	}
+	// Check if email verified
+	if(parseInt($scope.isEmailVerified) === 0){
+		$window.location.href = "Verify-Email";
+	}
+
+	$scope.GetInvestments = function(){
+		$timeout(function () {
+			//Get Investments   
+		var data = {
+			email: localStorage.getItem("email")
+		};
+		$http.post(GetApiUrl("GetInvestments"), data)
+		.success(function (response, status) {
+				$scope.wait = undefined;
+	
+			if (response.data !== undefined) {
+				$scope.investments = response.data;
+			}
+		});
+	
+		}, 100)
+		
+	};
+	
+	$scope.UploadProofOfPayment = function(investment){
+		localStorage.setItem("proofId",investment.id );
+		$window.location.href = "Proof-Of-Payment.php";
+	};
+		
+	
+	
+});
+
+app.controller('emailVerifyController', function ($http, $scope, $window) {
+	$scope.name = localStorage.getItem("name");
+    $scope.email = localStorage.getItem("email");
+	$scope.code = localStorage.getItem("code");
+	
+	$scope.Verify = function(){
+		
+			$scope.success = undefined;
+			$scope.error = undefined;
+				if(parseInt($scope.mycode) === parseInt($scope.code)){
+					var data = {
+						email: $scope.email,
+						code: $scope.code
+					}
+					  $http.post(GetApiUrl("VerifyEmail"), data)
+					.success(function (response, status) {
+						if (parseInt(response)===1) {
+							localStorage.setItem("isEmailVerified",1);
+							 localStorage.setItem("isEmailVerified",1);							
+							 $scope.isEmailVerified = 1;
+							 $window.location.href = "Dashboard";
+						   }
+					   else{
+						   $scope.error = response;
+					   }
+		
+					});
+					
+				}else{
+					$scope.error = "Code does not match!";
+				}
+			}
+	 
+				
+	$scope.Resend = function(){ //UpdateVerificationCode
+		$scope.code =  Math.floor(4000*(Math.random()+1));
+			var maildata = {
+				emailTo: localStorage.getItem("email"),
+				emailFrom: "account@worldwidecash.co.za",
+				subject :"Verification Code",
+				name:localStorage.getItem("name"),
+				msg  : "Welcome to World wide cash,Your verification code is "+ $scope.code
+				}
+						
+				//send mail
+				$http.post("http://ndu-systems.net/demo/worldwidecash2/api/emailClient.php", maildata)
+					.success(function (response, status) {
+						
+					$scope.success = "The code was sent , check your emails";
+					console.log("Email sent");
+				});
+		}
+		
+ });
+
+app.controller('homeController', function ($http, $scope, $window) {
    
 	
 });
 
 app.controller('ghController', function ($http, $scope, $window) {
-   $scope.packeges = [200,300,400,500,1000,1500,2000,3000,5000,8000,10000,15000,20000,30000,40000,50000]
-   $scope.peroids = ['Month1',
-'1 Months',
-'2 Months',
-'3 Months',
-'4 Months',
-'5 Months',
-'6 Months',
-'7 Months',
-'8 Months',
-'9 Months',
-'10 Months',
-'11 Months',
-'12 Months'
-
-];
+   $scope.packeges = [200,300,400,500,1000,1500,2000,3000,5000,8000,10000,15000,20000,30000,40000,50000];
+   $scope.peroids = [1,2,3,4,5,6,7,8,9,10,11,12];
 $scope.showDonateButton = true;
 $scope.showDashteButton = false;
 $scope.GoToDashboard = function(){
@@ -39,7 +140,8 @@ $scope.GoToDashboard = function(){
             dream: dream,
             amount:amount,
             peroid:peroid,
-			email: localStorage.getItem("email")
+			email: localStorage.getItem("email"),
+			name: localStorage.getItem("name"),
         
         };
 if(peroid ==undefined || amount== undefined || dream== undefined  ){
@@ -50,7 +152,7 @@ if(peroid ==undefined || amount== undefined || dream== undefined  ){
        
         if ($scope.isValid) {
 
-            $http.post(GetApiUrl("SaveDream"), data)
+            $http.post(GetApiUrl("Invest"), data)
             .success(function (response, status) {
                 if (parseInt(response)===1) {
 					$scope.message = undefined;
@@ -72,34 +174,16 @@ if(peroid ==undefined || amount== undefined || dream== undefined  ){
 	
 });
 
-app.controller('dashController', function ($http, $scope, $window,$timeout) {
-    if(localStorage.getItem("isLoggedIn") !== "true"){
-        $window.location.href = "Login";
-    }
-    $scope.name = localStorage.getItem("name");
-    $scope.wait = "Please wait...";
-
-    $timeout(function () {
-        //Get Customers    
-    var data = {
-        email: localStorage.getItem("email")
-    };
-    $http.post(GetApiUrl("GetInvestments"), data)
-    .success(function (response, status) {
-		    $scope.wait = undefined;
-
-        if (response.data !== undefined) {
-            $scope.investments = response.data;
-        }
-    });
-    }, 2000)
-//alert( $scope.users[0].name)
-});
-
 app.controller('investmentController', function ($http, $scope, $window) {
+	
     if(localStorage.getItem("isLoggedIn") !== "true"){
         $window.location.href = "Login";
     }
+   $scope.proofId = localStorage.getItem("proofId");
+   $scope.upload = true;
+   $scope.back = false;
+   
+  
     $scope.filesChanged = function (eml) {
         $scope.files = eml.files;
         $scope.filename = $scope.files[0].name;
@@ -125,15 +209,15 @@ app.controller('investmentController', function ($http, $scope, $window) {
           // alert(doc);
             var data = {
                 doc: doc,
-                date:getDate(),
-                email: localStorage.getItem("email"),
-                amount: $scope.amount
+                id:$scope.proofId
             };
-            $http.post(GetApiUrl("Invest"), data).success(function (data, status) {
+            $http.post(GetApiUrl("UpdatePOP"), data).success(function (data, status) {
                 if (parseInt(data) === 1) {
                     //$window.location.href = "Dashboard";
-                    $scope.success = "Thanks for your investment, we will verify and let you know as soon as possible.";
+                    $scope.success = "Thanks for your Proof of payment, we will verify and let you know as soon as possible.";
                     $scope.error = undefined;
+					  $scope.upload = false;
+					$scope.back = true;
                 }
                 else {
                     $scope.error = "Something went wrong, please try again.";
@@ -146,5 +230,10 @@ app.controller('investmentController', function ($http, $scope, $window) {
     }
 
    }
+   
+    $scope.Back = function(){
+		 $window.location.href = "Dashboard";
+	}
 
 });
+

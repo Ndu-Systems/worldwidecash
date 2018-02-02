@@ -33,13 +33,11 @@ require 'nav.php';
 				<div class="news-main">
 					<div class="col-md-10">
 						<p style="padding:6%">
-						35% profit made in each and every month
+						80% profit made in each and every month
 						</p>
-						<img src="images/spha.PNG"/>
 					</div>
 					<div class="col-md-10">
 						<h4>How it works</h4>
-						<img src="images/spha2.PNG"/>
 						
 
 						<p>
