@@ -13,13 +13,11 @@ Hello {{name}}
 </h1>
 
 <ul class="list-group">
-
   <li class="list-group-item"><a href="Messages"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
   <li class="list-group-item"><a href="Give-Help"><span class="glyphicon glyphicon-heart-empty"></span> Donate</a></li>
   <li class="list-group-item"><a href="Dashboard"><span class="glyphicon glyphicon-th"></span> Dashboard</a></li>
   <li class="list-group-item"><a href="History"><span class="glyphicon glyphicon-th-list"></span> History</a></li>
   <li class="list-group-item"><a href="Logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
-
 </ul>
 </div>
 <div class="col-sm-9 mainmenu">
@@ -49,7 +47,7 @@ Hello {{name}}
       <div class="panel-body">
         
                <h3 class="wait">{{wait}}</h3>
-               <div ng-repeat="investment in investments" class="panel panel-default" style="margin:2%; padding:1%">
+           <div ng-repeat="investment in investments" class="panel panel-default" style="margin:2%; padding:1%">
 			     <!-- PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING -->
 			   <div ng-if="investment.status == 'pending'" class="pending">
 			    <div class="panel-heading" style="color:black; text-align:center">
@@ -115,12 +113,10 @@ Hello {{name}}
                </div>   
 			   <!-- PAID - PAID - PAID - PAID - PAID - PAID - PAID - PAID - PAID - PAID - PAID -->
 			   
-			   
-			   
 			    <!-- ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE -->
 			   <div ng-if="investment.status == 'active'" class="activedream">
 			    <div class="panel-heading " style="color:white; text-align:center">
-				<h3> {{ investment.keepername }} Confirmed the pament - ACTIVE </h3>
+				<h3> {{ investment.keepername }} Confirmed the payment - ACTIVE </h3>
 				</div>
                   <div class="row">
 					  <div class="col-sm-12">
@@ -138,9 +134,7 @@ Hello {{name}}
 				</div>
                </div>   
 			   <!-- ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE -->
-			   
-			   
-			   
+		   
 			    <!--
 				  
 				  <td>{{ investment.dateInvested }}</td>
