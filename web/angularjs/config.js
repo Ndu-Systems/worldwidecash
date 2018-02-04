@@ -1,9 +1,9 @@
 var extention = ".php";
 //var host = "http://localhost/git.worldwidecash/web/api/"; //Freedom
 //var host = "https://funderslife.com/api/";
-//var host = "http://localhost:8080/sfiso/api/";
+var host = "http://localhost:8080/worldwidecash/web/api/";
 //var mail = "http://ndu-systems.net/demo/worldwidecash2/api/emailClient2.php";
-//var base = "http://localhost:8080/sfiso";
+var base = "http://localhost:8080/worldwidecash/web/";
 
 //var base = "https://funderslife.com";
 function GetApiUrl(serviceName) {

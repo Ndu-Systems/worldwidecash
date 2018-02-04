@@ -4,22 +4,9 @@
    ?>
 <div class="banner_bottom"  style="padding:0">
 <div class="container mainmenu"  ng-controller="dashController" ng-init="GetInvestments()">
-<div class="col-sm-3 sidemenu">
-<h1 class="usericon">
-<span class="glyphicon glyphicon-user"></span>
-</h1>
-<h1 class="username">
-Hello {{name}}
-</h1>
-
-<ul class="list-group">
-  <li class="list-group-item"><a href="Messages"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
-  <li class="list-group-item"><a href="Give-Help"><span class="glyphicon glyphicon-heart-empty"></span> Donate</a></li>
-  <li class="list-group-item"><a href="Dashboard"><span class="glyphicon glyphicon-th"></span> Dashboard</a></li>
-  <li class="list-group-item"><a href="History"><span class="glyphicon glyphicon-th-list"></span> History</a></li>
-  <li class="list-group-item"><a href="Logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
-</ul>
-</div>
+<?php
+   require 'sidemenu.php';
+   ?>
 <div class="col-sm-9 mainmenu">
 
      <div class="panel panel-default" ng-show="showCompleteYourDetails">
@@ -56,6 +43,7 @@ Hello {{name}}
                   <div class="row">
 					  <div class="col-sm-4">
 					  Date: <b>{{ investment.dateInvested }}</b> <br>
+					  Dream: <b>{{ investment.dream }}</b> <br>
 					  Status: <b>waiting for beneficiary</b> <br>
 					  </div>
 					  <div class="col-sm-4">  </div>

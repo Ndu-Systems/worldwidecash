@@ -117,6 +117,18 @@ app.controller('homeController', function ($http, $scope, $window) {
    
 	
 });
+app.controller('sideMenu', function ($http, $scope, $window) {
+  $scope.GetSideItems = function(){
+	  var data = {
+		  parentlink:localStorage.getItem("mylink")
+	  };
+	  $http.post(GetApiUrl("GetSideMenu"), data)
+            .success(function (response, status) {
+			   $scope.members = response.data[0].value;
+			  //alert($scope.members);
+            });
+  }
+});
 
 app.controller('ghController', function ($http, $scope, $window) {
    $scope.packeges = [200,300,400,500,1000,1500,2000,3000,5000,8000,10000,15000,20000,30000,40000,50000];
