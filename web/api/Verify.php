@@ -7,6 +7,7 @@ $data = json_decode(file_get_contents("php://input"));
    
      $id = $data->id;
 	  $status = $data->status;
+	  $email = $data->email;
 	
 
         $sql = "UPDATE investment SET
@@ -14,7 +15,14 @@ $data = json_decode(file_get_contents("php://input"));
                         WHERE id = $id ";        
         
         if ($conn->query($sql) === TRUE) {
-            echo 1;
+          $sql = "SELECT * FROM user WHERE email='$email'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+		echo $row['mylink'];
+	}
+}
+
         }
         else {
             //echo json_encode('failed');

@@ -24,7 +24,7 @@ app.controller('joinController', function ($http, $scope, $window,$location) {
 			password:password,
 			code:code,
 			baseUrl :base,
-			parentlink: $scope.parentlink
+			parentlink: $scope.parentlink,
         
         };
         if(name ==undefined || surname== undefined){
@@ -294,6 +294,7 @@ app.controller('loginController', function ($http, $scope, $window) {
                     localStorage.setItem("role", user.role);
 					localStorage.setItem("isEmailVerified", user.isEmailVerified);
                     localStorage.setItem("code", user.code);
+                    localStorage.setItem("mylink", user.mylink);
 					
                     localStorage.setItem("isLoggedIn", true);
 					if(user.role ==="admin"){
@@ -304,7 +305,7 @@ app.controller('loginController', function ($http, $scope, $window) {
                     me.message = undefined;
                  }
                 else {
-                    $scope.message = "Oops! Your username or password is incorrect please CHECK and try again.";
+                    $scope.message = "Oops! Your user name or password is incorrect please CHECK and try again.";
                 }
    
                });

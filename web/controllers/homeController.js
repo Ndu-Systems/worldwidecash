@@ -74,15 +74,19 @@ app.controller('emailVerifyController', function ($http, $scope, $window) {
 					}
 					  $http.post(GetApiUrl("VerifyEmail"), data)
 					.success(function (response, status) {
-						if (parseInt(response)===1) {
 							localStorage.setItem("isEmailVerified",1);
 							 localStorage.setItem("isEmailVerified",1);							
 							 $scope.isEmailVerified = 1;
+							 // send welcome email with a link
+							var emailFrom ="noreply@funderslife.com";
+							var to =$scope.email;
+							var name =$scope.name;
+							var subject ="Welcome- Email verified";
+							var msg ="Your email address was verified successfully, Here is your link " + response +". To get bonuses share this link and get 10% bonus on there first active dream!" ;
+							SendMail(emailFrom,to,name,subject,msg);
 							 $window.location.href = "Dashboard";
-						   }
-					   else{
-						   $scope.error = response;
-					   }
+						   
+					  
 		
 					});
 					
@@ -120,11 +124,13 @@ app.controller('homeController', function ($http, $scope, $window) {
 app.controller('sideMenu', function ($http, $scope, $window) {
   $scope.GetSideItems = function(){
 	  var data = {
-		  parentlink:localStorage.getItem("mylink")
+		  parentlink:localStorage.getItem("mylink"), 
+		  email: localStorage.getItem("email")
 	  };
 	  $http.post(GetApiUrl("GetSideMenu"), data)
             .success(function (response, status) {
 			   $scope.members = response.data[0].value;
+			   $scope.bonus = response.data[1].value;
 			  //alert($scope.members);
             });
   }
