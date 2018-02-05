@@ -9,25 +9,8 @@
    ?>
 <div class="col-sm-9 mainmenu">
 
-     <div class="panel panel-default" ng-show="showCompleteYourDetails">
-      <div class="panel-heading"></div>
-      <div class="panel-body">
-         <div class="alert alert-danger">
-            <strong>Warning!</strong> Your details are not complete.
-         </div>
-       
-         <div class="col-sm-12">
-            <label></label><br>
-            <input type="button"   value="COMPLETE YOUR DETAILS" class="myInput" ng-click="Complete()" style="background:#2ecc71; color:white; border: none; padding-top:2%;"/> <br><br>
-         </div>
-      </div>
-   </div>
-
-   <h4 style="width:100%; text-align:center; color:red;">{{error}}</h4>
-   <h4 style="width:100%; text-align:center; color:green; padding:1%">{{success}}</h4>
    
-   
-   <div class="panel panel-default" ng-show="showContent">
+   <div class="panel panel-default">
       <div class="panel-heading">
          <h2 style="width:100%; text-align:center; padding:2%; color:green">Give Help</h2>
       </div>

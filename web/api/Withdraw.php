@@ -7,16 +7,16 @@ $data = json_decode(file_get_contents("php://input"));
 
 if (isset($data->email) ){  
 	$amount= $data->amount;
-	$dateInvested= $data->dateInvested;
 	$investemntId= $data->investemntId;
-	$amountInvested= $data->amountInvested;
+	$dream= $data->dream;
 	$email= $data->email;
-	$package= $data->package;
 	$name= $data->name;
 	$status="pending";
+	$pendingbalance="--";
+//`amount`, `package`, `createdate`, `email`, `donneremail`, `status`, `investemntId`, `name`, `balance`, `pendingbalance`
 
-	$sql = "INSERT INTO withdraw (amount ,  package ,  createdate ,  email ,  donneremail ,  status ,  investemntId, name )
-                VALUES ('$amount', $package , NOW(), '$email','','$status', $investemntId,'$name')";        
+	$sql = "INSERT INTO withdraw (amount  ,  createdate ,  email  ,  status ,  investemntId, name,balance,pendingbalance,dream )
+                VALUES ('$amount', NOW(), '$email','$status', $investemntId,'$name','$amount','$pendingbalance','$dream')";        
         
         if ($conn->query($sql) === TRUE) {
 			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1
@@ -26,7 +26,18 @@ if (isset($data->email) ){
             //echo json_encode('failed');
             echo "Error: " . $sql . "<br>" . $conn->error;
         }       
-        
+        // update investment
+		 $sql = "
+				UPDATE  investment  SET	 
+                 status ='pending-withdrawal'
+				WHERE id= $investemntId 		
+				";								
+								
+				if ($conn->query($sql) === TRUE) {
+					echo 1;
+				} else {
+				//echo 0;
+				}	
  
 }
  else {

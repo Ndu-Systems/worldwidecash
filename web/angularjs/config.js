@@ -25,7 +25,6 @@ function getDate() {
 
 
 function SendMail(emailFrom,to,name,subject,msg){
-	
 	$.post(mail,
     {
         emailFrom: emailFrom,
@@ -35,6 +34,7 @@ function SendMail(emailFrom,to,name,subject,msg){
         msg: msg,
     },
     function(data, status){
+		console.log(data);
     });
 }
 

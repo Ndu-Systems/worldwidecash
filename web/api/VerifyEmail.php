@@ -17,9 +17,16 @@ $data = json_decode(file_get_contents("php://input"));
 				 code = $code
 				WHERE email= '$email' 		
 				";								
-								
+				$link="";				
 				if ($conn->query($sql) === TRUE) {
-					echo 1;
+					 $sql = "SELECT * FROM user WHERE email='$email'";
+						$result = $conn->query($sql);
+						if ($result->num_rows > 0) {
+							while($row = $result->fetch_assoc()) {
+								$link = $row['mylink'];
+							}
+							echo $link;
+						}
 				} else {
 				//echo 0;
 				}						

@@ -1,98 +1,15 @@
-app.controller('adminController', function($http, $scope, $window, $timeout) {
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-        $window.location.href = "Login";
-    }
-    $scope.name = localStorage.getItem("name");
-    $scope.email = localStorage.getItem("email");
-    $scope.wait = "Please wait...";
-
-    $timeout(function() {
-        //Get investments    
-        var data = {
-            email: $scope.email
-        };
-        $http.post(GetApiUrl("GetInvestmentsAdmin"), data)
-            .success(function(response, status) {
-                $scope.wait = undefined;
-
-                if (response.data !== undefined) {
-                    $scope.investments = response.data;
-                }
-            });
-    }, 2000)
-
-    // get users
-
-    //Get Customers   
-    $timeout(function() {
-        var data = {
-            table: "user",
-            condition: " 1 "
-        };
-        $http.post(GetApiUrl("Get"), data)
-            .success(function(response, status) {
-                $scope.wait = undefined;
-
-                if (response.data !== undefined) {
-                    $scope.users = response.data;
-                }
-            });
-    }, 2000)
-
-
-    //  get pending get help
-    var data = {
-        email: $scope.email
-    };
-    $http.post(GetApiUrl("GetPendingGH"), data)
-        .success(function(response, status) {
-
-            $scope.wait = undefined;
-
-            if (response.data !== undefined) {
-                $scope.gethelps = response.data;
-            }
-        });
-
-    // Selected UserId
-    $scope.More = function(user) {
-        //alert(user.name);
-    }
-    $scope.Match = function(gh) {
-        localStorage.setItem("loanId", gh.id);
-        localStorage.setItem("matches", gh.matches);
-        localStorage.setItem("package", gh.package);
-        localStorage.setItem("amountInvested", gh.amountInvested);
-        $window.location.href = "Match";
-
-    }
-    //selected investemnt
-    // Selected UserId
-    $scope.Verify = function(investemnt) {
-        $scope.message = undefined;
-        var data = {
-            id: investemnt.id,
-            status: "Active"
-        };
-
-        $http.post(GetApiUrl("Verify"), data)
-            .success(function(response, status) {
-                if (parseInt(response) === 1) {
-                    investemnt.status = "Active";
-                } else {
-                    //   $scope.message = "Oops! Your username or password is incorrect please CHECK and try again.";
-                }
-
-            });
-
-    };
-
-});
 
 app.controller('adminDashController', function($http, $scope, $window, $timeout) {
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";
     }
+	// send notification to the keeper , when from locate page
+
+			if(localStorage.getItem("Notify2")==="true"){
+			SendMail(localStorage.getItem("emailFrom"),localStorage.getItem("to"),localStorage.getItem("nameTo"),localStorage.getItem("subject"),localStorage.getItem("msg"));
+			localStorage.setItem("Notify2",false);
+			}
+	
     $scope.name = localStorage.getItem("name");
     $scope.email = localStorage.getItem("email");
     $scope.wait = "Please wait...";
@@ -163,6 +80,8 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
        localStorage.setItem("investmentId", investment.id);
        localStorage.setItem("investmentName", investment.name);
        localStorage.setItem("amountInvested", investment.amountInvested);
+       localStorage.setItem("investorEmail", investment.email);
+       localStorage.setItem("investorCell", investment.cell);
       	$window.location.href = "Allocate";
     } 
 	$scope.Delete = function(user) {
@@ -189,10 +108,12 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
     $scope.investmentId = localStorage.getItem("investmentId");
     $scope.investmentName = localStorage.getItem("investmentName");
     $scope.amountInvested = localStorage.getItem("amountInvested");
+    $scope.investorEmail = localStorage.getItem("investorEmail");
+    $scope.cell = localStorage.getItem("investorCell");
 	
 	$scope.GetWithdrawals = function(withdrowal){
 	 $timeout(function() {
-            $http.post(GetApiUrl("GetWithdraw"), {})
+            $http.post(GetApiUrl("GetWithdraw"), {email:$scope.investorEmail})
                 .success(function(response, status) {
                     if (response !== undefined || response !== null) {
                         $scope.withdrawals = response.data;
@@ -210,27 +131,39 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 		 pendingBalance = parseFloat(withdrowal.balance) - parseFloat($scope.amountInvested);
 		}else{
 		pendingBalance = parseFloat(withdrowal.pendingbalance) - parseFloat($scope.amountInvested);
-
+		
 		}
 		if(pendingBalance<0){
 		alert("Amounts do not balance");	
 		}else{
-			// allocated order
-			var emailFrom ="noreply@funderslife.com";
-			var to ="mrnnmthembu@gmail.com";
-			var name =$scope.investmentName;
-			var subject ="FundersLife-Order allocated";
-			var msg ="Your order has been allocated, please donate R" + $scope.amountInvested +" to " + withdrowal.name;
-			SendMail(emailFrom,to,name,subject,msg);
 			
-			// Notify kepper
-			var msg2 = "This is to confirm that Zama will be contributing towards your dream (Dream) outstanding balance R 430. You can contact them at 07545441245. To respond to your order please click here";
+			
 			//update pending balance
 			
 			 $http.post(GetApiUrl("UpdatePendingBalance"), {pendingbalance:pendingBalance,id:withdrowal.id,email:withdrowal.email,orderId: $scope.investmentId})
                 .success(function(response, status) {
                   $scope.GetWithdrawals();
-
+				  
+				  // allocated order email
+			var emailFrom ="noreply@funderslife.com";
+			var to ="mrnnmthembu@gmail.com";
+			var name =$scope.investmentName;
+			var subject ="FundersLife-Order allocated";
+			var msg ="Your order has been allocated, please donate R" + $scope.amountInvested +" to " + withdrowal.name;
+			msg = msg+ response
+			SendMail(emailFrom,to,name,subject,msg);
+			
+			// Notify kepper
+			var msg2 = "This is to confirm that "+$scope.investmentName +"  will be contributing towards your dream ("+withdrowal.dream+") . You can contact them at "+$scope.cell+".";
+			localStorage.setItem("msg",msg2);
+			localStorage.setItem("emailFrom",emailFrom);
+			localStorage.setItem("to",withdrowal.email);
+			localStorage.setItem("nameTo",withdrowal.name);
+			localStorage.setItem("subject","Withdraw allocation");
+			localStorage.setItem("Notify2",true);
+			
+						alert("Order allocated");
+			$window.location.href = "Admin-dashboard";
                 });
 			
 		}

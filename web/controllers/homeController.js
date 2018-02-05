@@ -3,6 +3,11 @@
     if(localStorage.getItem("isLoggedIn") !== "true" || localStorage.getItem("name") === undefined || localStorage.getItem("email") === undefined || localStorage.getItem("name") === "" || localStorage.getItem("email") === ""){
         $window.location.href = "Login";
     }
+	// send welcome email
+	if(localStorage.getItem("sendWelcomeEmail")==="true"){
+	SendMail(localStorage.getItem("emailFrom"),localStorage.getItem("to"),localStorage.getItem("name"),localStorage.getItem("subject"),localStorage.getItem("msg"));
+	localStorage.setItem("sendWelcomeEmail",false);
+	}
     $scope.name = localStorage.getItem("name");
     $scope.email = localStorage.getItem("email");
     $scope.code = localStorage.getItem("code");
@@ -51,8 +56,14 @@
 	
 	$scope.UploadProofOfPayment = function(investment){
 		localStorage.setItem("proofId",investment.id );
-		$window.location.href = "Proof-Of-Payment.php";
+		$window.location.href = "Proof-Of-Payment";
 	};
+	$scope.GetHelp = function(investment){
+		localStorage.setItem("getHelpId",investment.id );
+		localStorage.setItem("dream",investment.dream );
+		localStorage.setItem("amount",investment.expectedAmount );
+		$window.location.href = "Get-Help";
+	}
 		
 	
 	
@@ -78,12 +89,13 @@ app.controller('emailVerifyController', function ($http, $scope, $window) {
 							 localStorage.setItem("isEmailVerified",1);							
 							 $scope.isEmailVerified = 1;
 							 // send welcome email with a link
-							var emailFrom ="noreply@funderslife.com";
-							var to =$scope.email;
-							var name =$scope.name;
-							var subject ="Welcome- Email verified";
 							var msg ="Your email address was verified successfully, Here is your link " + response +". To get bonuses share this link and get 10% bonus on there first active dream!" ;
-							SendMail(emailFrom,to,name,subject,msg);
+							localStorage.setItem("emailFrom","noreply@funderslife.com");
+							localStorage.setItem("to",$scope.email);
+							localStorage.setItem("send_name",$scope.name);
+							localStorage.setItem("subject","Welcome- Email verified");
+							localStorage.setItem("msg",msg);
+							localStorage.setItem("sendWelcomeEmail",true);
 							 $window.location.href = "Dashboard";
 						   
 					  
@@ -117,10 +129,51 @@ app.controller('emailVerifyController', function ($http, $scope, $window) {
 		
  });
 
+ app.controller('getHelpController', function ($http, $scope, $window) {
+	  if(localStorage.getItem("isLoggedIn") !== "true" || localStorage.getItem("name") === undefined || localStorage.getItem("email") === undefined || localStorage.getItem("name") === "" || localStorage.getItem("email") === ""){
+        $window.location.href = "Login";
+    }
+	
+  $scope.id = localStorage.getItem("getHelpId"); 
+  $scope.dream = localStorage.getItem("dream"); 
+  $scope.amount = localStorage.getItem("amount"); 
+  $scope.name = localStorage.getItem("name");
+  $scope.email = localStorage.getItem("email");	
+  $scope.showDonateButton = true;	
+  $scope.showDashteButton = false;	
+  $scope.message="";
+  
+  $scope.GoToDashboard = function(){
+	   $window.location.href = "Dashboard";
+  }; 
+    $scope.Withdraw = function(){
+	  		var data = {
+			email: localStorage.getItem("email"),
+			investemntId: $scope.id,
+			amount: $scope.amount,
+			name: $scope.name,
+			balance: $scope.amount,
+			dream: $scope.dream
+		};
+		$http.post(GetApiUrl("Withdraw"), data)
+		.success(function (response, status) {
+		$scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
+		  $scope.showDonateButton = false;	
+		  $scope.showDashteButton = true;
+
+// notify
+	var msg = "Your request has been submitted, we will notify you as soon as allocation is found!";
+	SendMail("noreply@funderslife.com",$scope.email,$scope.name,"Withdrawal Notification "+ $scope.dream,msg);
+		  
+		});
+  }; 
+});
+
 app.controller('homeController', function ($http, $scope, $window) {
    
 	
 });
+
 app.controller('sideMenu', function ($http, $scope, $window) {
   $scope.GetSideItems = function(){
 	  var data = {
@@ -160,6 +213,7 @@ $scope.GoToDashboard = function(){
             peroid:peroid,
 			email: localStorage.getItem("email"),
 			name: localStorage.getItem("name"),
+			cell: localStorage.getItem("cell"),
         
         };
 if(peroid ==undefined || amount== undefined || dream== undefined  ){

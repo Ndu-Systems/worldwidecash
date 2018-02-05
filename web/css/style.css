@@ -57,10 +57,19 @@ body {
 	  background: #f1c40f;
 	   padding: 2%;
 	     color: black;
-}.pending{
+}
+.pending{
 	  background: #e67e22;
 	   padding: 2%;
 	     color: black;
+}
+.matured{
+	  background: green;
+	   padding: 2%;
+	     color: white;
+}
+.matured table{
+ color: white;	
 }
 
 

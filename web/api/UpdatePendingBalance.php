@@ -19,7 +19,7 @@ $data = json_decode(file_get_contents("php://input"));
 				";								
 								
 				if ($conn->query($sql) === TRUE) {
-					echo 1;
+					//echo 1;
 				} else {
 				//echo 0;
 				}
@@ -51,7 +51,22 @@ if ($result->num_rows > 0) {
 				";								
 								
 				if ($conn->query($sql) === TRUE) {
-					echo 1;
+					echo "
+					<br><br>
+					------------------------------------------------------------------<br> <br> 
+					Account Holder Name: $keepername <br> 
+					Bank Name: $keeperbankname <br> 
+					Branch: $keeperbrancode <br> 
+					Account Number: $keeperacc <br>
+
+					------------------------------------------------------------------<br> <br> 
+					Cell: $keepercell <br>
+					Email: $keeperemail <br>
+					------------------------------------------------------------------<br> <br>
+					You can call $keepername to confirm their banking details.
+
+					
+					";
 				} 
 	}
 }			

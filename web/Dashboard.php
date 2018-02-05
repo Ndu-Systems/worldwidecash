@@ -123,6 +123,31 @@
                </div>   
 			   <!-- ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE - ACTIVE -->
 		   
+		    <!-- MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED -->
+			   <div ng-if="investment.status == 'matured'" class="matured">
+			    <div class="panel-heading " style="color:white; text-align:center">
+				<h3> {{ investment.keepername }} CONGRATULATIONS! DREAM MATURED </h3>
+				</div>
+                  <div class="row">
+					  <div class="col-sm-12">
+					  <table>
+						<tr><td>Donation   </td><td><b>: R {{ investment.amountInvested }}</b> 		</td></tr>
+						<tr><td>Date       </td><td><b>: {{ investment.dateInvested }}</b>           </td></tr>
+						<tr><td>Dream      </td><td><b>:  {{ investment.dream }}</b>                 </td></tr>
+						<tr><td>Growth     </td><td><b>: R {{ investment.expectedAmount }}</b>               </td></tr>
+						<tr><td>     </td><td>
+						<br>
+												<button type="button" class="btn btn-success" ng-click="GetHelp(investment)">Get Help!</button>
+
+						
+					       </td></tr>
+						 </table>
+					  </div>
+					
+				</div>
+               </div>   
+			   <!-- MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED - MATURED -->
+		   
 			    <!--
 				  
 				  <td>{{ investment.dateInvested }}</td>
