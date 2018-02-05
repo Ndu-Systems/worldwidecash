@@ -1,11 +1,16 @@
 var extention = ".php";
-//var host = "http://localhost/git.worldwidecash/web/api/"; //Freedom
-//var host = "https://funderslife.com/api/";
-var host = "http://localhost:8080/worldwidecash/web/api/";
-var mail = "http://ndu-systems.net/demo/worldwidecash2/api/emailClient2.php";
-var base = "http://localhost:8080/worldwidecash/web/Get-Started";
+var host = "https://funderslife.com/api/";
+var base = "https://funderslife.com/Get-Started";
 
-//var base = "https://funderslife.com/Get-Started";
+var isLocal = true;
+if(isLocal){
+base = "http://localhost:8080/worldwidecash/web/Get-Started";
+host = "http://localhost:8080/worldwidecash/web/api/"
+//host = "http://localhost/git.worldwidecash/web/api/"; //Freedom
+}
+
+var mail = "http://ndu-systems.net/demo/worldwidecash2/api/emailClient2.php";
+
 function GetApiUrl(serviceName) {
 
     var url = host + serviceName + extention;
