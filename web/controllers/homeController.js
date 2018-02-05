@@ -15,8 +15,10 @@
     $scope.isEmailVerified = localStorage.getItem("isEmailVerified");
     $scope.wait = "Please wait...";
     $scope.success = "";
+	$scope.notCount =0;
 	// pannels to show
 	$scope.showContent = true;
+	$scope.ShowNotification = true;
 
 	$scope.showCompleteYourDetails = false;
 	// Check if infromation is complete
@@ -51,8 +53,25 @@
 		});
 	
 		}, 100)
-		
+		$scope.GetNotifications();
 	};
+	
+	// Get Notification 
+	$scope.GetNotifications = function(){
+		var data = {
+			email: localStorage.getItem("email")
+		};
+		$http.post(GetApiUrl("GetNotification"), data)
+		.success(function (response, status) {
+				$scope.wait = undefined;
+	
+			if (response.data !== undefined) {
+				$scope.notifications = response.data;
+				$scope.notCount = $scope.notifications.length;
+			}
+		});
+};
+		//end get notification
 	
 	$scope.UploadProofOfPayment = function(investment){
 		localStorage.setItem("proofId",investment.id );
@@ -63,6 +82,17 @@
 		localStorage.setItem("dream",investment.dream );
 		localStorage.setItem("amount",investment.expectedAmount );
 		$window.location.href = "Get-Help";
+	}
+	
+	$scope.Confirm = function(not){
+		var data = {
+			id :not.id
+		};
+		$http.post(GetApiUrl("ConfirmPayment"), data)
+		.success(function (response, status) {
+			$window.location.href = "Thanks-for-Verification";
+		});
+		
 	}
 		
 	

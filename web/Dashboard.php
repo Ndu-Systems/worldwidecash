@@ -9,7 +9,24 @@
    ?>
 <div class="col-sm-9 mainmenu">
 
-     <div class="panel panel-default" ng-show="showCompleteYourDetails">
+     <div class="panel panel-default" ng-show="ShowNotification">
+      <div class="panel-heading">  <h2 style="width:100%; text-align:center; padding:2%; color:green">My Notifications ({{notCount}})</h2></div>
+      <div class="panel-body" ng-repeat="not in notifications">
+         <div class="alert alert-danger">
+            <strong>Warning!</strong> {{not.name}} Provided help of R{{not.amountInvested}}, If the money reflect on
+			your bank please confirm, Else please wait until the money reflects <br>
+			Proof of Payment: <b><a ng-href="{{not.doc}}" target="_blank">View</a> <br>
+
+         </div>
+       
+         <div class="col-sm-12">
+            <label></label><br>
+            <input type="button"   value="I RECEIVED THE MONEY" class="myInput" ng-click="Confirm(not)" style="background:#2ecc71; color:white; border: none; padding-top:2%;"/> <br><br>
+         </div>
+      </div>
+   </div> 
+   
+   <div class="panel panel-default" ng-show="showCompleteYourDetails">
       <div class="panel-heading"></div>
       <div class="panel-body">
          <div class="alert alert-danger">
