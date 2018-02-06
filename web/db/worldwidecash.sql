@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2018 at 01:46 PM
+-- Generation Time: Feb 06, 2018 at 08:59 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -43,6 +43,37 @@ CREATE TABLE `bonus` (
 INSERT INTO `bonus` (`id`, `email`, `amount`, `fromEmail`, `status`) VALUES
 (1, 'ndu@mail.com', '200', 'hkdsagk@hoasha', 'active'),
 (2, 'ndu@mail.com', '150', 'hkdsagk@hoasha', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat`
+--
+
+CREATE TABLE `chat` (
+  `id` int(10) NOT NULL,
+  `senderEmail` varchar(120) NOT NULL,
+  `senderName` varchar(150) NOT NULL,
+  `receiverEmail` varchar(150) NOT NULL,
+  `receiverName` varchar(150) NOT NULL,
+  `timeRead` datetime NOT NULL,
+  `timeSent` datetime NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`id`, `senderEmail`, `senderName`, `receiverEmail`, `receiverName`, `timeRead`, `timeSent`, `status`, `message`) VALUES
+(1, 'ndu@mail.com', 'Ndumiso', 'admin@mail.com', 'Ndumiso', '2018-02-06 00:00:00', '2018-02-07 00:00:00', 'read', 'Hey there '),
+(2, 'admin@mail.com', 'Admin', 'admin@mail.com', 'Admin', '2018-02-06 00:00:00', '2018-02-07 00:00:00', 'read', 'Hey it Admin here'),
+(3, 'ndu@mail.com', 'Ndumiso', 'admin@mail.com', 'Ndumiso', '2018-02-06 00:00:00', '2018-02-07 00:00:00', 'read', 'Can I ask'),
+(4, 'lol@lol.lol', 'Lol', 'admin@mail.com', 'Admin', '0000-00-00 00:00:00', '2018-02-06 20:13:07', '', ''),
+(5, 'lol@lol.lol', 'Lol', 'admin@mail.com', 'Admin', '0000-00-00 00:00:00', '2018-02-06 20:13:32', '', 'sa'),
+(6, 'lol@lol.lol', 'Lol', 'admin@mail.com', 'Admin', '0000-00-00 00:00:00', '2018-02-06 20:14:39', '', 'Sorry , how to give help?'),
+(7, 'admin@mail.com', 'Admin', 'admin@mail.com', 'Admin', '2018-02-06 00:00:00', '2018-02-07 00:00:00', 'read', 'Ok I will call you now now !');
 
 -- --------------------------------------------------------
 
@@ -168,6 +199,12 @@ ALTER TABLE `bonus`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `investment`
 --
 ALTER TABLE `investment`
@@ -194,6 +231,12 @@ ALTER TABLE `withdraw`
 --
 ALTER TABLE `bonus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `investment`

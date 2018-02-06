@@ -204,7 +204,9 @@ app.controller('homeController', function ($http, $scope, $window) {
 	
 });
 
-app.controller('sideMenu', function ($http, $scope, $window) {
+app.controller('sideMenu', function ($http, $scope, $window, $interval) {
+$scope.email = localStorage.getItem("email");
+$scope.name = localStorage.getItem("name");
   $scope.GetSideItems = function(){
 	  var data = {
 		  parentlink:localStorage.getItem("mylink"), 
@@ -217,6 +219,39 @@ app.controller('sideMenu', function ($http, $scope, $window) {
 			  //alert($scope.members);
             });
   }
+  
+  // chats
+    
+   $scope.GetChats = function(){
+	  var data = {
+		  email:$scope.email
+	  };
+	  $http.post(GetApiUrl("GetChats"), data)
+            .success(function (response, status) {
+			   $scope.chats = response.data;
+			  //alert($scope.members);
+            });
+  }
+  $scope.Send = function(){
+	  var data = {
+		 senderEmail: $scope.email,
+		senderName:  $scope.name,
+		receiverEmail:  "admin@mail.com",
+		receiverName:  "Admin",
+		messageBody:  $scope.messageBody
+	  };
+	   $http.post(GetApiUrl("SendChat"), data)
+            .success(function (response, status) {
+			    $scope.GetChats();
+				 $scope.messageBody="";
+            });
+  }
+   $scope.GetChats();
+    $interval(function () {
+    // $scope.GetChats();
+  }, 1000);
+ 
+  
 });
 
 app.controller('ghController', function ($http, $scope, $window) {

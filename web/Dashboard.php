@@ -3,14 +3,14 @@
    require 'nav2.php';
    ?>
 <div class="banner_bottom"  style="padding:0">
-<div class="container mainmenu"  ng-controller="dashController" ng-init="GetInvestments()">
+<div class="container mainmenu" style="position:relative" ng-controller="dashController" ng-init="GetInvestments()">
 <?php
    require 'sidemenu.php';
    ?>
 <div class="col-sm-9 mainmenu">
 
      <div class="panel panel-default" ng-show="ShowNotification">
-      <div class="panel-heading">  <h2 style="width:100%; text-align:center; padding:2%; color:green">My Notifications ({{notCount}})</h2></div>
+      <div class="panel-heading">  <h3 style="width:100%; text-align:center; padding:2%; color:green"> Notifications ({{notCount}})</h3></div>
       <div class="panel-body" ng-repeat="not in notifications">
          <div class="alert alert-danger">
             <strong>Warning!</strong> {{not.name}} Provided help of R{{not.amountInvested}}, If the money reflect on
@@ -46,7 +46,7 @@
    
    <div class="panel panel-default" ng-show="showContent">
       <div class="panel-heading">
-         <h2 style="width:100%; text-align:center; padding:2%; color:green">My Dreams</h2>
+         <h3 style="width:100%; text-align:center; padding:2%; color:green">My Dreams</h3>
       </div>
       <div class="panel-body">
         
@@ -177,14 +177,15 @@
 				    <td><button type="button" class="btn btn-info" ng-click="Withdraw(investment)">Withdraw</button></td>
 				  -->
 			      </div>
-       
+    
       </div>
    </div>
-
-   </h3>
+ 
    </div>
+     <?php
+//   require 'dashfooter.php';
+   ?>
+</div>
+</div>
 </div>
 <!-- //stats -->
-<?php
-   //require 'footer.php';
-   ?>

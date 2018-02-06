@@ -12,6 +12,23 @@ body {
 	font-family: 'Trebuchet MS';
 	background: #fff;
 }
+  .chats{
+	  
+  }
+  .sent{
+	  width:100%;
+	  text-align:left;
+	  padding:1%;
+  }
+    .received{
+	       width: 100%;
+    text-align: right;
+    background: #2980b9;
+    color: white;
+    padding: 2%;
+    border-radius: 15px;
+    padding-right: 4%;
+  }
 .client{
 	background:#2980b9;
 	color:white;
