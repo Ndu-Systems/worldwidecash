@@ -9,6 +9,9 @@
    ?>
 <div class="col-sm-9 mainmenu">
 
+
+
+
      <div class="panel panel-default" ng-show="ShowNotification">
       <div class="panel-heading">  <h3 style="width:100%; text-align:center; padding:2%; color:green"> Notifications ({{notCount}})</h3></div>
       <div class="panel-body" ng-repeat="not in notifications">
@@ -183,7 +186,7 @@
  
    </div>
      <?php
-//   require 'dashfooter.php';
+   require 'dashfooter.php';
    ?>
 </div>
 </div>

@@ -8,9 +8,8 @@ $data = json_decode(file_get_contents("php://input"));
 $email = $data->email;
 
 $rows = array();
- $sql = "SELECT * FROM chat";
- $sql = "SELECT * FROM `chat` WHERE senderEmail = 'ndu@mail.com' or `receiverEmail` ='ndu@mail.com'";
-//  $sql = "SELECT * FROM chat WHERE (senderName ='$email')  OR (receiverEmail ='$email') ";
+$sql = "SELECT * FROM chat";
+ //$sql = "SELECT * FROM chat WHERE senderName ='$email' OR receiverEmail ='$email' ";
 
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {

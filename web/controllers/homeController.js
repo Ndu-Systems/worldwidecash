@@ -248,7 +248,7 @@ $scope.name = localStorage.getItem("name");
   }
    $scope.GetChats();
     $interval(function () {
-    // $scope.GetChats();
+     $scope.GetChats();
   }, 1000);
  
   

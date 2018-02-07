@@ -59,7 +59,12 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
                     }
 
                 });
-			}else{
+			}
+			else if($scope.key ==="messages"){
+				$window.location.href = "Messages";
+			}
+			
+			else{
 				var data = {table:"investment", condition:" status= '"+$scope.key +"'"}
 				 $http.post(GetApiUrl("Get"), data)
                 .success(function(response, status) {
@@ -90,6 +95,7 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
       	$window.location.href = "Confirm";
     }
 });
+
 app.controller('confirmController', function($http, $scope, $window, $timeout) {
 	 $scope.id = localStorage.getItem("userToDelete");
 	 $scope.name = localStorage.getItem("userToName");
@@ -101,6 +107,7 @@ app.controller('confirmController', function($http, $scope, $window, $timeout) {
                 });
     }
 });
+
 app.controller('allocateController', function($http, $scope, $window, $timeout) {
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";

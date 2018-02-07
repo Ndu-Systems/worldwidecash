@@ -46,6 +46,14 @@ $counts->value =$result->num_rows ;
 $rows["data"][]= $counts;
 
 
+//paid
+ $sql = "SELECT * FROM chat WHERE 1";
+$result = $conn->query($sql);
+$counts = new Counts();
+$counts->key ="Messages";
+$counts->value =$result->num_rows ;
+$rows["data"][]= $counts;
+
 echo json_encode($rows);
 
 
