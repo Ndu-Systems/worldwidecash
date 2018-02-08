@@ -56,7 +56,10 @@ require 'nav3.php';
 				  
 				  <div class="col-sm-8">
                   <ul class="list-group" >
+				   <div class="scrollable">
+		 <p>
             <li class="list-group-item" ng-repeat="mess in messages" >
+			
                <div ng-if="mess.senderName == 'Admin'" class="sent">
                   {{mess.message}}
                </div>
@@ -64,6 +67,8 @@ require 'nav3.php';
                   {{mess.message}}
                </div>
             </li>
+			</p>
+			</div>
             <li class="list-group-item">
                <textarea class="form-control" style="height: 40px; border-radius: 15px;" rows="5" ng-model="messageBody"></textarea>  
             </li>

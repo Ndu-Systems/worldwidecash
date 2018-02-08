@@ -268,7 +268,7 @@ ul.top-right-info_w3ls {
 }
 .scrollable {
     height: 300px;
-    background: aqua;
+    background: white;
     overflow: auto;
 }
 /* width */

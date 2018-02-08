@@ -178,7 +178,7 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 });
 
 
-app.controller('chatController', function($http, $scope, $window, $timeout) {
+app.controller('chatController', function($http, $scope, $window, $timeout,$interval) {
 	 $scope.id = localStorage.getItem("userToDelete");
 	 $scope.name = localStorage.getItem("userToName");
 	 $scope.GetChats = function() {
@@ -224,11 +224,26 @@ app.controller('chatController', function($http, $scope, $window, $timeout) {
             .success(function (response, status) {
 			    $scope.RefreshCurrectChat();
 				 $scope.messageBody="";
+				 		//scroll
+		var height = 0;
+		$('.scrollable p').each(function (i, value) {
+			height += parseInt($(".scrollable").height());
+		});
+
+		height += '';
+
+		$('.scrollable').animate({
+			scrollTop: height
+		});
+		
+		//end scroll
             });
   }
-  if($scope.clientId !== undefined){
+ 
     $interval(function () {
+		 if($scope.clientId !== undefined){
      $scope.RefreshCurrectChat();
+		 }
   }, 1000);
-  }
+  
 });
