@@ -24,6 +24,8 @@
 <button data-toggle="collapse" data-target="#demo" class="btn btn-success"> <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Live Support </button> <br>
  <div id="demo" class="collapse">
          <ul class="list-group" >
+		 <div class="scrollable">
+		 <p>
             <li class="list-group-item" ng-repeat="chat in chats" >
                <div ng-if="chat.senderName == 'Admin'" class="received">
                   {{chat.message}}
@@ -32,6 +34,8 @@
                   {{chat.message}}
                </div>
             </li>
+			</p>
+			</div>
             <li class="list-group-item">
                <textarea class="form-control" style="height: 40px; border-radius: 15px;" rows="5" ng-model="messageBody"></textarea>  
             </li>
@@ -42,3 +46,8 @@
       </div>
    </div>
 </div>
+
+
+<script>
+
+</script>

@@ -226,4 +226,9 @@ app.controller('chatController', function($http, $scope, $window, $timeout) {
 				 $scope.messageBody="";
             });
   }
+  if($scope.clientId !== undefined){
+    $interval(function () {
+     $scope.RefreshCurrectChat();
+  }, 1000);
+  }
 });

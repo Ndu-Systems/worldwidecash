@@ -1,3 +1,5 @@
+
+
 /*--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -264,7 +266,30 @@ ul.top-right-info_w3ls {
 	font-size: 1em;
 	color: #444;
 }
+.scrollable {
+    height: 300px;
+    background: aqua;
+    overflow: auto;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
 .top-right-info_w3ls li i {
 	color: #333;
 	padding-top: 8px;
