@@ -11,9 +11,10 @@ $senderName		= $data->senderName;
 $receiverEmail	=  $data->receiverEmail;
 $receiverName	=   $data->receiverName;
 $message			=  $data->messageBody;
+$clientId			=  $data->clientId;
 
-        $sql = "INSERT INTO chat (senderEmail ,  senderName ,  receiverEmail ,  receiverName  ,  timeSent,  message )
-                VALUES ('$senderEmail', '$senderName', '$receiverEmail', '$receiverName',NOW(),'$message')";        
+        $sql = "INSERT INTO chat (senderEmail ,  senderName ,  receiverEmail ,  receiverName  ,  timeSent,  message,clientId, status)
+                VALUES ('$senderEmail', '$senderName', '$receiverEmail', '$receiverName',NOW(),'$message','$clientId','unreads')";        
         
         if ($conn->query($sql) === TRUE) {
 			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1

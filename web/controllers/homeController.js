@@ -238,7 +238,8 @@ $scope.name = localStorage.getItem("name");
 		senderName:  $scope.name,
 		receiverEmail:  "admin@mail.com",
 		receiverName:  "Admin",
-		messageBody:  $scope.messageBody
+		messageBody:  $scope.messageBody,
+		clientId :  $scope.email
 	  };
 	   $http.post(GetApiUrl("SendChat"), data)
             .success(function (response, status) {
@@ -248,7 +249,7 @@ $scope.name = localStorage.getItem("name");
   }
    $scope.GetChats();
     $interval(function () {
-     $scope.GetChats();
+    // $scope.GetChats();
   }, 1000);
  
   

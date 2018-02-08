@@ -26,7 +26,16 @@ require 'nav.php';
 				
 				<div class="news-main">
 					<div class="col-md-10">
-					
+				<h4  class="tittle">Our Mission</h4> <br>
+
+<p>There are thousands and thousands of people in South North West and East of Africa who lives under poor conditions. 
+Our mission is to register all these individuals let them participate in our community so that we can better represent their needs</p><br>
+
+<h4  class="tittle">Our Vision</h4><br>
+
+ <p>To create an environment where all members can can freely participate without fear. We aim to create economic opportunity for all groups of people around the globe </p><br><br>
+
+ <a href="images/table.PNG" target="_blank"><img src="images/table.PNG" style="width:100%"></a>
 					</div>
 					<div class="col-md-10">
 						

@@ -44,7 +44,9 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
     $scope.key = localStorage.getItem("key");
     $scope.wait = "Please wait...";
     $scope.GetInvestments = function() {
-
+if($scope.key ==="messages"){
+				$window.location.href = "Messages";
+			}
         $timeout(function() {
 		
 			if( $scope.key ==="users"){
@@ -59,9 +61,6 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
                     }
 
                 });
-			}
-			else if($scope.key ==="messages"){
-				$window.location.href = "Messages";
 			}
 			
 			else{
@@ -176,4 +175,55 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 		}
 	}
    
+});
+
+
+app.controller('chatController', function($http, $scope, $window, $timeout) {
+	 $scope.id = localStorage.getItem("userToDelete");
+	 $scope.name = localStorage.getItem("userToName");
+	 $scope.GetChats = function() {
+		
+          $http.post(GetApiUrl("GetChatsAdmins"), {id: $scope.id})
+                .success(function(response, status) {
+                        	$scope.chats = response.data;
+
+                });
+    }
+	$scope.GetChats();
+	$scope.OpenChats = function(chat){
+		//alert(chat.senderEmail); 
+		
+		$scope.receiverEmail = chat.senderEmail;
+		$scope.clientId = chat.clientId;
+		$scope.receiverName=chat.senderName;
+		   $http.post(GetApiUrl("GetMessagesOneOnOnes"), {clientId:chat.clientId})
+                .success(function(response, status) {
+                        	$scope.messages = response.data;
+
+            });
+	}
+	
+		$scope.RefreshCurrectChat = function(){
+		   $http.post(GetApiUrl("GetMessagesOneOnOnes"), {clientId:$scope.clientId})
+                .success(function(response, status) {
+                        	$scope.messages = response.data;
+
+            });
+	}
+	
+	  $scope.Send = function(){
+	  var data = {
+		 senderEmail: "admin@mail.com",
+		senderName:  "Admin",
+		receiverEmail:  $scope.receiverEmail,
+		receiverName:   $scope.receiverName,
+		messageBody:  $scope.messageBody,
+		clientId :  $scope.receiverEmail
+	  };
+	   $http.post(GetApiUrl("SendChat"), data)
+            .success(function (response, status) {
+			    $scope.RefreshCurrectChat();
+				 $scope.messageBody="";
+            });
+  }
 });

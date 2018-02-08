@@ -241,7 +241,7 @@ if(bankname ==undefined || accountnumber== undefined || accountType == undefined
 
 app.controller('logoutController', function ($http, $scope, $window) {
     localStorage.clear();
-    $window.location.href = "#/";
+    $window.location.href = "Home";
 
 });
 

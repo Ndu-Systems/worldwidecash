@@ -5,11 +5,11 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 require "conn.php";
 $data = json_decode(file_get_contents("php://input"));
 
-$email = $data->email;
+//$email = $data->email;
 
 $rows = array();
- $sql = "SELECT * FROM `chat` WHERE  `clientId`='$email'";
-
+ $sql = "SELECT senderName,senderEmail,status,clientId,receiverEmail,receiverName FROM `chat` GROUP BY senderEmail  ORDER BY id DESC";
+ 
  //$sql = "SELECT * FROM chat WHERE senderName ='$email' OR receiverEmail ='$email' ";
 
 $result = $conn->query($sql);

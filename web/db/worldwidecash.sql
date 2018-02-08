@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2018 at 08:59 PM
+-- Generation Time: Feb 08, 2018 at 09:26 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -59,21 +59,9 @@ CREATE TABLE `chat` (
   `timeRead` datetime NOT NULL,
   `timeSent` datetime NOT NULL,
   `status` varchar(50) NOT NULL,
-  `message` text NOT NULL
+  `message` text NOT NULL,
+  `clientId` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `chat`
---
-
-INSERT INTO `chat` (`id`, `senderEmail`, `senderName`, `receiverEmail`, `receiverName`, `timeRead`, `timeSent`, `status`, `message`) VALUES
-(1, 'ndu@mail.com', 'Ndumiso', 'admin@mail.com', 'Ndumiso', '2018-02-06 00:00:00', '2018-02-07 00:00:00', 'read', 'Hey there '),
-(2, 'admin@mail.com', 'Admin', 'admin@mail.com', 'Admin', '2018-02-06 00:00:00', '2018-02-07 00:00:00', 'read', 'Hey it Admin here'),
-(3, 'ndu@mail.com', 'Ndumiso', 'admin@mail.com', 'Ndumiso', '2018-02-06 00:00:00', '2018-02-07 00:00:00', 'read', 'Can I ask'),
-(4, 'lol@lol.lol', 'Lol', 'admin@mail.com', 'Admin', '0000-00-00 00:00:00', '2018-02-06 20:13:07', '', ''),
-(5, 'lol@lol.lol', 'Lol', 'admin@mail.com', 'Admin', '0000-00-00 00:00:00', '2018-02-06 20:13:32', '', 'sa'),
-(6, 'lol@lol.lol', 'Lol', 'admin@mail.com', 'Admin', '0000-00-00 00:00:00', '2018-02-06 20:14:39', '', 'Sorry , how to give help?'),
-(7, 'admin@mail.com', 'Admin', 'admin@mail.com', 'Admin', '2018-02-06 00:00:00', '2018-02-07 00:00:00', 'read', 'Ok I will call you now now !');
 
 -- --------------------------------------------------------
 
@@ -102,6 +90,13 @@ CREATE TABLE `investment` (
   `expecedDate` datetime NOT NULL,
   `cell` varchar(15) NOT NULL DEFAULT '0785414455'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `investment`
+--
+
+INSERT INTO `investment` (`id`, `dateInvested`, `amountInvested`, `status`, `doc`, `email`, `package`, `dream`, `name`, `keeperemail`, `keepername`, `keepercell`, `keeperacc`, `keeperbrancode`, `keeperbankname`, `timeallocated`, `datepaid`, `expecedDate`, `cell`) VALUES
+(1, '2018-02-07 19:48:14', '40000', 'pending', '', 'ndu@mail.com', 12, 'car', 'Ndumiso', '', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2019-02-02 19:48:14', '464646');
 
 -- --------------------------------------------------------
 
@@ -139,7 +134,6 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `surname`, `email`, `cell`, `address`, `idnum`, `bankname`, `accountType`, `branch`, `accountnumber`, `password`, `createdate`, `role`, `country`, `city`, `code`, `isEmailVerified`, `userstatus`, `mylink`, `parentlink`) VALUES
 (5, 'Ndumiso', 'MtlaHSJKL', 'test@test.com', '6546', '6546', '4444636546546', 'Capitec Bank', 'Savings', '65454', '5436543543', 'pass', '2018-01-20 09:59:56', 'Client', 'Unite States', 'fgdgd', 0, 0, 'active', '', ''),
-(7, 'FADSF', 'FDSF', 'FDS@ASDDF', '', '', '', '', '', '', '', 'FF', '2018-01-20 10:00:35', 'Client', '', '', 0, 0, 'active', '', ''),
 (8, 'fdsf', 'fdsf', 'fdsf@asd', '5345435', 'Eyethu', '54543543534', '', '', '', '', 'ff', '2018-01-20 10:03:48', 'Client', 'South Africa', 'JHB', 0, 0, 'active', '', ''),
 (9, 'ggfdg', 'gdfg', 'dfgdf@asd', '534543', 'sdffsa', '4325345', 'African Bank Limited', '', '', '432532563532', 'ggg', '2018-01-20 10:45:40', 'Client', 'South Africa', 'rewtg', 0, 0, 'active', '', ''),
 (10, 'John', 'Smith', 'john@mail.com', '083546547', '270 Marshall St, City and Suburban, Johannesburg, 2094', '74893274983724', 'First National Bank', 'Cheque', 'Ranburg', '548787421', 'pass', '2018-01-20 11:08:02', 'Client', 'South Africa', 'Johannesburg', 5080, 1, 'active', '', ''),
@@ -236,13 +230,13 @@ ALTER TABLE `bonus`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `investment`
 --
 ALTER TABLE `investment`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`

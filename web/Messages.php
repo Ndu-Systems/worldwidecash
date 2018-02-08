@@ -18,37 +18,65 @@ require 'nav3.php';
     <!-- /inner_content -->
     <!-- /about -->
     <div class="banner_bottom">
-        <div class="container" ng-controller="adminDashController" ng-init="GetCounts()">
-            <h3 class="tittle">Hello {{name}},<font color="orange">ADMIN!</font> </h3>
+        <div class="container" ng-controller="chatController" ng-init="GetChats">
             <br>
 
 			 <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading">      <div class="panel-heading">  <h3 style="width:100%; text-align:center; padding:2%; color:green"> Chats</h3></div>
+</div>
                    
                 <div class="panel-body">
-                    <table class="table table-striped">
+				
+				<div class="row">
+				  <div class="col-sm-4">
+				  
+				     <table class="table">
                         <thead>
                             <tr>
 
                                 <th></th>
-                                <th></th>
-                             
+                               
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <h4 class="wait">{{wait}} </h4>
-                            <tr ng-repeat="gh in counts | filter:searchGH">
-                                <td>{{ gh.key }}</td>
-                                <td><span class="badge">{{ gh.value }}</span></td>
+                            <tr ng-repeat="chat in chats | filter:searchGH">
+                                <td ng-click="OpenChats(chat)">
+								 <p  ng-if="chat.status == 'unread'" > <b>{{ chat.senderName }}</b></p>
+								 <p  ng-if="chat.status == 'read'" >{{ chat.senderName }}</p>
+									
+								</td>
                                
-                                <td>
-                                    <button type="button" class="btn btn-primary" ng-click="More(gh)">More</button>
-                                </td>
-
                             </tr>
                         </tbody>
                     </table>
+				  </div>
+				  
+				  
+				  <div class="col-sm-8">
+                  <ul class="list-group" >
+            <li class="list-group-item" ng-repeat="mess in messages" >
+               <div ng-if="mess.senderName == 'Admin'" class="sent">
+                  {{mess.message}}
+               </div>
+               <div  ng-if="mess.senderName != 'Admin'" class="received">
+                  {{mess.message}}
+               </div>
+            </li>
+            <li class="list-group-item">
+               <textarea class="form-control" style="height: 40px; border-radius: 15px;" rows="5" ng-model="messageBody"></textarea>  
+            </li>
+            <li class="list-group-item">
+               <button type="button" class="btn btn-info" ng-click="Send()">Send</button>  
+            </li>
+         </ul>
+				  </div>
+				 
+				</div>
+				
+				
+                 
                 </div>
             </div>
 			
