@@ -18,6 +18,18 @@ $clientId			=  $data->clientId;
         
         if ($conn->query($sql) === TRUE) {
 			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1
+			// make them read
+   $sql = "
+				UPDATE  chat  SET	 
+				 status = 'unread'
+				WHERE  `clientId`='$clientId'";	
+								
+				if ($conn->query($sql) === TRUE) {
+					//echo 1;
+				} else {
+				//echo 0;
+				}						
+					
             echo 1;
         }
         else {

@@ -192,6 +192,7 @@ app.controller('chatController', function($http, $scope, $window, $timeout,$inte
 	$scope.GetChats();
 	$scope.OpenChats = function(chat){
 		//alert(chat.senderEmail); 
+		chat.status ="read";
 		
 		$scope.receiverEmail = chat.senderEmail;
 		$scope.clientId = chat.clientId;
@@ -212,6 +213,7 @@ app.controller('chatController', function($http, $scope, $window, $timeout,$inte
 	}
 	
 	  $scope.Send = function(){
+		  	if($scope.messageBody){
 	  var data = {
 		 senderEmail: "admin@mail.com",
 		senderName:  "Admin",
@@ -238,6 +240,7 @@ app.controller('chatController', function($http, $scope, $window, $timeout,$inte
 		
 		//end scroll
             });
+	  }
   }
  
     $interval(function () {

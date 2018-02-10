@@ -62,9 +62,11 @@ require 'nav3.php';
 			
                <div ng-if="mess.senderName == 'Admin'" class="sent">
                   {{mess.message}}
+				    <p class="time" >Sent: {{mess.timeSent}}</p>
                </div>
                <div  ng-if="mess.senderName != 'Admin'" class="received">
                   {{mess.message}}
+				    <p class="time" style="color:white">Received: {{mess.timeSent}}</p>
                </div>
             </li>
 			</p>

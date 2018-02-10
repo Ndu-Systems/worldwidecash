@@ -15,9 +15,11 @@
 		function hideURLbar() {
 			window.scrollTo(0, 1);
 		}
+		
 	</script>
 	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href="css/chat.css" rel='stylesheet' type='text/css' />
 	<link href="css/font-awesome.css" rel="stylesheet">
 	<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

@@ -1,8 +1,8 @@
 var extention = ".php";
-var host = "https://funderslife.com/api/";
-var base = "https://funderslife.com/Get-Started";
+var host = "http://funderslife.com/api/";
+var base = "http://funderslife.com/Get-Started";
 
-var isLocal = false;
+var isLocal = true;
 if(isLocal){
 base = "http://localhost:8080/worldwidecash/web/Get-Started";
 host = "http://localhost:8080/worldwidecash/web/api/"

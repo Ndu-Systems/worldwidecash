@@ -29,15 +29,19 @@
             <li class="list-group-item" ng-repeat="chat in chats" >
                <div ng-if="chat.senderName == 'Admin'" class="received">
                   {{chat.message}}
+				                    <p class="time" style="color:white">Received: {{chat.timeSent}}</p>
+
                </div>
                <div  ng-if="chat.senderName != 'Admin'" class="sent">
                   {{chat.message}}
+				                    <p class="time">Sent: {{chat.timeSent}}</p>
+
                </div>
             </li>
 			</p>
 			</div>
             <li class="list-group-item">
-               <textarea class="form-control" style="height: 40px; border-radius: 15px;" rows="5" ng-model="messageBody"></textarea>  
+               <textarea class="form-control"  id="txtMessageBody"  style="height: 40px; border-radius: 15px;" rows="5" ng-model="messageBody"></textarea>  
             </li>
             <li class="list-group-item">
                <button type="button" class="btn btn-info" ng-click="Send()">Send</button>  

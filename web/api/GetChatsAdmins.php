@@ -8,7 +8,7 @@ $data = json_decode(file_get_contents("php://input"));
 //$email = $data->email;
 
 $rows = array();
- $sql = "SELECT senderName,senderEmail,status,clientId,receiverEmail,receiverName FROM `chat` GROUP BY senderEmail  ORDER BY id DESC";
+ $sql = "SELECT senderName,senderEmail,status,clientId,receiverEmail,receiverName,message FROM `chat` GROUP BY senderEmail  ORDER BY id DESC";
  
  //$sql = "SELECT * FROM chat WHERE senderName ='$email' OR receiverEmail ='$email' ";
 

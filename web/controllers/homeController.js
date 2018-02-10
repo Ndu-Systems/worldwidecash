@@ -233,6 +233,7 @@ app.controller('sideMenu', function ($http, $scope, $window, $interval) {
 		
 	}
 	$scope.Send = function () {
+		if($scope.messageBody){
 		var data = {
 			senderEmail: $scope.email,
 			senderName: $scope.name,
@@ -260,6 +261,16 @@ app.controller('sideMenu', function ($http, $scope, $window, $interval) {
 		//end scroll
 			});
 	}
+	}
+	// send with enter
+	var input = document.getElementById("txtMessageBody");
+	input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      $scope.Send();
+    }
+});
+//end  send with enter
 	$scope.GetChats();
 	$interval(function () {
 		$scope.GetChats();

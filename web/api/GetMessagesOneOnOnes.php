@@ -19,6 +19,18 @@ if ($result->num_rows > 0) {
 	}
 }
 
+// make them read
+   $sql = "
+				UPDATE  chat  SET	 
+				 status = 'read'
+				WHERE  `clientId`='$clientId'";	
+								
+				if ($conn->query($sql) === TRUE) {
+					//echo 1;
+				} else {
+				//echo 0;
+				}						
+						
 echo json_encode($rows);
 $conn->close();
 

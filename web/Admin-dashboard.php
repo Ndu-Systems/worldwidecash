@@ -22,33 +22,39 @@ require 'nav3.php';
             <h3 class="tittle">Hello {{name}},<font color="orange">ADMIN!</font> </h3>
             <br>
 
+
 			 <div class="panel panel-default">
                 <div class="panel-heading">
                    
                 <div class="panel-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-
-                                <th></th>
-                                <th></th>
-                             
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                 
                             <h4 class="wait">{{wait}} </h4>
-                            <tr ng-repeat="gh in counts | filter:searchGH">
-                                <td>{{ gh.key }}</td>
-                                <td><span class="badge">{{ gh.value }}</span></td>
-                               
-                                <td>
-                                    <button type="button" class="btn btn-primary" ng-click="More(gh)">More</button>
-                                </td>
+                         
+							
+							<div class="col-lg-3 col-md-6"  ng-repeat="gh in counts | filter:searchGH">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-cubes"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{gh.value}}</div>
+                                    <div>{{gh.key}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer"   ng-click="More(gh)">>
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+							
 
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
 			
