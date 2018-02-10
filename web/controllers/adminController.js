@@ -107,6 +107,7 @@ app.controller('confirmController', function($http, $scope, $window, $timeout) {
     }
 });
 
+
 app.controller('allocateController', function($http, $scope, $window, $timeout) {
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";
@@ -152,7 +153,7 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 				  
 				  // allocated order email
 			var emailFrom ="noreply@funderslife.com";
-			var to ="mrnnmthembu@gmail.com";
+			var to =localStorage.getItem("investorEmail");
 			var name =$scope.investmentName;
 			var subject ="FundersLife-Order allocated";
 			var msg ="Your order has been allocated, please donate R" + $scope.amountInvested +" to " + withdrowal.name;
@@ -193,6 +194,7 @@ app.controller('chatController', function($http, $scope, $window, $timeout,$inte
 	$scope.OpenChats = function(chat){
 		//alert(chat.senderEmail); 
 		chat.status ="read";
+		$scope.showTextArea = true;
 		
 		$scope.receiverEmail = chat.senderEmail;
 		$scope.clientId = chat.clientId;
@@ -259,4 +261,71 @@ app.controller('chatController', function($http, $scope, $window, $timeout,$inte
 		 }
   }, 1000);
   
+});
+
+
+
+app.controller('CreateAllocationController', function($http, $scope, $window, $timeout) {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        $window.location.href = "Login";
+    }
+
+	// get users list 
+	$scope.GetUsers = function(withdrowal){
+	  $timeout(function() {
+		
+			var	data = {table:"user", condition:" role <> 'admin'"}
+			 $http.post(GetApiUrl("Get"), data)
+                .success(function(response, status) {
+                    if (response !== undefined || response !== null) {
+                        $scope.users = response.data;
+                        $scope.wait = "";
+                    } else {
+                        //   $scope.message = "Oops! Your username or password is incorrect please CHECK and try again.";
+                    }
+
+                });
+			
+			
+		
+        }, 2000)
+	};
+	$scope.Select = function(user){
+		$scope.email = user.email;
+	    $scope.userName = user.name;
+	    $scope.cellNo =user.cell;
+	}
+
+	$scope.Withdraw = function () {
+		if($scope.email){
+			if(!$scope.amount){
+				alert("Enter amount");
+				return false;
+				}
+		var data = {
+			email:$scope.email,
+			investemntId: 0,
+			amount: $scope.amount,
+			name: $scope.userName,
+			balance: $scope.amount,
+			dream: "Allocated dream"
+		};
+		$http.post(GetApiUrl("Withdraw"), data)
+			.success(function (response, status) {
+				$scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
+				$scope.showDonateButton = false;
+				$scope.showDashteButton = true;
+
+				// notify
+				var msg = "Your request has been submitted, we will notify you as soon as allocation is found!";
+				SendMail("noreply@funderslife.com", $scope.email, $scope.name, "Withdrawal Notification " + $scope.dream, msg);
+				alert("withdrawal request  created!");
+	$window.location.href = "Allocate";
+				
+			});
+			}else{
+		alert("Select the user first or create a new user");
+	}
+	};
+	
 });

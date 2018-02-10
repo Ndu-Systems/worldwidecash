@@ -18,7 +18,7 @@
 <!-- /about -->
 <div class="banner_bottom">
 <div class="container"  ng-controller="emailVerifyController">
-   <h3 class="tittle">Hello {{name}}, Welcome to World Wide Cash </h3>
+   <h3 class="tittle">Hello {{name}}, Welcome to Funderslife </h3>
    <br>
  
    

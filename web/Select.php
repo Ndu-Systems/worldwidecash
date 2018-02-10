@@ -83,7 +83,7 @@
 			    <!-- ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED -->
 			   <div ng-if="investment.status == 'allocated'">
 			    <div class="panel-heading" style="background:#f1c40f; color:black; text-align:center; margin-bottom:1%">
-				<b>You have to make  of R {{ investment.amountInvested }} to {{ investment.keepername }}</b>
+				<b>{{ investment.name }} have to make  of R {{ investment.amountInvested }} to {{ investment.keepername }}</b>
 				</div>
                   <div class="row">
 					  <div class="col-sm-4">

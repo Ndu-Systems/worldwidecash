@@ -10,9 +10,9 @@
    <ul class="list-group">
       <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> Members <span class="badge">{{ members }}</span></a></li>
       <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-credit-card"></span> Bonuses <span class="badge"> R {{ bonus }}</span></a></li>
-      <li class="list-group-item"><a href="Give-Help"><span class="glyphicon glyphicon-heart-empty"></span> Donate</a></li>
+      <li class="list-group-item"><a href="Give-Help"><span class="glyphicon glyphicon-heart-empty"></span> Create dream</a></li>
       <li class="list-group-item"><a href="Dashboard"><span class="glyphicon glyphicon-th"></span> Dashboard</a></li>
-      <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-th-list"></span> History</a></li>
+    <!--  <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-th-list"></span> History</a></li> -->
       <li class="list-group-item"><a href="Logout"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
    </ul>
    <div class="chats" >

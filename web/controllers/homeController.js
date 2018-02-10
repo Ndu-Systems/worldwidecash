@@ -75,7 +75,9 @@
 
 	$scope.UploadProofOfPayment = function (investment) {
 		localStorage.setItem("proofId", investment.id);
-		$window.location.href = "Proof-Of-Payment";
+		localStorage.setItem("keepername", investment.keepername);
+		localStorage.setItem("keeperemail", investment.keeperemail);
+		$window.location.href = "Proof-Of-Payment"; 
 	};
 	$scope.GetHelp = function (investment) {
 		localStorage.setItem("getHelpId", investment.id);
@@ -320,7 +322,8 @@ app.controller('ghController', function ($http, $scope, $window) {
 						$scope.message = undefined;
 						$scope.showDonateButton = false;
 						$scope.showDashteButton = true;
-						$scope.success = "Success, Please wait for a member to be assigned to you.";
+						$scope.success = "Your dream was created successfully, Please wait for a member to be assigned to you.";
+						SendMail("noreply@funderslife.com", localStorage.getItem("email"), localStorage.getItem("name"), "New Dream created",$scope.success);
 					} else {
 						$scope.message = response;
 					}
@@ -377,9 +380,14 @@ app.controller('investmentController', function ($http, $scope, $window) {
 						if (parseInt(data) === 1) {
 							//$window.location.href = "Dashboard";
 							$scope.success = "Thanks for your Proof of payment, we will verify and let you know as soon as possible.";
+							$scope.msg = localStorage.getItem("name") + " Uploaded the proof of payment , please check your account balance and confirm the payment!";
 							$scope.error = undefined;
 							$scope.upload = false;
 							$scope.back = true;
+							alert(localStorage.getItem("keeperemail"));
+							alert(localStorage.getItem("keepername"));
+							 SendMail("noreply@funderslife.com", localStorage.getItem("keeperemail"), localStorage.getItem("keepername"), "Proof of payment",$scope.msg);
+				
 						} else {
 							$scope.error = "Something went wrong, please try again.";
 						}

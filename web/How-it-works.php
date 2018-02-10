@@ -26,15 +26,17 @@ require 'nav.php';
 				
 				<div class="news-main">
 					<div class="col-md-10">
-				<h4  class="tittle">Our Mission</h4> <br>
+				
 
-<p>There are thousands and thousands of people in South North West and East of Africa who lives under poor conditions. 
-Our mission is to register all these individuals let them participate in our community so that we can better represent their needs</p><br>
-
-<h4  class="tittle">Our Vision</h4><br>
-
- <p>To create an environment where all members can can freely participate without fear. We aim to create economic opportunity for all groups of people around the globe </p><br><br>
-
+<p>
+80% compounded interest in 30 days.!
+Once you successfully sign up, you will have to donate/PH 
+the sum of either R200 R1000, R2000, R5000 to the maximum of 50000 as per table to a member that will be automatically assigned to you by the sytem. After which you are to upload your proof of payment immediately. Note that once you are matched to make a donation,you have a maximum of 72HOURS to complete all transactions, also if a beneficiary
+ fails to confirm a donor after 72hrs of payment,you have to inform support
+ Ensure you have a valid email address,an active phone number and a functional
+ bank account before you sign up.
+</p><br>
+<b>The table bellow with monthly growth</b>
  <a href="images/table.PNG" target="_blank"><img src="images/table.PNG" style="width:100%"></a>
 					</div>
 					<div class="col-md-10">

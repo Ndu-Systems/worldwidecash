@@ -64,6 +64,16 @@ require 'nav.php';
 					<p>
 					This is a community of ordinary people, selflessly helping each other, a kind of the Global Fund of mutual aid. This is the first sprout of something new in modern soulless and ruthless world of greed and hard cash. The goal here is not the money. The goal is to destroy the world's unjust financial system.
 					</p>
+					
+						<h4  class="tittle">Our Mission</h4> <br>
+
+<p>There are thousands and thousands of people in South North West and East of Africa who lives under poor conditions. 
+Our mission is to register all these individuals let them participate in our community so that we can better represent their needs</p><br>
+
+<h4  class="tittle">Our Vision</h4><br>
+
+ <p>To create an environment where all members can can freely participate without fear. We aim to create economic opportunity for all groups of people around the globe </p><br><br>
+
 				</div>
 			</div>
 		</div>

@@ -30,9 +30,32 @@ require 'nav3.php';
                  
                             <h4 class="wait">{{wait}} </h4>
                          
-							
-							<div class="col-lg-3 col-md-6"  ng-repeat="gh in counts | filter:searchGH">
-                    <div class="panel panel-primary">
+				  <!-- /  ng-repeat -->			
+				<div class="col-lg-3 col-md-6"  ng-repeat="gh in counts | filter:searchGH">
+				
+                    <div  ng-if="gh.value > 0" class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-cubes"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{gh.value}}</div>
+                                    <div>{{gh.key}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer"   ng-click="More(gh)">>
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+					
+					
+					  <div  ng-if="gh.value == 0" class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">

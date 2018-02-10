@@ -8,6 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
 html,
+
 body {
 	margin: 0;
 	font-size: 100%;
@@ -97,7 +98,48 @@ width:20%;
 .matured table{
  color: white;	
 }
-
+.panel-green {
+  border-color: #5cb85c;
+}
+.panel-green > .panel-heading {
+  border-color: #5cb85c;
+  color: white;
+  background-color: #5cb85c;
+}
+.panel-green > a {
+  color: #5cb85c;
+}
+.panel-green > a:hover {
+  color: #3d8b3d;
+}
+.panel-red {
+  border-color: #d9534f;
+}
+.panel-red > .panel-heading {
+  border-color: #d9534f;
+  color: white;
+  background-color: #d9534f;
+}
+.panel-red > a {
+  color: #d9534f;
+}
+.panel-red > a:hover {
+  color: #b52b27;
+}
+.panel-yellow {
+  border-color: #f0ad4e;
+}
+.panel-yellow > .panel-heading {
+  border-color: #f0ad4e;
+  color: white;
+  background-color: #f0ad4e;
+}
+.panel-yellow > a {
+  color: #f0ad4e;
+}
+.panel-yellow > a:hover {
+  color: #df8a13;
+}
 
 .how{
 	width:100%;
@@ -544,6 +586,10 @@ b.fa.fa-caret-right {
 	.activedream table{
 	width:100%;
 	}
+	.chats{
+		width:98%;
+	}
+	
 }
 
 .cd-header-buttons {

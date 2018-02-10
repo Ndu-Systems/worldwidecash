@@ -8,7 +8,7 @@ require 'nav3.php';
           
 			 <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 style="width:100%; text-align:center; padding:2%; color:green">{{investmentName}}  want to donate R{{amountInvested}} </h4></div>
+                    <h4 style="width:100%; text-align:center; padding:2%; color:green">{{investmentName}}  want to donate R{{amountInvested}} - <a href="Create-Allocation">Create Allocation</a></h4></div>
                 <div class="panel-body">
 				   <hr>
 				   <h5><font color:black>People who need help </font></h5>
