@@ -43,7 +43,7 @@ require 'nav3.php';
                             <h4 class="wait">{{wait}} </h4>
                             <tr ng-repeat="chat in chats | filter:searchGH">
                                 <td ng-click="OpenChats(chat)">
-								 <p  ng-if="chat.status == 'unread'" > <b>{{ chat.senderName }}</b></p>
+								 <p  ng-if="chat.status == 'unread'" > <h2 style="color:black">* {{ chat.senderName }}</h2></p>
 								 <p  ng-if="chat.status == 'read'" >{{ chat.senderName }}</p>
 									
 								</td>
@@ -52,7 +52,6 @@ require 'nav3.php';
                         </tbody>
                     </table>
 				  </div>
-				  
 				  
 				  <div class="col-sm-8">
                   <ul class="list-group" >
@@ -72,7 +71,7 @@ require 'nav3.php';
 			</p>
 			</div>
             <li class="list-group-item">
-               <textarea class="form-control" style="height: 40px; border-radius: 15px;" rows="5" ng-model="messageBody"></textarea>  
+               <textarea class="form-control" id="txtMessageBodyAdmin" style="height: 40px; border-radius: 15px;" rows="5" ng-model="messageBody"></textarea>  
             </li>
             <li class="list-group-item">
                <button type="button" class="btn btn-info" ng-click="Send()">Send</button>  

@@ -242,6 +242,16 @@ app.controller('chatController', function($http, $scope, $window, $timeout,$inte
             });
 	  }
   }
+  
+  	// send with enter
+	var input = document.getElementById("txtMessageBodyAdmin");
+	input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      $scope.Send();
+    }
+});
+//end  send with enter
  
     $interval(function () {
 		 if($scope.clientId !== undefined){
