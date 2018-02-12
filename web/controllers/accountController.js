@@ -1,4 +1,6 @@
 app.controller('joinController', function ($http, $scope, $window,$location) {
+	//Logout the user if any
+	 localStorage.clear();
 // CHECK FOR THE PARENT Link
 	var baseUrlMain = $location.absUrl();
 	if(baseUrlMain.includes("link=")){
