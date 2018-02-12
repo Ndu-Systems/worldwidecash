@@ -45,6 +45,15 @@ $counts = new Counts();
 $counts->key ="pending";
 $counts->value =$result->num_rows ;
 $rows["data"][]= $counts;
+
+//PENING INVESTMENTS
+
+ $sql = "SELECT * FROM investment WHERE  email='$email' AND status IN ('pending','paid', 'allocated')";
+$result = $conn->query($sql);
+$counts = new Counts();
+$counts->key ="pending_investment";
+$counts->value =$result->num_rows ;
+$rows["data"][]= $counts;
 //end objects
 
 echo json_encode($rows);

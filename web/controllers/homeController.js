@@ -224,13 +224,22 @@ app.controller('sideMenu', function ($http, $scope, $window, $interval) {
 				$scope.members = response.data[0].value;
 				$scope.bonus = response.data[1].value;
 				$scope.pending = response.data[2].value;
+				$scope.pending_investment = response.data[3].value;
 				localStorage.setItem("mybonus",$scope.bonus)
+				$scope.ShowDonateLink();
 				//alert($scope.members);
 			});
 	}
 
 	// chats
+	$scope.ShowDonateLink = function(){
+if($scope.pending_investment>0){
+	$scope.showDonateLink = false;
+}else{
+$scope.showDonateLink = true;
 
+}
+	}
 	$scope.GetChats = function () {
 		var data = {
 			email: $scope.email
