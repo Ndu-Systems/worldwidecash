@@ -1,5 +1,5 @@
 <?php
- $isLocal = false;
+ $isLocal = true;
 $servername = "127.0.0.1";
 $username = "quunivn_main";
 $password = "Harder01!";
