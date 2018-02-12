@@ -33,6 +33,7 @@
 			   <button type="button" style="float:right; margin-right:3%;" class="btn btn-success" ng-click="CashOut()">Cash Out</button>
 			   <br>
 			   <h1 style="color:red">{{error}}</h1>
+			   <h1 style="color:green">{{msg}}</h1>
 
 
    </div> 

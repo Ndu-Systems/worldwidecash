@@ -11,6 +11,7 @@ if (isset($data->email) ){
 	$dream= $data->dream;
 	$email= $data->email;
 	$name= $data->name;
+	$isBonus= $data->isBonus;
 	$status="pending";
 	$pendingbalance="--";
 //`amount`, `package`, `createdate`, `email`, `donneremail`, `status`, `investemntId`, `name`, `balance`, `pendingbalance`
@@ -20,7 +21,7 @@ if (isset($data->email) ){
         
         if ($conn->query($sql) === TRUE) {
 			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1
-            echo 1;
+           // echo 1;
         }
         else {
             //echo json_encode('failed');
@@ -34,10 +35,25 @@ if (isset($data->email) ){
 				";								
 								
 				if ($conn->query($sql) === TRUE) {
-					echo 1;
+					//echo 1;
 				} else {
 				//echo 0;
 				}	
+				
+				// update bonus
+				if($isBonus){
+						 $sql = "
+				UPDATE  bonus  SET	 
+                 status ='pending-withdrawal'
+				WHERE id= $investemntId 		
+				";								
+								
+				if ($conn->query($sql) === TRUE) {
+					echo 1;
+				} else {
+				//echo 0;
+				}
+				}
  
 }
  else {

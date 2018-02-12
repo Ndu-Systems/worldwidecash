@@ -187,7 +187,8 @@ app.controller('getHelpController', function ($http, $scope, $window) {
 			amount: $scope.amount,
 			name: $scope.name,
 			balance: $scope.amount,
-			dream: $scope.dream
+			dream: $scope.dream,
+			isBonus: false
 		};
 		$http.post(GetApiUrl("Withdraw"), data)
 			.success(function (response, status) {
@@ -325,7 +326,26 @@ app.controller('bonusController', function ($http, $scope, $window, $interval) {
 $scope.CashOut = function(){
 	$scope.error="";
 	if($scope.bonus>=500){
-		
+		var data = {
+			email: $scope.email,
+			investemntId: 0,
+			amount: $scope.amount,
+			name: $scope.name,
+			balance: $scope.bonus,
+			dream: "My Bonus",
+			isBonus: true
+		};
+		$http.post(GetApiUrl("Withdraw"), data)
+			.success(function (response, status) {
+				$scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
+				$scope.showDonateButton = false;
+				$scope.showDashteButton = true;
+
+				// notify
+				var msg = "Your request has been submitted, we will notify you as soon as allocation is found!";
+				SendMail("noreply@funderslife.com", $scope.email, $scope.name, "Withdrawal Notification " + $scope.dream, msg);
+
+			});
 	}else{
 		$scope.error = "Sorry, Your bonus is withdrawable once it riches R500! Refer more people to get more bonuses";
 	}
