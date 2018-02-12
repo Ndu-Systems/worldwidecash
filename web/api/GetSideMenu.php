@@ -54,6 +54,20 @@ $counts = new Counts();
 $counts->key ="pending_investment";
 $counts->value =$result->num_rows ;
 $rows["data"][]= $counts;
+
+//PENING INVESTMENTS
+
+ $sql = "SELECT * FROM investment WHERE  email='$email' AND status ='allocated'";
+$result = $conn->query($sql);
+$counts = new Counts();
+$counts->key ="allocated";
+$timeallocated = "";
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+		$timeallocated = $row["timeallocated"];
+	}
+$counts->value =$timeallocated;
+}$rows["data"][]= $counts;
 //end objects
 
 echo json_encode($rows);

@@ -45,7 +45,7 @@ if ($result->num_rows > 0) {
                  keeperbrancode ='$keeperbrancode',
                  keeperbankname ='$keeperbankname',
                  status ='allocated',
-                 timeallocated =NOW()
+                 timeallocated =NOW() + INTERVAL 1 DAY
 				
 				WHERE id= $orderId 		
 				";								

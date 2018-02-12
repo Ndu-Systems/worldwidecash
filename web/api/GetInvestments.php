@@ -2,6 +2,8 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+date_default_timezone_set('Africa/Johannesburg');
+
 require "conn.php";
 $data = json_decode(file_get_contents("php://input"));
 
@@ -41,7 +43,9 @@ if ($result->num_rows > 0) {
 			}
 		}
 		// cal  hours rmaining
-		
+		$date = strtotime("+1 day");
+		$the_time= date("Y-m-d H:i:s", $date);
+		 $remainingTime = G3($row["timeallocated"],$the_time);
 		//endcal
 		
 	
@@ -68,11 +72,32 @@ if ($result->num_rows > 0) {
 		$investment->expectedAmount = ceil($expectedAmount);
 		$investment->datepaid = $row["datepaid"];
 		$investment->amount = ceil($amount);
+		$investment->remainingTime = $remainingTime;
 		//end create ob
 		$rows["data"][]= $investment;
 	}
 }
-
+function G3($d1,$d2){
+	//return $d1 ."  -----   ".$d2;
+	$datetime1 = new DateTime($d1);
+	$datetime2 = new DateTime($d2);
+	$interval = $datetime1->diff($datetime2);
+	if ((int)$interval->format("%r%a") <=0){
+		return 0;
+	}
+	
+	return $interval->format('%d')." Day(s) ".$interval->format('%h')." Hour(s) ".$interval->format('%i')." Minute(s)";
+}
+function GetDiffinHoursAndMins2($allcation_time,$the_time ){
+	// time to stamp
+	$timestamp1 = strtotime($allcation_time) + 60*60*24; //  + 24 hours
+	$timestamp2 = strtotime($the_time) ;// 10:09 + 24 hours
+	
+	// diff
+	$diff = $timestamp1-$timestamp2;
+	//return date('H:i:s', $diff);
+	return date('m/d/Y H:i:s', $timestamp1);
+}
 echo json_encode($rows);
 $conn->close();
 
@@ -98,6 +123,7 @@ $conn->close();
             public $datepaid;
             public $expecedDate;
             public $expectedAmount;
+            public $remainingTime;
 			
          // public function __construct( $id ,  $dateInvested ,  $amountInvested ,  $status ,  $doc ,  $email,$amount) {
 		//	$this->$id= $id ;

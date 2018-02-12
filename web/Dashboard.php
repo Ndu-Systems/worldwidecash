@@ -92,9 +92,7 @@
 					  Beneficiary Branch Code.: <b>{{ investment.keeperbrancode }}</b> <br>
 					  </div>
 					  <div class="col-sm-4"> 
-					  <h3 style="color:red">
-					  Time Remaining: 22:00:22
-					  </h3><br>
+					
 						<button type="button" class="btn btn-info" ng-click="UploadProofOfPayment(investment)">Upload Proof Of Payment</button>
 					  </div>
 				</div>

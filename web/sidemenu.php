@@ -37,6 +37,7 @@
    <p>
    </p>
    <ul class="list-group">
+      <li class="list-group-item" ng-show="showTime"><a href=""><h4 style="color:red"><span class="glyphicon glyphicon-time"></span> {{timeleft}}</h4></a></li>
       <li class="list-group-item"><a href="My-Referrals"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> My-Referrals <span class="badge">{{ members }}</span></a></li>
       <li class="list-group-item"><a href="My-Bonuses"><span class="glyphicon glyphicon-credit-card"></span> Bonuses <span class="badge"> R {{ bonus }}</span></a></li>
       <li class="list-group-item"><a href="My-Pending-Withdraw"><span class="glyphicon glyphicon-credit-card"></span> Pending Withdraw <span class="badge">  {{ pending }}</span></a></li>
@@ -81,7 +82,3 @@
    </div>
 </div>
 
-
-<script>
-
-</script>

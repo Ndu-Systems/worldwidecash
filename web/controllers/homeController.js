@@ -12,6 +12,8 @@
 	$scope.email = localStorage.getItem("email");
 	$scope.code = localStorage.getItem("code");
 	$scope.cell = localStorage.getItem("cell");
+	
+
 	$scope.isEmailVerified = localStorage.getItem("isEmailVerified");
 	$scope.wait = "Please wait...";
 	$scope.success = "";
@@ -100,7 +102,11 @@
 			});
 
 	}
-
+	// count down
+	$scope.timeRemainingHour = 22;
+	$scope.timeRemainingMinutes = 22;
+	$scope.timeRemainingSeconds = 22;
+	$scope.timeRemaining = `${$scope.timeRemainingHour}:${$scope.timeRemainingHour}:${$scope.timeRemainingHour}`;
 
 });
 
@@ -213,6 +219,7 @@ app.controller('sideMenu', function ($http, $scope, $window, $interval) {
 	$scope.email = localStorage.getItem("email");
 	$scope.name = localStorage.getItem("name");
 	$scope.mylink = localStorage.getItem("mylink");
+	$scope.showTime = false;
 	
 	$scope.GetSideItems = function () {
 		var data = {
@@ -225,14 +232,46 @@ app.controller('sideMenu', function ($http, $scope, $window, $interval) {
 				$scope.bonus = response.data[1].value;
 				$scope.pending = response.data[2].value;
 				$scope.pending_investment = response.data[3].value;
+				$scope.allocated = response.data[4].value;
 				localStorage.setItem("mybonus",$scope.bonus)
 				$scope.ShowDonateLink();
+				$scope.CountDown();
 				//alert($scope.members);
 			});
 	}
 
 	// chats
-	$scope.ShowDonateLink = function(){
+$scope.CountDown = function(){
+	if($scope.allocated){
+		var countDownDate = new Date($scope.allocated).getTime();
+		// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now an the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+$scope.timeleft =  days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+  // If the count down is finished, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    $scope.timeleft = "Time is Up";
+  }
+}, 1000);
+			$scope.showTime = true;
+
+	}
+}
+$scope.ShowDonateLink = function(){
 if($scope.pending_investment>0){
 	$scope.showDonateLink = false;
 }else{
