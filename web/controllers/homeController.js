@@ -88,10 +88,14 @@
 
 	$scope.Confirm = function (not) {
 		var data = {
-			id: not.id
+			id: not.id,
+			amount:not.amountInvested,
+			email :not.email
 		};
+		
 		$http.post(GetApiUrl("ConfirmPayment"), data)
 			.success(function (response, status) {
+				
 				$window.location.href = "Thanks-for-Verification";
 			});
 
@@ -218,6 +222,7 @@ app.controller('sideMenu', function ($http, $scope, $window, $interval) {
 			.success(function (response, status) {
 				$scope.members = response.data[0].value;
 				$scope.bonus = response.data[1].value;
+				localStorage.setItem("mybonus",$scope.bonus)
 				//alert($scope.members);
 			});
 	}
@@ -299,6 +304,34 @@ app.controller('referralController', function ($http, $scope, $window, $interval
 	}
 
 });
+
+app.controller('bonusController', function ($http, $scope, $window, $interval) {
+	$scope.email = localStorage.getItem("email");
+	$scope.name = localStorage.getItem("name");
+	$scope.mylink = localStorage.getItem("mylink");
+	$scope.bonus = parseFloat(localStorage.getItem("mybonus"));
+	$scope.GetBonus = function () {
+		var data = {
+			table:"bonus",
+			condition: " email = '" + $scope.email + "'"
+		};
+		$http.post(GetApiUrl("Get"), data)
+			.success(function (response, status) {
+				$scope.bonuses = response.data;
+			});
+	
+	}
+	
+$scope.CashOut = function(){
+	$scope.error="";
+	if($scope.bonus>=500){
+		
+	}else{
+		$scope.error = "Sorry, Your bonus is withdrawable once it riches R500! Refer more people to get more bonuses";
+	}
+}
+});
+
 
 app.controller('ghController', function ($http, $scope, $window) {
 	$scope.packeges = [200, 300, 400, 500, 1000, 1500, 2000, 3000, 5000, 8000, 10000, 15000, 20000, 30000, 40000, 50000];
@@ -403,8 +436,7 @@ app.controller('investmentController', function ($http, $scope, $window) {
 							$scope.error = undefined;
 							$scope.upload = false;
 							$scope.back = true;
-							alert(localStorage.getItem("keeperemail"));
-							alert(localStorage.getItem("keepername"));
+							
 							 SendMail("noreply@funderslife.com", localStorage.getItem("keeperemail"), localStorage.getItem("keepername"), "Proof of payment",$scope.msg);
 				
 						} else {

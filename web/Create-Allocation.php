@@ -73,7 +73,7 @@ require 'head.php';
 				
                   <hr/>
                   <div class="form-group">
-                     <input type="button"   value="DONATE" class="myInput" ng-click="Withdraw()" style="background:#2ecc71; color:white; border: none; padding-top:2%;"/>
+                     <input type="button"   value="CREATE" class="myInput" ng-click="Withdraw()" style="background:#2ecc71; color:white; border: none; padding-top:2%;"/>
 				
                    </div>
 				</div>
