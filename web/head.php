@@ -22,7 +22,7 @@
 	<link href="css/chat.css" rel='stylesheet' type='text/css' />
 	<link href="css/font-awesome.css" rel="stylesheet">
 	<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
-<!--	 <script src="https://maxcdn.bootstrapcdn.com/bootstra<!---->p/3.3.7/js/bootstrap.min.js"></script>-->
+	<!--	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
      <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
 	<!--angularjs-->
 	

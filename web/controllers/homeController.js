@@ -207,10 +207,12 @@ app.controller('homeController', function ($http, $scope, $window) {
 app.controller('sideMenu', function ($http, $scope, $window, $interval) {
 	$scope.email = localStorage.getItem("email");
 	$scope.name = localStorage.getItem("name");
+	$scope.mylink = localStorage.getItem("mylink");
+	
 	$scope.GetSideItems = function () {
 		var data = {
-			parentlink: localStorage.getItem("mylink"),
-			email: localStorage.getItem("email")
+			parentlink: $scope.mylink,
+			email: $scope.email
 		};
 		$http.post(GetApiUrl("GetSideMenu"), data)
 			.success(function (response, status) {

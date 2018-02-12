@@ -4,7 +4,36 @@
    </h1>
    <h1 class="username">
       Hello {{name}}<br>
+	       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">My Link</button>
+
    </h1>
+
+   <div class="container">
+  <!-- Trigger the modal with a button -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">My Link</h4>
+        </div>
+        <div class="modal-body">
+          <p>Share this link and get bonuses!</p>
+          <p><b><font color=green>{{mylink}}</font></b></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
    <p>
    </p>
    <ul class="list-group">
