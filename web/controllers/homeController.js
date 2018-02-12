@@ -283,6 +283,23 @@ app.controller('sideMenu', function ($http, $scope, $window, $interval) {
 
 });
 
+app.controller('referralController', function ($http, $scope, $window, $interval) {
+	$scope.email = localStorage.getItem("email");
+	$scope.name = localStorage.getItem("name");
+	$scope.mylink = localStorage.getItem("mylink");
+	$scope.GetReferrals = function () {
+		var data = {
+			parentlink: $scope.mylink,
+			email: $scope.email
+		};
+		$http.post(GetApiUrl("GetReferrals"), data)
+			.success(function (response, status) {
+				$scope.users = response.data;
+			});
+	}
+
+});
+
 app.controller('ghController', function ($http, $scope, $window) {
 	$scope.packeges = [200, 300, 400, 500, 1000, 1500, 2000, 3000, 5000, 8000, 10000, 15000, 20000, 30000, 40000, 50000];
 	$scope.peroids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];

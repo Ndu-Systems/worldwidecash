@@ -37,7 +37,7 @@
    <p>
    </p>
    <ul class="list-group">
-      <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> Members <span class="badge">{{ members }}</span></a></li>
+      <li class="list-group-item"><a href="My-Referrals"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> My-Referrals <span class="badge">{{ members }}</span></a></li>
       <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-credit-card"></span> Bonuses <span class="badge"> R {{ bonus }}</span></a></li>
       <li class="list-group-item"><a href="Give-Help"><span class="glyphicon glyphicon-heart-empty"></span> Create dream</a></li>
       <li class="list-group-item"><a href="Dashboard"><span class="glyphicon glyphicon-th"></span> Dashboard</a></li>
