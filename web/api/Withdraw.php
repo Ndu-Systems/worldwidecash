@@ -45,7 +45,7 @@ if (isset($data->email) ){
 						 $sql = "
 				UPDATE  bonus  SET	 
                  status ='pending-withdrawal'
-				WHERE id= $investemntId 		
+				WHERE email= '$email' 		
 				";								
 								
 				if ($conn->query($sql) === TRUE) {

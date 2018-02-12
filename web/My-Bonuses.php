@@ -15,7 +15,7 @@
       </div>
       <div class="panel-body">
         <div class="form-group">
-  <input type="text" class="form-control" ng-model="search">
+  <input type="text" class="form-control" ng-model="search" ng-show="showBonus">
 </div>
                <h3 class="wait">{{wait}}</h3>
      <div dir-paginate="bonus in bonuses | filter:search |itemsPerPage:5" class="panel panel-default" style="margin:2%; padding:1%">
@@ -30,10 +30,10 @@
 					
 				</div>
                </div>   
-			   <button type="button" style="float:right; margin-right:3%;" class="btn btn-success" ng-click="CashOut()">Cash Out</button>
+			   <button type="button" style="float:right; margin-right:3%;" class="btn btn-success" ng-show="showBonus" ng-click="CashOut()">Cash Out</button>
 			   <br>
-			   <h1 style="color:red">{{error}}</h1>
-			   <h1 style="color:green">{{msg}}</h1>
+			   <h3 style="color:red">{{error}}</h3>
+			   <h3 style="color:green">{{msg}}</h3>
 
 
    </div> 

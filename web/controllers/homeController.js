@@ -223,6 +223,7 @@ app.controller('sideMenu', function ($http, $scope, $window, $interval) {
 			.success(function (response, status) {
 				$scope.members = response.data[0].value;
 				$scope.bonus = response.data[1].value;
+				$scope.pending = response.data[2].value;
 				localStorage.setItem("mybonus",$scope.bonus)
 				//alert($scope.members);
 			});
@@ -310,11 +311,12 @@ app.controller('bonusController', function ($http, $scope, $window, $interval) {
 	$scope.email = localStorage.getItem("email");
 	$scope.name = localStorage.getItem("name");
 	$scope.mylink = localStorage.getItem("mylink");
+	$scope.showBonus = true;
 	$scope.bonus = parseFloat(localStorage.getItem("mybonus"));
 	$scope.GetBonus = function () {
 		var data = {
 			table:"bonus",
-			condition: " email = '" + $scope.email + "'"
+			condition: " email = '" + $scope.email + "' AND status='active'"
 		};
 		$http.post(GetApiUrl("Get"), data)
 			.success(function (response, status) {
@@ -323,6 +325,52 @@ app.controller('bonusController', function ($http, $scope, $window, $interval) {
 	
 	}
 	
+$scope.CashOut = function(){
+	$scope.error="";
+	if($scope.bonus>=500){
+		var data = {
+			email: $scope.email,
+			investemntId: 0,
+			amount: $scope.bonus,
+			name: $scope.name,
+			balance: $scope.bonus,
+			dream: "My Bonus",
+			isBonus: true
+		};
+		$http.post(GetApiUrl("Withdraw"), data)
+			.success(function (response, status) {
+				$scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
+				$scope.showBonus = false;
+
+				// notify
+				$scope.msg = "Your request has been submitted, we will notify you as soon as allocation is found!";
+				SendMail("noreply@funderslife.com", $scope.email, $scope.name, "Withdrawal Notification " +  "My Bonus", $scope.msg);
+				$interval(function () {
+					$window.location.href = "My-Bonuses";
+				}, 3000);
+			});
+	}else{
+		$scope.error = "Sorry, Your bonus is withdrawable once it riches R500! Refer more people to get more bonuses";
+	}
+}
+});
+
+app.controller('pendingController', function ($http, $scope, $window, $interval) {
+	$scope.email = localStorage.getItem("email");
+	$scope.name = localStorage.getItem("name");
+	$scope.mylink = localStorage.getItem("mylink");
+	$scope.bonus = parseFloat(localStorage.getItem("mybonus"));
+	$scope.GetPending = function () {
+		var data = {
+			table:"withdraw",
+			condition: " email = '" + $scope.email + "' AND status='pending'"
+		};
+		$http.post(GetApiUrl("Get"), data)
+			.success(function (response, status) {
+				$scope.pendings = response.data;
+			});
+	
+	}
 $scope.CashOut = function(){
 	$scope.error="";
 	if($scope.bonus>=500){
@@ -340,7 +388,7 @@ $scope.CashOut = function(){
 				$scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
 				$scope.showDonateButton = false;
 				$scope.showDashteButton = true;
-
+				localStorage.setItem("mybonus",0);
 				// notify
 				var msg = "Your request has been submitted, we will notify you as soon as allocation is found!";
 				SendMail("noreply@funderslife.com", $scope.email, $scope.name, "Withdrawal Notification " + $scope.dream, msg);

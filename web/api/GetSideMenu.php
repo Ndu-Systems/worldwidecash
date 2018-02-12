@@ -13,12 +13,15 @@ $rows = array();
 if($parentlink==""){
 	$parentlink="none";
 }
- $sql = "SELECT * FROM user WHERE parentlink = '$parentlink'";
+ $sql = "SELECT * FROM user WHERE parentlink = '$parentlink' AND isEmailVerified=1";
 $result = $conn->query($sql);
 $counts = new Counts();
 $counts->key ="members";
 $counts->value =$result->num_rows ;
 $rows["data"][]= $counts;
+
+
+
 
 //bonus
 $sql = "SELECT * FROM bonus WHERE email = '$email' and status ='active'";
@@ -33,6 +36,16 @@ if ($result->num_rows > 0) {
 }
 $counts->value =$amount ;
 $rows["data"][]= $counts;
+
+//Pending with draw
+
+ $sql = "SELECT * FROM withdraw WHERE email = '$email' and status ='pending'";
+$result = $conn->query($sql);
+$counts = new Counts();
+$counts->key ="pending";
+$counts->value =$result->num_rows ;
+$rows["data"][]= $counts;
+//end objects
 
 echo json_encode($rows);
 
