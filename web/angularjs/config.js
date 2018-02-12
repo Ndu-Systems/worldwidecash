@@ -4,9 +4,10 @@ var base = "http://funderslife.com/Get-Started";
 
 var isLocal = true;
 if(isLocal){
-base = "http://localhost:8080/worldwidecash/web/Get-Started";
-host = "http://localhost:8080/worldwidecash/web/api/"
-//host = "http://localhost/git.worldwidecash/web/api/"; //Freedom
+//base = "http://localhost:8080/worldwidecash/web/Get-Started";
+//host = "http://localhost:8080/worldwidecash/web/api/";
+base = "http://localhost/worldwidecash/web/Get-Started";//freedom
+host = "http://localhost/worldwidecash/web/api/"; //Freedom
 }
 
 var mail = "http://ndu-systems.net/demo/worldwidecash2/api/emailClient2.php";

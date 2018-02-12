@@ -94,6 +94,37 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Allocate.php" />
+    <Content Include="api\ConfirmPayment.php" />
+    <Content Include="api\DeleteUser.php" />
+    <Content Include="api\emailClient - Copy.php" />
+    <Content Include="api\emailClient.php" />
+    <Content Include="api\emailClient2.php" />
+    <Content Include="api\emailmakhawiniportal.php" />
+    <Content Include="api\GetAdminDashCounts.php" />
+    <Content Include="api\GetChats.php" />
+    <Content Include="api\GetChatsAdmins.php" />
+    <Content Include="api\GetCounts.php" />
+    <Content Include="api\GetInvestmentsAdmin.php" />
+    <Content Include="api\GetMessagesOneOnOnes.php" />
+    <Content Include="api\GetNotification.php" />
+    <Content Include="api\GetPendingGH.php" />
+    <Content Include="api\GetSideMenu.php" />
+    <Content Include="api\GetWithdraw.php" />
+    <Content Include="api\UpdatePOP.php" />
+    <Content Include="api\UpdateVerificationCode.php" />
+    <Content Include="chats.html" />
+    <Content Include="Confirm.php" />
+    <Content Include="controllers\adminController.js" />
+    <Content Include="controllers\chat.js" />
+    <Content Include="controllers\email.js" />
+    <Content Include="css\chat.css" />
+    <Content Include="dashfooter.php" />
+    <Content Include="emails.js" />
+    <Content Include="Get-Help.php" />
+    <Content Include="images\table.PNG" />
+    <Content Include="js\dirPagination.js" />
+    <Content Include="Messages.php" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -110,6 +141,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="images\Thumbs.db" />
+    <Content Include="api\error_log" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -214,6 +246,13 @@
     <Content Include="nav2.php" />
     <Content Include="nav3.php" />
     <Content Include="Personal-Information.php" />
+    <Content Include="Proof-Of-Payment.php" />
+    <Content Include="Select.php" />
+    <Content Include="services\getData.js" />
+    <Content Include="sidemenu.php" />
+    <Content Include="Success.php" />
+    <Content Include="Thanks-for-Verification.php" />
+    <Content Include="Verify-Email.php" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

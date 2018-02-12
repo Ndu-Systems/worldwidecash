@@ -54,7 +54,7 @@
       <div class="panel-body">
         
                <h3 class="wait">{{wait}}</h3>
-           <div ng-repeat="investment in investments" class="panel panel-default" style="margin:2%; padding:1%">
+           <div dir-paginate="investment in investments  |itemsPerPage:5" class="panel panel-default" style="margin:2%; padding:1%">
 			     <!-- PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING -->
 			   <div ng-if="investment.status == 'pending'" class="pending">
 			    <div class="panel-heading" style="color:black; text-align:center">
@@ -180,7 +180,10 @@
 				    <td><button type="button" class="btn btn-info" ng-click="Withdraw(investment)">Withdraw</button></td>
 				  -->
 			      </div>
-    
+               <dir-pagination-controls max-size="5"
+		                                 direction-links="true"
+		                                 boundary-links="true">
+		       </dir-pagination-controls>
       </div>
    </div>
  

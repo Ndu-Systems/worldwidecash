@@ -28,7 +28,7 @@
   <input type="text" class="form-control" ng-model="search">
 </div>
                <h3 class="wait">{{wait}}</h3>
-               <div ng-repeat="investment in investments | filter:search" class="panel panel-default" style="margin:2%; padding:1%">
+     <div dir-paginate="investment in investments | filter:search |itemsPerPage:5" class="panel panel-default" style="margin:2%; padding:1%">
 			   
 			    <!-- client-->
 			   <div ng-if="investment.role == 'Client'" class="client">
@@ -165,8 +165,11 @@
                   <td>{{ investment.status }}</td>
 				    <td><button type="button" class="btn btn-info" ng-click="Withdraw(investment)">Withdraw</button></td>
 				  -->
-			      </div>
-       
+			 </div>
+		       <dir-pagination-controls max-size="5"
+		                                 direction-links="true"
+		                                 boundary-links="true">
+		       </dir-pagination-controls>
       </div>
    </div>
 
