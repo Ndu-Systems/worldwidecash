@@ -5,6 +5,7 @@
    <h1 class="username">
       Hello {{name}}<br>
 	       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">My Link</button>
+	      <a href="My-Profile"> <button type="button" class="btn btn-info">My Profile</button></a>
 
    </h1>
 

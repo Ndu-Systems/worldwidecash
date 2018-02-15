@@ -6,7 +6,9 @@
 	   <link rel="shortcut icon"  href="images/icon.PNG" />
 	<meta charset="utf-8">
 	
-
+		<div class="lock"> <h1>User Locked! <br>
+		<a href="Logout"><span class="glyphicon glyphicon-off"></span> Logout</a>
+		</h1></div>
 	<script type="application/x-javascript">
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);

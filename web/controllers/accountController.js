@@ -94,7 +94,7 @@ app.controller('moreDetailsController', function ($http, $scope, $window) {
 			emailFrom: "account@worldwidecash.co.za",
 			subject :"Verification Code",
 			name:localStorage.getItem("name"),
-			msg  : "Welcome to World wide cash,Your verification code is "+ localStorage.getItem("code")
+			msg  : "Welcome to Funders Life,Your verification code is "+ localStorage.getItem("code")
 			}
 					
 			//send mail
@@ -292,11 +292,16 @@ app.controller('loginController', function ($http, $scope, $window) {
                     localStorage.setItem("address", user.address);                    
                     localStorage.setItem("idnum", user.idnum);
                     localStorage.setItem("bankname", user.bankname);
+                    localStorage.setItem("branch", user.branch);
                     localStorage.setItem("accountnumber", user.accountnumber);
+                    localStorage.setItem("accountType", user.accountType);
                     localStorage.setItem("role", user.role);
 					localStorage.setItem("isEmailVerified", user.isEmailVerified);
                     localStorage.setItem("code", user.code);
                     localStorage.setItem("mylink", user.mylink);
+                    localStorage.setItem("userstatus", user.userstatus);
+                    localStorage.setItem("city", user.city);
+                    localStorage.setItem("country", user.country);
 					
                     localStorage.setItem("isLoggedIn", true);
 					if(user.role ==="admin"){
