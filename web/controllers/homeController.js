@@ -160,7 +160,7 @@ app.controller('emailVerifyController', function($http, $scope, $window) {
             emailFrom: "account@worldwidecash.co.za",
             subject: "Verification Code",
             name: localStorage.getItem("name"),
-            msg: "Welcome to World wide cash,Your verification code is " + $scope.code
+            msg: "Welcome to Funders Life,Your verification code is " + $scope.code
         }
 
         //send mail
