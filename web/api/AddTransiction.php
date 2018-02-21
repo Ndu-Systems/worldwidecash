@@ -13,10 +13,7 @@ if (isset($data->email) ){
  $code 	=$data->code;
  $parentlink 	=$data->parentlink;
  $mylink 	=$data->baseUrl."?link=".time().$code;
- 
- // check if user exits
-$check = $conn->query("SELECT * FROM user WHERE email = '$email'");
-if ($check->num_rows ==0) {
+
    
         $sql = "INSERT INTO user (name, surname, email, password, createdate, role,code,isEmailVerified,mylink,parentlink)
                 VALUES ('$name', '$surname', '$email','$password', now(),'Client',$code,0,'$mylink','$parentlink')";        
@@ -29,17 +26,7 @@ if ($check->num_rows ==0) {
             //echo json_encode('failed');
             echo "Error: " . $sql . "<br>" . $conn->error;
         }       
-	
-	
-}else{
-	
-	echo "Your account already exists, please go to login";
-}
- 
- 
- 
-        
- 
+
 }
  else {
 

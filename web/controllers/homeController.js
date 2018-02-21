@@ -156,7 +156,7 @@ app.controller('emailVerifyController', function($http, $scope, $window) {
         $scope.code = Math.floor(4000 * (Math.random() + 1));
         var maildata = {
             emailTo: localStorage.getItem("email"),
-            emailFrom: "account@worldwidecash.co.za",
+            emailFrom: "account@funderslife.com/",
             subject: "Verification Code",
             name: localStorage.getItem("name"),
             msg: "Welcome to Funders Life,Your verification code is " + $scope.code
@@ -166,7 +166,7 @@ app.controller('emailVerifyController', function($http, $scope, $window) {
         $http.post("http://ndu-systems.net/demo/worldwidecash2/api/emailClient.php", maildata)
             .success(function(response, status) {
 
-                $scope.success = "The code was sent , check your emails";
+                $scope.success = "The code was sent ,please check your emails";
                 console.log("Email sent");
             });
     }

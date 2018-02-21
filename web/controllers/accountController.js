@@ -460,3 +460,66 @@ app.controller('resetController', function($http, $scope, $window, $location) {
     };
 
 });
+
+app.controller('unlockController', function($http, $scope, $window) {
+    if (localStorage.getItem("isLoggedIn") !== "true" || localStorage.getItem("name") === undefined || localStorage.getItem("email") === undefined || localStorage.getItem("name") === "" || localStorage.getItem("email") === "") {
+        $window.location.href = "Login";
+    }
+    $scope.name = localStorage.getItem("name");
+    $scope.email = localStorage.getItem("email");
+    $scope.code = localStorage.getItem("code");
+    $scope.cell = localStorage.getItem("cell");
+
+  //  alert( $scope.name);
+  
+  $scope.filesChanged = function(eml) {
+    $scope.files = eml.files;
+    $scope.filename = $scope.files[0].name;
+    //  alert($scope.filename);
+    $scope.$apply();
+};
+  $scope.Pay = function() {
+    if ($scope.filename !== undefined) {
+        var doc = "";
+        var formData = new FormData();
+        angular.forEach($scope.files, function(file) {
+            formData.append('file', file);
+            formData.append('name', file.name)
+        });
+
+        $http.post(GetApiUrl("upload"), formData, {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            })
+            .success(function(resp) {
+                var expectedDate = new Date();
+                doc = GetHost(resp);
+               //save
+               var data = {
+                email: $scope.email,
+                code: $scope.code
+            };
+            $http.post(GetApiUrl("AddTransiction"), data)
+                .success(function(response, status) {
+                    if (response.length != 0) {
+                        $scope.user = response.data[0];
+                    } else {
+                         $scope.edit = true;
+                        $scope.message = "The link is not valid"
+                    }
+                });
+               //send mail 
+               $scope.messageToSend = `${$scope.name}, Email : ${$scope.email} paid the penalty fee, here is their: <a href="${doc}"> proof of payment</a>, 
+               please verify and unlock them.
+               `;
+               SendMail("noreply@funderslife.com", "admin@funderslife.com", "Funders Life Admin", "Proof of payment- penalty ", $scope.messageToSend);
+            })
+    } else {
+        $scope.error = "Please select the files!";
+    }
+
+}
+
+});
