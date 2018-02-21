@@ -5,18 +5,14 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 require "conn.php";
 $data = json_decode(file_get_contents("php://input"));
 
-if (isset($data->email) ){  
+if (isset($data->name) ){  
  $name 		=$data->name;
- $surname 	=$data->surname;
- $email 	=$data->email;
- $password 	=$data->password;
- $code 	=$data->code;
- $parentlink 	=$data->parentlink;
- $mylink 	=$data->baseUrl."?link=".time().$code;
+ $user 	=$data->user;
+ $amount 	=$data->amount;
+ $doc 	=$data->doc;
 
-   
-        $sql = "INSERT INTO user (name, surname, email, password, createdate, role,code,isEmailVerified,mylink,parentlink)
-                VALUES ('$name', '$surname', '$email','$password', now(),'Client',$code,0,'$mylink','$parentlink')";        
+        $sql = "INSERT INTO transiction (name, date, user, amount, doc)
+                VALUES ('$name', now(), '$user','$amount','$doc')";        
         
         if ($conn->query($sql) === TRUE) {
 			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1

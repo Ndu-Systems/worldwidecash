@@ -11,6 +11,7 @@ host = "http://localhost:8080/worldwidecash/web/api/";
 }
 
 var mail = "http://ndu-systems.net/demo/worldwidecash2/api/emailClient2.php";
+var penultAmount = '400';
 
 function GetApiUrl(serviceName) {
 
