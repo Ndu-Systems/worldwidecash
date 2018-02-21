@@ -1,5 +1,4 @@
 ﻿app.controller('dashController', function($http, $scope, $window, $timeout) {
-
     if (localStorage.getItem("isLoggedIn") !== "true" || localStorage.getItem("name") === undefined || localStorage.getItem("email") === undefined || localStorage.getItem("name") === "" || localStorage.getItem("email") === "") {
         $window.location.href = "Login";
     }
