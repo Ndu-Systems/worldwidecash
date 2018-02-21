@@ -237,6 +237,8 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
                 $scope.pending = response.data[2].value;
                 $scope.pending_investment = response.data[3].value;
                 $scope.allocated = response.data[4].value;
+
+                $scope.keepableAmount =response.data[5].value;
                 localStorage.setItem("mybonus", $scope.bonus)
                 $scope.ShowDonateLink();
                 $scope.CountDown();

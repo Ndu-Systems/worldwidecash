@@ -14,7 +14,7 @@
 				</ul>
 			</div>
 			<div class="copyrightbottom">
-				<p>© 2018 WorldWideCash. All Rights Reserved</p>
+				<p>© 2018  Funders Life. All Rights Reserved</p>
 			</div>
 			<div class="clearfix"></div>
 		</div>

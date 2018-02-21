@@ -56,7 +56,7 @@
                <h3 class="wait">{{wait}}</h3>
            <div dir-paginate="investment in investments  |itemsPerPage:5" class="panel panel-default" style="margin:2%; padding:1%">
 			     <!-- PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING -->
-			   <div ng-if="investment.status == 'pending'" class="pending">
+			   <div ng-if="investment.status == 'Awaiting allocation'" class="pending">
 			    <div class="panel-heading" style="color:black; text-align:center">
 				<h3>You requested to provide help of R {{ investment.amountInvested }}</h3>
 				</div>

@@ -9,10 +9,15 @@ $amount    = $data->amount;
 $fromEmail = $data->email;
 $status = "Active";
 $nameFrom = "";
+$amountkeepable = "";
+if($amount>=1000){
+    $amountkeepable = ($amount * 0.5)."";
+}
 // 1. verify payment!
 $sql       = "
                 UPDATE  investment  SET     
-                 status = 'active'
+                 status = 'active',
+                 amountkeepable = '$amountkeepable'
                 WHERE id= $id         
                 ";
 if ($conn->query($sql) === TRUE) {
@@ -76,4 +81,5 @@ function GetNameFrom($conn,$fromEmail)
 	
 	return $nameFrom;
 }
+
 ?>

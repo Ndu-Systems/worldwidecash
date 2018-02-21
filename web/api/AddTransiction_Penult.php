@@ -15,8 +15,21 @@ if (isset($data->name) ){
                 VALUES ('$name', now(), '$user','$amount','$doc')";        
         
         if ($conn->query($sql) === TRUE) {
-			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1
-            echo 1;
+            // update user            
+            $sql = "
+            UPDATE  user  SET	 
+             userstatus = 'Pending-penalty-fee'
+            WHERE email= '$email' 		
+            ";								
+                            
+            if ($conn->query($sql) === TRUE) {
+                echo 1;
+            } else {
+            //echo 0;
+            }						
+                    
+
+            
         }
         else {
             //echo json_encode('failed');

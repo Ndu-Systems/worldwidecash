@@ -504,7 +504,7 @@
                             doc: doc
                         };
                         //name  user amount doc
-                        $http.post(GetApiUrl("AddTransiction"), data)
+                        $http.post(GetApiUrl("AddTransiction_Penult"), data)
                             .success(function (response, status) {
                                 if (response) {
                                     //send mail 

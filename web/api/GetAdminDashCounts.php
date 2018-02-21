@@ -7,10 +7,10 @@ $data = json_decode(file_get_contents("php://input"));
 
 $rows = array();
 //pendings
- $sql = "SELECT * FROM investment WHERE status = 'pending'";
+ $sql = "SELECT * FROM investment WHERE status = 'Awaiting allocation'";
 $result = $conn->query($sql);
 $counts = new Counts();
-$counts->key ="Pending";
+$counts->key ="Awaiting allocation";
 $counts->value =$result->num_rows ;
 $rows["data"][]= $counts;
 
@@ -45,7 +45,14 @@ $counts->key ="Users";
 $counts->value =$result->num_rows ;
 $rows["data"][]= $counts;
 
+//pending
 
+$sql = "SELECT * FROM user WHERE userstatus = 'Pending-penalty-fee'";
+$result = $conn->query($sql);
+$counts = new Counts();
+$counts->key ="Pending-penalty-fee";
+$counts->value =$result->num_rows ;
+$rows["data"][]= $counts;
 //paid
  $sql = "SELECT * FROM chat WHERE 1";
 $result = $conn->query($sql);

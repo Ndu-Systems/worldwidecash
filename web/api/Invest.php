@@ -8,7 +8,7 @@ $data = json_decode(file_get_contents("php://input"));
 if (isset($data->email) ){  
 $dateInvested   		=date("Y/m/d");
 $amountInvested        =$data->amount;
-$status               ="pending";
+$status               ="Awaiting allocation";
 $email= $data->email;
  $package= $data->peroid;
 $dream= $data->dream;
