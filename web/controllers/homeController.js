@@ -237,8 +237,8 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
                 $scope.pending = response.data[2].value;
                 $scope.pending_investment = response.data[3].value;
                 $scope.allocated = response.data[4].value;
-
                 $scope.keepableAmount =response.data[5].value;
+                $scope.amountkept =  response.data[6].value;
                 localStorage.setItem("mybonus", $scope.bonus)
                 $scope.ShowDonateLink();
                 $scope.CountDown();
@@ -668,4 +668,49 @@ app.controller('profileController', function($http, $scope, $window, $timeout) {
     };
 
 
+});
+app.controller('amountTokeepController', function($http, $scope, $window, $interval) {
+    $scope.email = localStorage.getItem("email");
+    $scope.name = localStorage.getItem("name");
+    $scope.mylink = localStorage.getItem("mylink");
+    $scope.showBonus = true;
+    $scope.bonus = parseFloat(localStorage.getItem("mybonus"));
+    $scope.GetBonus = function() {
+        var data = {
+            table: "investment",
+            condition: " email = '" + $scope.email + "' AND amountkeepable <> ''"
+        };
+        $http.post(GetApiUrl("Get"), data)
+            .success(function(response, status) {
+                $scope.bonuses = response.data;
+            });
+
+    }
+
+    $scope.CashOut = function() {
+        $scope.error = "";
+      
+            var data = {
+                email: $scope.email,
+                investemntId: 0,
+                amount: $scope.bonus,
+                name: $scope.name,
+                balance: $scope.bonus,
+                dream: "Amount Kept",
+                isBonus: true
+            };
+            $http.post(GetApiUrl("Withdraw_Tokeep"), data)
+                .success(function(response, status) {
+                    $scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
+                    $scope.showBonus = false;
+
+                    // notify
+                    $scope.msg = "Your request has been submitted, we will notify you as soon as allocation is found!";
+                    SendMail("noreply@funderslife.com", $scope.email, $scope.name, "Withdrawal Notification " + "Amount Kept", $scope.msg);
+                    $interval(function() {
+                        $window.location.href = "Amount-You-Can-Keep";
+                    }, 3000);
+                });
+       
+    }
 });

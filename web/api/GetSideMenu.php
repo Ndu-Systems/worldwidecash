@@ -83,6 +83,20 @@ $counts         = new Counts();
 $counts->key    = "keepableAmount";
 $counts->value  = $keepableAmount;
 $rows["data"][] = $counts;
+//get amount kept
+
+$sql            = "SELECT * FROM investment WHERE  email='$email' AND amountkept <> ''";
+$result         = $conn->query($sql);
+$amountkept = 0;
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+      $amountkept = $amountkept + $row["amountkept"];
+  }
+}
+$counts         = new Counts();
+$counts->key    = "amountkept";
+$counts->value  = $amountkept;
+$rows["data"][] = $counts;
 //end objects
 
 echo json_encode($rows);
