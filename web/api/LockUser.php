@@ -10,7 +10,7 @@ $data = json_decode(file_get_contents("php://input"));
            
 		   $sql = "
 				UPDATE  user  SET	 
-				 userstatus = 'locked'
+				 userstatus = 'active'
 				WHERE email= '$email' 		
 				";								
 								

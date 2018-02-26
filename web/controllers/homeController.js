@@ -240,6 +240,7 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
                 $scope.keepableAmount =response.data[5].value;
                 $scope.amountkept =  response.data[6].value;
                 localStorage.setItem("mybonus", $scope.bonus)
+                localStorage.setItem("keepableAmount", $scope.keepableAmount)
                 $scope.ShowDonateLink();
                 $scope.CountDown();
                 //alert($scope.members);
@@ -674,7 +675,7 @@ app.controller('amountTokeepController', function($http, $scope, $window, $inter
     $scope.name = localStorage.getItem("name");
     $scope.mylink = localStorage.getItem("mylink");
     $scope.showBonus = true;
-    $scope.bonus = parseFloat(localStorage.getItem("mybonus"));
+    $scope.bonus = parseFloat(localStorage.getItem("keepableAmount"));
     $scope.GetBonus = function() {
         var data = {
             table: "investment",
