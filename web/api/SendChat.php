@@ -1,4 +1,4 @@
- <?php
+<?php
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
@@ -13,29 +13,13 @@ $receiverName	=   $data->receiverName;
 $message			=  $data->messageBody;
 $clientId			=  $data->clientId;
 
-        $sql = "INSERT INTO chat (senderEmail ,  senderName ,  receiverEmail ,  receiverName  ,  timeSent,  message,clientId, status)
-                VALUES ('$senderEmail', '$senderName', '$receiverEmail', '$receiverName',NOW(),'$message','$clientId','unread')";        
-        
-        if ($conn->query($sql) === TRUE) {
-			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1
-			// make them read
-   $sql = "
-				UPDATE  chat  SET	 
-				 status = 'unread'
-				WHERE  `clientId`='$clientId'";	
-								
-				if ($conn->query($sql) === TRUE) {
-					//echo 1;
-				} else {
-				//echo 0;
-				}						
-					
-            echo 1;
-        }
-        else {
-            //echo json_encode('failed');
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }       
+$result = $conn->prepare("INSERT INTO chat (senderEmail ,  senderName ,  receiverEmail ,  receiverName  ,  timeSent,  message,clientId, status)
+                VALUES (?, ?,?,?,NOW(),?,?,?)"); 
+if($result->execute(array($senderEmail, $senderName, $receiverEmail, $receiverName,$message,$clientId,'unread'))){
+	$result2 = $conn->prepare("UPDATE  chat  SET	status =? WHERE  clientId=?"); 
+	echo $result2->execute(array('unread',$clientId));
+}
+      
         
  
 }

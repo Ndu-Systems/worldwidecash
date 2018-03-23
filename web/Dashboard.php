@@ -54,7 +54,7 @@
       <div class="panel-body">
         
                <h3 class="wait">{{wait}}</h3>
-           <div dir-paginate="investment in investments  |itemsPerPage:5" class="panel panel-default" style="margin:2%; padding:1%">
+           <div ng-repeat="investment in investments" class="panel panel-default" style="margin:2%; padding:1%">
 			     <!-- PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING -->
 			   <div ng-if="investment.status == 'Awaiting allocation'" class="pending">
 			    <div class="panel-heading" style="color:black; text-align:center">
@@ -75,7 +75,7 @@
 			    <!-- ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED -->
 			   <div ng-if="investment.status == 'allocated'" class="allocated">
 			    <div class="panel-heading" style=" color:black; text-align:center; margin-bottom:1%">
-				<h3>You have to make  of R {{ investment.amountInvested }} to {{ investment.keepername }}</h3>
+				<h3>You have to make payments  of R{{ investment.amountInvested }} to {{ investment.keepername }}</h3>
 				</div>
                   <div class="row">
 					  <div class="col-sm-4">

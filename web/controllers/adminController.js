@@ -34,7 +34,32 @@ app.controller('adminDashController', function($http, $scope, $window, $timeout)
         $window.location.href = "Select";
     }
 });
+app.controller('amountKeptController', function($http, $scope, $window, $timeout) {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        $window.location.href = "Login";
+    }
+	$scope.GetKeepers = function() {
+		
+        $timeout(function() {
+		
+		
+			
+				var data = {table:"investment", condition:" amountkept > 0 "}
+				 $http.post(GetApiUrl("Get"), data)
+                .success(function(response, status) {
+                    if (response !== undefined || response !== null) {
+                        $scope.investments = response.data;
+                        $scope.wait = "";
+                    } else {
+                        //   $scope.message = "Oops! Your username or password is incorrect please CHECK and try again.";
+                    }
 
+                });
+			
+           
+        }, 2000)
+    };
+});
 app.controller('selectController', function($http, $scope, $window, $timeout) {
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";
@@ -44,7 +69,10 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
     $scope.key = localStorage.getItem("key");
     $scope.wait = "Please wait...";
     $scope.GetInvestments = function() {
-if($scope.key ==="messages"){
+		if($scope.key ==="amount kept"){
+			$window.location.href = "Amount-Kept";
+		}
+		if($scope.key ==="messages"){
 				$window.location.href = "Messages";
 			}
         $timeout(function() {
@@ -92,7 +120,56 @@ if($scope.key ==="messages"){
        localStorage.setItem("userToDelete", user.id);
        localStorage.setItem("userToName", user.name);
       	$window.location.href = "Confirm";
-    }
+	}
+	$scope.ConfirmPayMentAdmin = function(investment){
+			let investmentId = investment.id;
+			let d = new Date();
+			let data = {
+			id: investmentId,
+			comment: "Payment verfied by Admin : "+ d
+		};
+		$http.post(GetApiUrl("VerifyPayMentAdmin"), data).success(function(data, status) {
+				alert("Payment verfied by Admin : " + d);
+				$window.location.href = "Admin-dashboard";
+			
+			
+		})
+	}
+	$scope.UnLock = function(user){
+let data = {
+	email: user.email
+}
+$http.post(GetApiUrl("UnlockUser"), data).success(function(data, status) {
+	if (parseInt(data) === 1) {
+		alert(user.name + " Unlocked");
+		$window.location.href = "Admin-dashboard";
+	
+	} else {
+		$scope.error = "Something went wrong, please try again.";
+	}
+})
+	$scope.UnLock = function(user){
+
+	}
+
+	}
+	$scope.Lock = function(user){
+		let data = {
+			email: user.email
+		}
+		$http.post(GetApiUrl("LockUser"), data).success(function(data, status) {
+			if (parseInt(data) === 1) {
+				alert(user.name + " Locked");
+				$window.location.href = "Admin-dashboard";
+			
+			} else {
+				$scope.error = "Something went wrong, please try again.";
+			}
+		})
+			$scope.UnLock = function(user){
+		
+			}
+	}
 });
 
 app.controller('confirmController', function($http, $scope, $window, $timeout) {

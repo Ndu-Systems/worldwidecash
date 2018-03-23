@@ -20,7 +20,7 @@ body {
     height: 100%;
     position: fixed;
     background: #ff000094;
-    z-index: 1000;
+    z-index: 5;
 	display:none;
 }
 .lock h1{

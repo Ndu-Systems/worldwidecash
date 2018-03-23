@@ -10,87 +10,87 @@ $email      = $data->email;
 $rows = array();
 
 //members
+
 if ($parentlink == "") {
     $parentlink = "none";
 }
-$sql            = "SELECT * FROM user WHERE parentlink = '$parentlink' AND isEmailVerified=1";
-$result         = $conn->query($sql);
+$query = $conn->prepare("SELECT * FROM user WHERE parentlink = ? AND isEmailVerified=?"); 
+$query->execute(array($parentlink, 1));
+
 $counts         = new Counts();
 $counts->key    = "members";
-$counts->value  = $result->num_rows;
-$rows["data"][] = $counts;
-
-
-
+$counts->value  = $query->rowCount();
+$rows["data"][] = $counts;    
 
 //bonus
-$sql         = "SELECT * FROM bonus WHERE email = '$email' and status ='active'";
-$result      = $conn->query($sql);
+$sql         = 
+$result      =$conn->prepare("SELECT * FROM bonus WHERE email = ? and status =?"); 
+$result->execute(array($email, 'active'));
 $counts      = new Counts();
 $counts->key = "bonus";
 $amount      = 0;
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $amount = $amount + $row["amount"];
+if ($result->rowCount() > 0) {
+    while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+        $amount = $amount + $row->amount;
     }
 }
 $counts->value  = $amount;
 $rows["data"][] = $counts;
 
 //Pending with draw
-
-$sql            = "SELECT * FROM withdraw WHERE email = '$email' and status ='pending'";
-$result         = $conn->query($sql);
+$result      =$conn->prepare("SELECT * FROM withdraw WHERE email = ? and status =?"); 
+$result->execute(array($email, 'pending'));
 $counts         = new Counts();
 $counts->key    = "pending";
-$counts->value  = $result->num_rows;
+$counts->value  = $result->rowCount();
 $rows["data"][] = $counts;
 
 //PENING INVESTMENTS
+$result      =$conn->prepare("SELECT * FROM investment WHERE  email=? AND status IN (?,?,?)"); 
+$result->execute(array($email,'Awaiting allocation','paid', 'allocated'));
 
-$sql            = "SELECT * FROM investment WHERE  email='$email' AND status IN ('Awaiting allocation','paid', 'allocated')";
-$result         = $conn->query($sql);
 $counts         = new Counts();
 $counts->key    = "pending_investment";
-$counts->value  = $result->num_rows;
+$counts->value  = $result->rowCount();
 $rows["data"][] = $counts;
 
-//PENING INVESTMENTS
+//ALLOCATED INVESTMENTS
+$result      =$conn->prepare("SELECT * FROM investment WHERE  email=? AND status =? "); 
+$result->execute(array($email, 'allocated'));
 
-$sql           = "SELECT * FROM investment WHERE  email='$email' AND status ='allocated'";
-$result        = $conn->query($sql);
 $counts        = new Counts();
 $counts->key   = "allocated";
 $timeallocated = "";
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $timeallocated = $row["timeallocated"];
+if ($result->rowCount() > 0) {
+    while ($row = $result->fetch(PDO::FETCH_OBJ)){
+        $timeallocated = $row->timeallocated;
     }
     $counts->value = $timeallocated;
 }
 $rows["data"][] = $counts;
 //get amount to keep
+$result      =$conn->prepare("SELECT * FROM investment WHERE  email=? AND amountkeepable <> ? "); 
+$result->execute(array($email, ''));
 
-$sql            = "SELECT * FROM investment WHERE  email='$email' AND amountkeepable <> ''";
-$result         = $conn->query($sql);
 $keepableAmount = 0;
-if ($result->num_rows > 0) {
-  while ($row = $result->fetch_assoc()) {
-      $keepableAmount = $keepableAmount + $row["amountkeepable"];
+if ($result->rowCount() > 0) {
+  while ($row = $result->fetch(PDO::FETCH_OBJ)){
+      $keepableAmount = $keepableAmount + $row->amountkeepable;
   }
 }
 $counts         = new Counts();
 $counts->key    = "keepableAmount";
 $counts->value  = $keepableAmount;
 $rows["data"][] = $counts;
-//get amount kept
 
-$sql            = "SELECT * FROM investment WHERE  email='$email' AND amountkept <> ''";
-$result         = $conn->query($sql);
+//get amount kept
+$result      =$conn->prepare("SELECT * FROM investment WHERE  email=? AND amountkept <> ?"); 
+$result->execute(array($email, ''));
+
 $amountkept = 0;
-if ($result->num_rows > 0) {
-  while ($row = $result->fetch_assoc()) {
-      $amountkept = $amountkept + $row["amountkept"];
+if ($result->rowCount() > 0) {
+   while ($row = $result->fetch(PDO::FETCH_OBJ)){
+      $amountkept = $amountkept +$row->amountkept;
   }
 }
 $counts         = new Counts();
@@ -104,7 +104,7 @@ echo json_encode($rows);
 
 
 
-$conn->close();
+//$conn->close();
 
 ?>
  <?php

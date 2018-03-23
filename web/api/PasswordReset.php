@@ -8,19 +8,15 @@ $data = json_decode(file_get_contents("php://input"));
 			  $password     = $data->password;              
 			  $email     = $data->email;              
                  
-           
-		   $sql = "
-				UPDATE  user  SET	 
-                 password ='$password'
-				WHERE email= '$email' 		
-				";								
-								
-				if ($conn->query($sql) === TRUE) {
-					echo 1;
-				} else {
-				//echo 0;
-				}						
 						
+					
+$result = $conn->prepare("UPDATE  user  SET	 
+                 password =?
+				WHERE email=?"); 
+if($result->execute(array($password,$email))){
+		echo 1;
+}				
+				
 ?>
 
 

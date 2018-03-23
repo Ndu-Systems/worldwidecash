@@ -11,29 +11,25 @@ $data = json_decode(file_get_contents("php://input"));
 			  $email  = $data->email;            
 			 
            
-		   $sql = "
-				UPDATE  withdraw  SET	 
-                 pendingbalance ='$pendingbalance'
+		  
 				
-				WHERE id= $id 		
-				";								
-								
-				if ($conn->query($sql) === TRUE) {
-					//echo 1;
-				} else {
-				//echo 0;
-				}
+				$result = $conn->prepare("UPDATE  withdraw  SET	 pendingbalance =? WHERE id= ?"); 
+				$result->execute(array($pendingbalance,$id));
+
 // update order with keeper's details	
- $sql = "SELECT * FROM user WHERE email= '$email'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-		 $keepername = $row['name'];
-		 $keeperemail = $row['email'];
-		 $keepercell = $row['cell'];
-		 $keeperacc = $row['accountnumber'];
-		 $keeperbrancode = $row['branch'];
-		 $keeperbankname = $row['bankname'];
+
+		
+		$result = $conn->prepare("SELECT * FROM user WHERE email= ?"); 
+		$result->execute(array($email));
+		
+		if ($result->rowCount() > 0) {
+			while($row=$result->fetch(PDO::FETCH_OBJ)) {
+				 $keepername = $row->name;
+				 $keeperemail = $row->email;
+				 $keepercell = $row->cell;
+				 $keeperacc = $row->accountnumber;
+				 $keeperbrancode = $row->branch;
+				 $keeperbankname = $row->bankname;
 		 
 		 // update invetement
 		  $sql = "
@@ -49,9 +45,19 @@ if ($result->num_rows > 0) {
 				
 				WHERE id= $orderId 		
 				";								
-								
-				if ($conn->query($sql) === TRUE) {
-					echo "
+				$result = $conn->prepare("UPDATE  investment  SET	 
+                 keepername =?,
+                 keeperemail =?,
+                 keepercell =?,
+                 keeperacc =?,
+                 keeperbrancode =?,
+                 keeperbankname =?,
+                 status =?,
+                 timeallocated =NOW() + INTERVAL 3 DAY
+				
+				WHERE id= ? 	"); 
+			if($result->execute(array($keepername,$keeperemail,$keepercell,$keeperacc,$keeperbrancode,$keeperbankname,'allocated',$orderId))){
+				echo "
 					<br><br>
 					------------------------------------------------------------------<br> <br> 
 					Account Holder Name: $keepername <br> 
@@ -67,7 +73,10 @@ if ($result->num_rows > 0) {
 
 					
 					";
-				} 
+			}	
+
+			
+				
 	}
 }			
 						

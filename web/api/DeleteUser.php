@@ -5,19 +5,13 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 require "conn.php";
 $data = json_decode(file_get_contents("php://input"));
 
-              $id     = $data->id; 
-			 
-		   $sql = "
-				DELETE FROM user 
-				WHERE id= $id		
-				";								
-								
-				if ($conn->query($sql) === TRUE) {
-					echo 1;
-				} else {
-				//echo 0;
-				}						
-						
+$id     = $data->id; 
+$result = $conn->prepare("DELETE FROM user 
+				WHERE id= ?"); 
+if($result->execute(array($id))){
+	echo 1;
+}	
+					
 ?>
 
 

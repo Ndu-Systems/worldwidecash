@@ -10,28 +10,23 @@ $clientId = $data->clientId;
 $rows = array();
  $sql = "SELECT * FROM `chat` WHERE  `clientId`='$clientId'";
 
- //$sql = "SELECT * FROM chat WHERE senderName ='$email' OR receiverEmail ='$email' ";
+$result = $conn->prepare("SELECT * FROM chat WHERE  clientId=?"); 
+$result->execute(array($clientId));
 
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+if ($result->rowCount() > 0) {
+  while($row=$result->fetch(PDO::FETCH_OBJ)) {
 		$rows["data"][]= $row;
 	}
 }
 
 // make them read
-   $sql = "
-				UPDATE  chat  SET	 
+$result = $conn->prepare("UPDATE  chat  SET	 
 				 status = 'read'
-				WHERE  `clientId`='$clientId'";	
-								
-				if ($conn->query($sql) === TRUE) {
-					//echo 1;
-				} else {
-				//echo 0;
-				}						
-						
+				WHERE  clientId=?"); 
+$result->execute(array($clientId));
+
+   	
 echo json_encode($rows);
-$conn->close();
+//$conn->close();
 
 ?>

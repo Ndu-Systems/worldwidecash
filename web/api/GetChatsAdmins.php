@@ -8,18 +8,17 @@ $data = json_decode(file_get_contents("php://input"));
 //$email = $data->email;
 
 $rows = array();
- $sql = "SELECT senderName,senderEmail,status,clientId,receiverEmail,receiverName,message FROM `chat` GROUP BY senderEmail  ORDER BY id DESC";
- 
- //$sql = "SELECT * FROM chat WHERE senderName ='$email' OR receiverEmail ='$email' ";
+ $sql = "SELECT senderName,senderEmail,status,clientId,receiverEmail,receiverName,message FROM chat GROUP BY senderEmail  ORDER BY id DESC";
+ $result = $conn->prepare($sql); 
+$result->execute(array());
 
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+if ($result->rowCount() > 0) {
+    while($row=$result->fetch(PDO::FETCH_OBJ)) {
 		$rows["data"][]= $row;
 	}
 }
 
 echo json_encode($rows);
-$conn->close();
+//$conn->close();
 
 ?>

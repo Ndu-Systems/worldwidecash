@@ -9,31 +9,35 @@ $data = json_decode(file_get_contents("php://input"));
 
 $email = $data->email;
 $rows = array();
- $sql = "SELECT * FROM investment WHERE email = '$email' ORDER BY id desc ";
- //$sql = "SELECT * FROM investment WHERE id=4";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+
+$result = $conn->prepare("SELECT * FROM investment WHERE email = ? ORDER BY id desc"); 
+$result->execute(array($email));
+
+if ($result->rowCount() > 0) {
+   while($row=$result->fetch(PDO::FETCH_OBJ)) {
 		// cal months
 		$amount =0;
-		$expectedAmount = $row["amountInvested"];
-		$due_date = new DateTime($row["dateInvested"]);
-		$due_expecedDate = new DateTime($row["expecedDate"]);
+		$expectedAmount = $row->amountInvested;
+		$due_date = new DateTime( $row->dateInvested);
+		$due_expecedDate = new DateTime( $row->expecedDate);
 		$today = new DateTime();
 		$months = $due_date->diff($due_expecedDate);
 		 $diff = $months->m;
-		if($diff >0){
+		//echo "<br> .................................";
+		//if($diff >0){
 			
-			for( $i =1; $i< $diff; $i++){
-				$expectedAmount= $expectedAmount*1.8;
+			for( $i =0; $i< $row->package; $i++){
+				//echo $i, "  count" , "<br>";
+				 $expectedAmount= $expectedAmount*1.8;
 			}
-		}
+			//echo "________________________________";
+		//}
 		// cal days
 		$amount =0;
-		$amount = $row["amountInvested"];
+		$amount =  $row->amountInvested;
 		
 		$now = time();
-		$your_date = strtotime($row["dateInvested"]);
+		$your_date = strtotime( $row->dateInvested);
 		$datediff = $now - $your_date;
 		$diff1 = round($datediff / (60 * 60 * 24));
 		if($diff1 >0){
@@ -45,32 +49,31 @@ if ($result->num_rows > 0) {
 		// cal  hours rmaining
 		$date = strtotime("+1 day");
 		$the_time= date("Y-m-d H:i:s", $date);
-		 $remainingTime = G3($row["timeallocated"],$the_time);
+		 $remainingTime = G3( $row->timeallocated,$the_time);
 		//endcal
 		
 	
 		
 		//create on
-		//$investment = new Investment($row["id"] , $row["dateInvested"], $row["amountInvested"], $row["status"], $row["doc"], $row["email"], $amount);
 		$investment = new Investment();
-		$investment->id = $row["id"];
-		$investment->dateInvested = $row["dateInvested"];
-		$investment->amountInvested = $row["amountInvested"];
-		$investment->status = $row["status"];
-		$investment->doc =  $row["doc"];
-		$investment->email = $row["email"];
-		$investment->package = $row["package"];
-		$investment->dream = $row["dream"];
-		$investment->keepername = $row["keepername"];
-		$investment->keeperemail = $row["keeperemail"];
-		$investment->keepercell = $row["keepercell"];
-		$investment->keeperacc = $row["keeperacc"];
-		$investment->keeperbrancode = $row["keeperbrancode"];
-		$investment->keeperbankname = $row["keeperbankname"];
-		$investment->timeallocated = $row["timeallocated"];
-		$investment->expecedDate = $row["expecedDate"];
+		$investment->id =  $row->id;
+		$investment->dateInvested =  $row->dateInvested;
+		$investment->amountInvested =  $row->amountInvested;
+		$investment->status =  $row->status;
+		$investment->doc =   $row->doc;
+		$investment->email =  $row->email;
+		$investment->package =  $row->package;
+		$investment->dream =  $row->dream;
+		$investment->keepername =  $row->keepername;
+		$investment->keeperemail =  $row->keeperemail;
+		$investment->keepercell =  $row->keepercell;
+		$investment->keeperacc =  $row->keeperacc;
+		$investment->keeperbrancode =  $row->keeperbrancode;
+		$investment->keeperbankname =  $row->keeperbankname;
+		$investment->timeallocated =  $row->timeallocated;
+		$investment->expecedDate =  $row->expecedDate;
 		$investment->expectedAmount = ceil($expectedAmount);
-		$investment->datepaid = $row["datepaid"];
+		$investment->datepaid =  $row->datepaid;
 		$investment->amount = ceil($amount);
 		$investment->remainingTime = $remainingTime;
 		//end create ob
@@ -99,7 +102,7 @@ function GetDiffinHoursAndMins2($allcation_time,$the_time ){
 	return date('m/d/Y H:i:s', $timestamp1);
 }
 echo json_encode($rows);
-$conn->close();
+//$conn->close();
 
 ?>
   <?php

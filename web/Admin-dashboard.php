@@ -4,11 +4,7 @@ require 'nav3.php';
 ?>
     <!--//top-bar-w3-agile-->
     </div>
-    <!--/inner_banner-->
-    <div class="inner_banner">
-    </div>
-    <!--//inner_banner-->
-    <!--/short-->
+  
     <div class="services-breadcrumb">
         <div class="inner_breadcrumb">
 

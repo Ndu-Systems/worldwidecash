@@ -8,19 +8,23 @@ $data = json_decode(file_get_contents("php://input"));
 			  $email     = $data->email;               
                  
            
-		   $sql = "
-				UPDATE  user  SET	 
-				 userstatus = 'active'
-				WHERE email= '$email' 		
-				";								
-								
-				if ($conn->query($sql) === TRUE) {
-					echo 1;
-				} else {
-				//echo 0;
-				}						
-						
+		 						
+					
+$result = $conn->prepare("UPDATE  user  SET	 
+				 userstatus =?
+				WHERE email= ?"); 
+if($result->execute(array('locked',$email))){
+	//echo 1;
+}					
 
+$result = $conn->prepare("UPDATE  investment  SET	 
+				status = ?
+				WHERE email= ?"); 
+if($result->execute(array('pending',$email))){
+	echo 1;
+}					
+										
+				
 ?>
 
 

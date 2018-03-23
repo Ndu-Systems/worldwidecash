@@ -7,66 +7,90 @@ $data = json_decode(file_get_contents("php://input"));
 
 $rows = array();
 //pendings
- $sql = "SELECT * FROM investment WHERE status = 'Awaiting allocation'";
-$result = $conn->query($sql);
+$result = $conn->prepare("SELECT * FROM investment WHERE status = ?"); 
+$result->execute(array('Awaiting allocation'));
+
 $counts = new Counts();
 $counts->key ="Awaiting allocation";
-$counts->value =$result->num_rows ;
+$counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
 
 //active
- $sql = "SELECT * FROM investment WHERE status = 'active'";
-$result = $conn->query($sql);
+$result = $conn->prepare("SELECT * FROM investment WHERE status = ?"); 
+$result->execute(array('active'));
+
 $counts = new Counts();
 $counts->key ="Active";
-$counts->value =$result->num_rows ;
+$counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
 
 //allocated
- $sql = "SELECT * FROM investment WHERE status = 'allocated'";
-$result = $conn->query($sql);
+
+$result = $conn->prepare("SELECT * FROM investment WHERE status = ?"); 
+$result->execute(array('allocated'));
+
+
 $counts = new Counts();
 $counts->key ="Allocated";
-$counts->value =$result->num_rows ;
+$counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
 
 //paid
- $sql = "SELECT * FROM investment WHERE status = 'paid'";
-$result = $conn->query($sql);
+$result = $conn->prepare("SELECT * FROM investment WHERE status = ?"); 
+$result->execute(array('paid'));
+
 $counts = new Counts();
 $counts->key ="Paid";
-$counts->value =$result->num_rows ;
+$counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
-//paid
- $sql = "SELECT * FROM user WHERE role <> 'admin'";
-$result = $conn->query($sql);
+
+//users 
+ 
+$result = $conn->prepare("SELECT * FROM user WHERE role <> ?"); 
+$result->execute(array('admin'));
+
 $counts = new Counts();
 $counts->key ="Users";
-$counts->value =$result->num_rows ;
+$counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
 
-//pending
+//Pending-penalty-fee
 
-$sql = "SELECT * FROM user WHERE userstatus = 'Pending-penalty-fee'";
-$result = $conn->query($sql);
+$result = $conn->prepare("SELECT * FROM user WHERE userstatus =?"); 
+$result->execute(array('Pending-penalty-fee'));
+
+
 $counts = new Counts();
 $counts->key ="Pending-penalty-fee";
-$counts->value =$result->num_rows ;
+$counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
-//paid
- $sql = "SELECT * FROM chat WHERE 1";
-$result = $conn->query($sql);
+
+//Messages
+$result = $conn->prepare("SELECT * FROM chat WHERE ?"); 
+$result->execute(array(1));
+
+
 $counts = new Counts();
 $counts->key ="Messages";
-$counts->value =$result->num_rows ;
+$counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
+
+// amount kept  amountkept
+$result = $conn->prepare("SELECT * FROM investment WHERE amountkept > ?"); 
+$result->execute(array(0));
+
+$counts = new Counts();
+$counts->key ="Amount Kept";
+$counts->value =$result->rowCount() ;
+$rows["data"][]= $counts;
+
 
 echo json_encode($rows);
 
 
 
 
-$conn->close();
+//$conn->close();
 
 ?>
   <?php

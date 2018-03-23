@@ -1,23 +1,4 @@
 <?php
- $isLocal = true;
-$servername = "127.0.0.1";
-$username = "quunivn_main";
-$password = "Harder01!";
-$dbname = "quunivn_worldwidecash";
-
-if($isLocal){
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "worldwidecash"; 
- }
-
-
-
-$conn = new mysqli($servername, $username, $password,$dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-
+  //$conn = new PDO('mysql:host=127.0.0.1;dbname=quunivn_worldwidecash','quunivn_main','Harder01!');
+ $conn = new PDO('mysql:host=localhost;dbname=worldwidecash','root','');
 ?>

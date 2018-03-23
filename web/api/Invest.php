@@ -14,23 +14,13 @@ $email= $data->email;
 $dream= $data->dream;
 $name= $data->name;
 $cell= $data->cell;
-
-        $sql = "INSERT INTO investment (dateInvested, amountInvested, status,email,package,name,dream,expecedDate,cell)
-                VALUES (NOW(), '$amountInvested', '$status', '$email', '$package','$name','$dream',NOW() + INTERVAL $package*30 DAY, '$cell')";        
-        
-        if ($conn->query($sql) === TRUE) {
-			//SELECT * FROM Table ORDER BY ID DESC LIMIT 1
-            echo 1;
-        }
-        else {
-            //echo json_encode('failed');
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }       
-        
  
+$result = $conn->prepare("INSERT INTO investment (dateInvested, amountInvested, status,email,package,name,dream,expecedDate,cell)
+                VALUES (NOW(), ?, ?, ?, ?,?,?,NOW() + INTERVAL $package*30 DAY, ?)"); 
+if($result->execute(array($amountInvested, $status, $email, $package,$name,$dream,$cell))){
+	echo 1;
+}				
 }
- else {
 
-	echo json_encode( "500");
-}
+ 
 ?>

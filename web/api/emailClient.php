@@ -11,7 +11,7 @@ $name = $data->name;
 
 $to = $data->emailTo.",mrnnmthembu@gmail.com";
 //$to = "mrnnmthembu@gmail.com";
-$subject = "World Wide Cash";
+$subject = "Funders life";
 
 echo $message = "
 <p>
@@ -20,7 +20,8 @@ Hello ".$name.", <br><br>"
 .$msg."<br><br>
 
 Regards<br>
-Funders<font color='green'>Life</font>
+<h3>Funders<font color='green'>Life</font></h3>
+
 </p>
 ";
 

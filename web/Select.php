@@ -105,7 +105,6 @@
 				</div>
                </div>   
 			   <!-- ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED - ALLOCATED -->
-			   
 			     <!-- PAID - PAID - PAID - PAID - PAID - PAID - PAID - PAID - PAID - PAID - PAID -->
 			   <div ng-if="investment.status == 'paid'">
 			    <div class="panel-heading" style="background:#f1c40f; color:black; text-align:center">
@@ -116,11 +115,23 @@
 					  Date: <b>{{ investment.dateInvested }}</b> <br>
 					  Status: <b>Pending payment confirmation</b> <br>
 					  Date: <b>{{ investment.dateInvested }}</b> <br>
+
+					   Keeper email: <b>{{ investment.keeperemail }}</b> <br>
+					   Keeper name: <b>{{ investment.keepername }}</b> <br>
+					   Keeper cell: <b>{{ investment.keepercell }}</b> <br>
+					   <hr>
+					  <h3> Payment From</h3>
+					  Name : {{investment.name}} <br>
+					  Email : {{investment.email}} <br>
+					  Cell : {{investment.cell}} <br>
 					  </div>
 					  <div class="col-sm-4">  </div>
 					  <div class="col-sm-4">
 						<h4><a ng-href="{{investment.doc}}" target="_blank">Proof of payment</a></h4>
 						<h5>{{investment.datepaid}}</h5>
+						<h3>
+						<button ng-click="ConfirmPayMentAdmin(investment)">Confirm payment</button>
+						</h3>
 					  </div>
 				</div>
                </div>   
@@ -144,8 +155,8 @@
 					  </div>
 					  <div class="col-sm-4"> 
 						Mature Date: <b>{{ investment.expecedDate }}</b> <br>
-						Today's Amount: <b>R {{ investment.amount }}</b> <br>
-						  Amount on Mature: <b>R {{ investment.expectedAmount }}</b> <br>
+						Comment: <b>{{ investment.comment }}</b> <br>
+						
 						
  					  </div>
 				</div>

@@ -8,7 +8,6 @@
 	
 		<div class="lock"> <h1>User Locked! <br>
 		<a href="Logout"><span class="glyphicon glyphicon-off"></span> Logout</a> <br>
-		<a href="Unlock"><span class="glyphicon glyphicon-off"></span> Unlock</a>
 		</h1></div>
 	<script type="application/x-javascript">
 		addEventListener("load", function () {

@@ -9,14 +9,17 @@ $table = $data->table;
 $condition=$data->condition;
 $rows = array();
  $sql = "SELECT * FROM $table WHERE $condition";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+ 
+ $result = $conn->prepare("SELECT * FROM $table WHERE $condition"); 
+$result->execute(array());
+
+if ($result->rowCount() > 0) {
+while($row=$result->fetch(PDO::FETCH_OBJ)) {
 		$rows["data"][]= $row;
 	}
 }
 
 echo json_encode($rows);
-$conn->close();
+//$conn->close();
 
 ?>

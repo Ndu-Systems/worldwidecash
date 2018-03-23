@@ -96,7 +96,7 @@
             }
 
             //send mail
-            $http.post("http://ndu-systems.net/demo/worldwidecash2/api/emailClient.php", maildata)
+            $http.post("https://www.funderslife.com/api/emailClient.php", maildata)
                 .success(function (response, status) {
                     console.log("Email sent");
                 });

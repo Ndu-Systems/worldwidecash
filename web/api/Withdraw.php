@@ -14,44 +14,34 @@ if (isset($data->email)) {
     $isBonus        = $data->isBonus;
     $status         = "pending";
     $pendingbalance = "--";
-    //`amount`, `package`, `createdate`, `email`, `donneremail`, `status`, `investemntId`, `name`, `balance`, `pendingbalance`
     
-    $sql = "INSERT INTO withdraw (amount  ,  createdate ,  email  ,  status ,  investemntId, name,balance,pendingbalance,dream )
-                VALUES ('$amount', NOW(), '$email','$status', $investemntId,'$name','$amount','$pendingbalance','$dream')";
     
-    if ($conn->query($sql) === TRUE) {
-        //SELECT * FROM Table ORDER BY ID DESC LIMIT 1
-        // echo 1;
-    } else {
-        //echo json_encode('failed');
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+	$result = $conn->prepare("INSERT INTO withdraw (amount  ,  createdate ,  email  ,  status ,  investemntId, name,balance,pendingbalance,dream )
+                VALUES (?, NOW(), ?,?,?,?,?,?,?)"); 
+$result->execute(array($amount,$email,$status,$investemntId,$name,$amount,$pendingbalance,$dream));
+
     // update investment
-    $sql = "
+   
+				$result = $conn->prepare("
                 UPDATE  investment  SET     
-                 status ='pending-withdrawal'
-                WHERE id= $investemntId         
-                ";
-    
-    if ($conn->query($sql) === TRUE) {
-        //echo 1;
-    } else {
-        //echo 0;
-    }
-    
-    // update bonus
+                 status =?
+                WHERE id= ?"); 
+$result->execute(array('pending-withdrawal',$investemntId ));
+   
     if ($isBonus) {
         $sql = "
                 UPDATE  bonus  SET     
                  status ='pending-withdrawal'
                 WHERE email= '$email'         
                 ";
+				
+				$result = $conn->prepare(" UPDATE  bonus  SET     
+                 status =?
+                WHERE email= ? "); 
+	if($result->execute(array('pending-withdrawal',$email))){
+		  echo 1;
+	}
         
-        if ($conn->query($sql) === TRUE) {
-            echo 1;
-        } else {
-            //echo 0;
-        }
     }
     
 } else {

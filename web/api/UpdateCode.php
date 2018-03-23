@@ -8,18 +8,10 @@ $data = json_decode(file_get_contents("php://input"));
 			  $code     = $data->code;              
 			  $email     = $data->email;              
                  
-           
-		   $sql = "
-				UPDATE  user  SET	 
-                 code =$code
-				WHERE email= '$email' 		
-				";								
-								
-				if ($conn->query($sql) === TRUE) {
+$result = $conn->prepare("UPDATE  user  SET	 code =? WHERE email= ?"); 
+if($result->execute(array($code,$email))){
 					echo 1;
-				} else {
-				//echo 0;
-				}						
+} 				
 						
 ?>
 

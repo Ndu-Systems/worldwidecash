@@ -13,20 +13,15 @@ $data = json_decode(file_get_contents("php://input"));
 			  $email     = $data->email;              
                  
            
-		   $sql = "
-				UPDATE  user  SET	 
-                 bankname ='$bankname',
-                 accountnumber ='$accountnumber',
-                 branch ='$branch',
-				 accountType = '$accountType'
-				WHERE email= '$email' 		
-				";								
-								
-				if ($conn->query($sql) === TRUE) {
-					echo 1;
-				} else {
-				//echo 0;
-				}						
+$result = $conn->prepare("
+UPDATE  user  SET	 
+                 bankname =?,
+                 accountnumber =?,
+                 branch =?,
+				 accountType = ?
+				WHERE email= ? 
+"); 
+echo $result->execute(array($bankname,$accountnumber,$branch,$accountType,$email));				
 						
 ?>
 

@@ -8,20 +8,15 @@ $data = json_decode(file_get_contents("php://input"));
               $id       = $data->id; 
               $doc       = $data->doc; 
 			 
-           
-		   $sql = "
-				UPDATE  investment  SET	 
-                 doc ='$doc',
+$result = $conn->prepare("UPDATE  investment  SET	 
+                 doc =?,
 				 datepaid = NOW(),
-				 status = 'paid'
-				WHERE id= $id 		
-				";								
-								
-				if ($conn->query($sql) === TRUE) {
-					echo 1;
-				} else {
-				//echo 0;
-				}						
+				 status =?
+				WHERE id= ? "); 
+if($result->execute(array($doc,'paid',$id))){
+	echo 1;
+}	
+				
 						
 ?>
 

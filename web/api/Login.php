@@ -8,17 +8,17 @@ $data = json_decode(file_get_contents("php://input"));
 $email = $data->email;
 $pass  = $data->password;
 $rows = array();
+//PDO PDO PDO  PDO PDO  PDO PDO  PDO PDO  PDO PDO  PDO PDO  PDO PDO  PDO PDO 
+$query = $conn->prepare("SELECT * FROM user WHERE email=? AND password =?"); 
+$query->execute(array($email, $pass));
 
-$sql = "SELECT * FROM user WHERE email='$email' AND password ='$pass'";
-
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $rows["user"][] = $row;
-    }
+while($row=$query->fetch(PDO::FETCH_OBJ)) {
+    $rows["user"][] = $row;
 }
+
+// PDO PDO  PDO PDO  PDO PDO  PDO PDO  PDO PDO  PDO PDO  PDO PDO  PDO PDO 
+
 echo json_encode($rows);
-$conn->close();
 
 
 ?>

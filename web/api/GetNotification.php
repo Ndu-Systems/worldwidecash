@@ -7,15 +7,18 @@ $data = json_decode(file_get_contents("php://input"));
 $email= $data->email;
 
 $rows = array();
- $sql = "SELECT * FROM investment WHERE keeperemail = '$email' AND status='paid'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+
+
+$result = $conn->prepare("SELECT * FROM investment WHERE keeperemail = ? AND status=? "); 
+$result->execute(array($email,'paid'));
+
+if ($result->rowCount() > 0) {
+   while($row=$result->fetch(PDO::FETCH_OBJ)) {
 		$rows["data"][]= $row;
 	}
 }
 
 echo json_encode($rows);
-$conn->close();
+//$conn->close();
 
 ?>

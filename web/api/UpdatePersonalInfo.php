@@ -12,22 +12,19 @@ $data = json_decode(file_get_contents("php://input"));
 			  $city     = $data->city;               
 			  $email     = $data->email;               
                  
-           
-		   $sql = "
-				UPDATE  user  SET	 
-				 cell = '$cell', 
-				 address ='$address',
-                 idnum ='$idnum',
-                 country ='$country',
-                 city ='$city'
-				WHERE email= '$email' 		
-				";								
-								
-				if ($conn->query($sql) === TRUE) {
-					echo 1;
-				} else {
-				//echo 0;
-				}						
+           								
+			$result = $conn->prepare("
+			UPDATE  user  SET	 
+				 cell = ?, 
+				 address =?,
+                 idnum =?,
+                 country =?,
+                 city =?
+				WHERE email= ?
+			"); 
+if($result->execute(array($cell,$address,$idnum,$country,$city,$email))){
+	echo 1;
+}		
 						
 
 ?>
