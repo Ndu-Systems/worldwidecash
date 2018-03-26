@@ -1,3 +1,4 @@
+<link href="slider.css" rel='stylesheet' type='text/css' />
   <div class="col-sm-3 sidemenu" ng-controller="sideMenu" ng-init="GetSideItems()">
     <h1 class="usericon">
         <span class="glyphicon glyphicon-user"></span>
@@ -8,6 +9,22 @@
           <a href="My-Profile"> <button type="button" class="btn btn-info">My Profile</button></a>
 
     </h1>
+  <div class="keeper">
+  <div class="container" style="width:100%">
+  <div class="jumbotron">
+   <p>Do you want to be a keeper?</p>
+   <label class="switch">
+  <input type="checkbox" ng-checked="keeperChecked"  ng-model="isNGAkeeper"  ng-change="KeeperCheckChanged()">
+  <span class="slider round"></span>
+</label>
+  </div>
+ 
+</div>
+
+
+
+
+  </div>
 
     <div class="container">
     <!-- Trigger the modal with a button -->

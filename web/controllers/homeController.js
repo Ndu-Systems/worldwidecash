@@ -223,6 +223,13 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
     $scope.email = localStorage.getItem("email");
     $scope.name = localStorage.getItem("name");
     $scope.mylink = localStorage.getItem("mylink");
+    $scope.isAkeeper = localStorage.getItem("isAkeeper");
+    if(parseInt( $scope.isAkeeper)===1){
+        $scope.keeperChecked = true;        
+    }else{
+        $scope.keeperChecked = false;
+   }
+    
     $scope.showTime = false;
 
     $scope.GetSideItems = function() {
@@ -351,7 +358,25 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
     $interval(function() {
         $scope.GetChats();
     }, 1000);
+// I want to be  a keeper
+$scope.KeeperCheckChanged = function(){
+   
+    let data= {};
+    if($scope.isNGAkeeper){
+        data = {
+            email: $scope.email,
+            isAkeeper : 1
+        };
+    }else{
+        data = {
+            email: $scope.email,
+            isAkeeper : 0
+        };
+    }
 
+    //update keeper flag
+    alert(data.isAkeeper);
+}
 
 });
 

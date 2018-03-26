@@ -295,6 +295,7 @@
                             localStorage.setItem("userstatus", user.userstatus);
                             localStorage.setItem("city", user.city);
                             localStorage.setItem("country", user.country);
+                            localStorage.setItem("isAkeeper", user.isAkeeper);
 
                             localStorage.setItem("isLoggedIn", true);
                             if (user.role === "admin") {
