@@ -375,7 +375,10 @@ $scope.KeeperCheckChanged = function(){
     }
 
     //update keeper flag
-    alert(data.isAkeeper);
+    $http.post(GetApiUrl("UpdateKeeperFlag"), data)
+    .success(function (response, status) {
+       // alert(response)
+    });
 }
 
 });
