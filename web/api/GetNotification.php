@@ -14,7 +14,7 @@ $result->execute(array($email,'paid'));
 
 if ($result->rowCount() > 0) {
    while($row=$result->fetch(PDO::FETCH_OBJ)) {
-		$rows["data"][]= $row;
+		$rows["data"][]= $row; 
 	}
 }
 

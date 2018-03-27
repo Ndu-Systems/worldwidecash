@@ -74,7 +74,14 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
 		}
 		if($scope.key ==="messages"){
 				$window.location.href = "Messages";
-			}
+		}
+		if($scope.key ==="keepers"){
+			$window.location.href = "Keepers";
+	}
+
+	if($scope.key ==="withdrawals"){
+		$window.location.href = "Withdrawals";
+}
         $timeout(function() {
 		
 			if( $scope.key ==="users"){
@@ -122,16 +129,25 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
       	$window.location.href = "Confirm";
 	}
 	$scope.ConfirmPayMentAdmin = function(investment){
+		console.log(investment);
 			let investmentId = investment.id;
 			let d = new Date();
 			let data = {
 			id: investmentId,
+			amount: investment.amountInvested,
+			email:investment.email,
 			comment: "Payment verfied by Admin : "+ d
 		};
 		$http.post(GetApiUrl("VerifyPayMentAdmin"), data).success(function(data, status) {
 				alert("Payment verfied by Admin : " + d);
 				$window.location.href = "Admin-dashboard";
+			/*
 			
+			nvestment`(`id`, `dateInvested`, `amountInvested`, `status`, `doc`, `email`, `package`,
+			 `dream`, `name`, `keeperemail`, `keepername`, `keepercell`, `keeperacc`, `keeperbrancode`, 
+			`keeperbankname`, `timeallocated`, `datepaid`, `expecedDate`, `cell`, `amountkept`, 
+			`amountkeepable`, `amount_requested_to_keep`, `comment`, `isAkeeper`) 
+			*/
 			
 		})
 	}
@@ -405,4 +421,127 @@ app.controller('CreateAllocationController', function($http, $scope, $window, $t
 	}
 	};
 	
+});
+
+app.controller('keepersController', function($http, $scope, $window, $timeout) {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        $window.location.href = "Login";
+    }
+
+	// get users list 
+	$scope.GetKeepers = function(){
+	  $timeout(function() {
+			 $http.post(GetApiUrl("GetKeepers"), {})
+                .success(function(response, status) {
+					if(response !== undefined){
+						$scope.investments = response.data;
+						
+					}
+                   console.log(response);
+                });
+			
+			
+		
+        }, 500)
+	};
+
+	$scope.MoreOptions = function(investment){
+		localStorage.setItem("keep_id", investment.id);
+		localStorage.setItem("keep_amountkeepable", investment.amountkeepable);
+		localStorage.setItem("keep_name", investment.name);
+		localStorage.setItem("keep_email", investment.email);
+		$window.location.href = "Allocate-Funds-To-Keep";
+	}
+
+});
+app.controller('allocateFundsToKeepController', function($http, $scope, $window, $timeout) {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        $window.location.href = "Login";
+    }
+$scope.id = localStorage.getItem("keep_id");
+$scope.amountkeepable = localStorage.getItem("keep_amountkeepable");
+$scope.name = localStorage.getItem("keep_name");
+$scope.email = localStorage.getItem("keep_email");
+
+$scope.Allocate = function(){
+	$scope.error= undefined;
+	if($scope.amount_requested_to_keep && $scope.amount_requested_to_keep <= $scope.amountkeepable  ){
+		let data = {
+			amount_requested_to_keep:$scope.amount_requested_to_keep,
+			id: $scope.id
+		}
+
+		$http.post(GetApiUrl("AllocateAmountToKeep"),data)
+		.success(function(response, status) {
+			if(response !== undefined){
+				let subject = "You have been allocated to keep funds";
+				let msg = `You have been allocated to keep funds of R ${$scope.amount_requested_to_keep}. Please confirm the payment as soon as you receive it.`;
+				SendMail("no-reply@funderslife.com",$scope.email ,$scope.name,subject,msg);
+				// Create withdrwal
+				$scope.CreateWithDrawalForFundKeepings();
+			}
+		  
+		});
+	
+	}else{
+		$scope.error = "Opps that amount is no valid!";
+	}
+}
+
+
+$scope.CreateWithDrawalForFundKeepings = function() {
+	$scope.error = "";
+
+		var data = {
+			email: $scope.email,
+			investemntId: 0,
+			amount: $scope.amount_requested_to_keep,
+			name: $scope.name,
+			balance: $scope.amount_requested_to_keep,
+			dream: "You have been allocated to keep funds",
+			isBonus: false
+		};
+		$http.post(GetApiUrl("Withdraw"), data)
+			.success(function(response, status) {
+				alert(`Allocation to keep funds of R ${ $scope.amount_requested_to_keep} created!`);
+				$window.location.href = "Admin-dashboard";
+			});
+	
+}
+});
+
+app.controller('withdrawalsController', function($http, $scope, $window, $timeout) {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        $window.location.href = "Login";
+    }
+
+	// get users list 
+	$scope.GetWithdrawals = function(){
+		let data = {
+			table:"withdraw",
+			condition : " 1 "
+		}
+	  $timeout(function() {
+			 $http.post(GetApiUrl("Get"), data)
+                .success(function(response, status) {
+					if(response !== undefined){
+						$scope.withdrawals= response.data;
+						
+					}
+                   console.log(response);
+                });
+			
+			
+		
+        }, 500)
+	};
+
+	$scope.MoreOptions = function(investment){
+		localStorage.setItem("keep_id", investment.id);
+		localStorage.setItem("keep_amountkeepable", investment.amountkeepable);
+		localStorage.setItem("keep_name", investment.name);
+		localStorage.setItem("keep_email", investment.email);
+		$window.location.href = "Allocate-Funds-To-Keep";
+	}
+
 });

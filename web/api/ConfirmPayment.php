@@ -9,6 +9,7 @@ $amount         = $data->amount;
 $fromEmail      = $data->email;
 $status         = "Active";
 $nameFrom       = "";
+
 $amountkeepable = "";
 if ($amount >= 1000) {
     $amountkeepable = ($amount * 0.5) . "";
@@ -28,7 +29,7 @@ $result = $conn->prepare("SELECT * FROM investment WHERE email = ? ");
 $result->execute(array(
     $email
 ));
-
+ 
 
 if ($result->rowCount() == 1) {
     // give a 10% bonus

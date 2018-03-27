@@ -22,6 +22,7 @@ require 'nav3.php';
         <th>Amount</th>
         <th>Balance</th>
         <th>Pending Balance</th>
+        <th>Dream/Notes</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -32,6 +33,7 @@ require 'nav3.php';
         <td>R {{withdrawal.amount}}</td>
         <td>R {{withdrawal.balance}}</td>
         <td>R <font color="red"><b>{{withdrawal.pendingbalance}}</b></font></td>
+        <td>{{withdrawal.dream}}</td>
         <td><button type="button" class="btn btn-primary" ng-click="Allocate(withdrawal)">Allocate</button></td>
       </tr>
      

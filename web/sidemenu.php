@@ -1,4 +1,4 @@
-<link href="slider.css" rel='stylesheet' type='text/css' />
+
   <div class="col-sm-3 sidemenu" ng-controller="sideMenu" ng-init="GetSideItems()">
     <h1 class="usericon">
         <span class="glyphicon glyphicon-user"></span>
@@ -9,22 +9,6 @@
           <a href="My-Profile"> <button type="button" class="btn btn-info">My Profile</button></a>
 
     </h1>
-  <div class="keeper">
-  <div class="container" style="width:100%">
-  <div class="jumbotron">
-   <p>Do you want to be a keeper?</p>
-   <label class="switch">
-  <input type="checkbox" ng-checked="keeperChecked"  ng-model="isNGAkeeper"  ng-change="KeeperCheckChanged()">
-  <span class="slider round"></span>
-</label>
-  </div>
- 
-</div>
-
-
-
-
-  </div>
 
     <div class="container">
     <!-- Trigger the modal with a button -->
@@ -59,7 +43,7 @@
         <li class="list-group-item"><a href="My-Referrals"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> My-Referrals <span class="badge">{{ members }}</span></a></li>
         <li class="list-group-item"><a href="My-Bonuses"><span class="glyphicon glyphicon-credit-card"></span> Bonuses <span class="badge"> R {{ bonus }}</span></a></li>
         <li class="list-group-item"><a href="My-Pending-Withdraw"><span class="glyphicon glyphicon-credit-card"></span> Pending Withdraw <span class="badge">  {{ pending }}</span></a></li>
-        <li class="list-group-item"><a href="Amount-You-Can-Keep"><span class="glyphicon glyphicon-apple"></span> Amount you can keep <span class="badge"> R {{ keepableAmount }}</span></a></li>
+          <!--  <li class="list-group-item"><a href="Amount-You-Can-Keep"><span class="glyphicon glyphicon-apple"></span> Amount you can keep <span class="badge"> R {{ keepableAmount }}</span></a></li>    -->
         <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-apple"></span> Amount kept <span class="badge"> R {{ amountkept }}</span></a></li>
         <li  ng-show="showDonateLink" class="list-group-item"><a href="Give-Help"><span class="glyphicon glyphicon-heart-empty"></span> Create dream</a></li>
         <li class="list-group-item"><a href="Dashboard"><span class="glyphicon glyphicon-th"></span> Dashboard</a></li>

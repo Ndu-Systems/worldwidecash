@@ -75,22 +75,36 @@ $counts->key ="Messages";
 $counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
 
-// amount kept  amountkept
-$result = $conn->prepare("SELECT * FROM investment WHERE amountkept > ?"); 
-$result->execute(array(0));
+// Keepers
+
+
+$result = $conn->prepare("SELECT * from investment WHERE amountkeepable > ? AND  isAkeeper=? AND amount_requested_to_keep < ?"); 
+$result->execute(array(0,'Yes',1));
+
 
 $counts = new Counts();
-$counts->key ="Amount Kept";
+$counts->key ="Keepers";
 $counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
 
 
-echo json_encode($rows);
+// With drawals
 
+
+$result = $conn->prepare("SELECT * from withdraw"); 
+$result->execute(array(0,'Yes',1));
+
+
+$counts = new Counts();
+$counts->key ="Withdrawals";
+$counts->value =$result->rowCount() ;
+$rows["data"][]= $counts;
 
 
 
 //$conn->close();
+// done .... RETURN OBJECT
+echo json_encode($rows);
 
 ?>
   <?php

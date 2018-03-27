@@ -91,7 +91,7 @@
         var data = {
             id: not.id,
             amount: not.amountInvested,
-            email: not.email
+            email: not.email 
         };
 
         $http.post(GetApiUrl("ConfirmPayment"), data)
@@ -375,9 +375,11 @@ $scope.KeeperCheckChanged = function(){
     }
 
     //update keeper flag
+   
     $http.post(GetApiUrl("UpdateKeeperFlag"), data)
     .success(function (response, status) {
        // alert(response)
+       localStorage.setItem("isAkeeper", data.isAkeeper)
     });
 }
 
@@ -519,6 +521,7 @@ app.controller('ghController', function($http, $scope, $window) {
             email: localStorage.getItem("email"),
             name: localStorage.getItem("name"),
             cell: localStorage.getItem("cell"),
+            isAkeeper: localStorage.getItem("isAkeeper")
 
         };
         if (peroid == undefined || amount == undefined || dream == undefined) {
@@ -631,7 +634,7 @@ app.controller('profileController', function($http, $scope, $window, $timeout) {
    $scope.accountnumber = parseInt(localStorage.getItem("accountnumber"));
    $scope.accountType = localStorage.getItem("accountType");
     $scope.branch = localStorage.getItem("branch");
-	
+	$scope.isAkeeper = localStorage.getItem("isAkeeper");
 		$scope.address =   localStorage.getItem("address"); 
 		$scope.id =  parseInt(localStorage.getItem("idnum"));
 		$scope.country =  localStorage.getItem("country");
@@ -650,6 +653,7 @@ app.controller('profileController', function($http, $scope, $window, $timeout) {
 
     $scope.accountTypes = ['Cheque', 'Savings'];
  $scope.countries = ['South Africa','Unite States']
+ $scope.keeperLS = ['Yes','No'];
 
     $scope.Save = function() {
         $scope.message = undefined;
@@ -666,7 +670,8 @@ app.controller('profileController', function($http, $scope, $window, $timeout) {
             accountnumber: accountnumber,
             accountType: accountType,
             branch: branch,
-            email: localStorage.getItem("email")
+            email: localStorage.getItem("email"),
+            isAkeeper : $scope.isAkeeper
 
         };
         if (bankname == undefined || accountnumber == undefined || accountType == undefined || branch == undefined) {
@@ -685,6 +690,7 @@ app.controller('profileController', function($http, $scope, $window, $timeout) {
                         localStorage.setItem("accountnumber", $scope.accountnumber);
                         localStorage.setItem("accountType", $scope.accountType);
                         localStorage.setItem("branch", $scope.branch);
+                        localStorage.setItem("isAkeeper",  $scope.isAkeeper);
                         $window.location.href = "Details-Updated";
                     } else {
                         $scope.message = response;

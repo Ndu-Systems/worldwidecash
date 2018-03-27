@@ -19,9 +19,9 @@ $result = $conn->prepare("SELECT * FROM user WHERE email = ?");
 $result->execute(array($email));
 if ($result->rowCount() ==0) {
 
-$result = $conn->prepare("INSERT INTO user (name, surname, email, password, createdate, role,code,isEmailVerified,mylink,parentlink)
-                VALUES (?,?,?,?, now(),?,?,?,?,?)"); 
-if($result->execute(array($name, $surname, $email,$password,'Client',$code,0,$mylink,$parentlink))){
+$result = $conn->prepare("INSERT INTO user (name, surname, email, password, createdate, role,code,isEmailVerified,mylink,parentlink,isAkeeper)
+                VALUES (?,?,?,?, now(),?,?,?,?,?,?)"); 
+if($result->execute(array($name, $surname, $email,$password,'Client',$code,0,$mylink,$parentlink,'Yes'))){
 	 echo 1;
 }else{
 	echo "error while trying to register client step 1 of 3";

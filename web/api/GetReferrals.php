@@ -21,7 +21,7 @@ $result->execute(array(
     1
 ));
 if ($result->rowCount() > 0) {
-    while ($row = $result->fetch_assoc()) {
+    while($row=$result->fetch(PDO::FETCH_OBJ)) {
         $rows["data"][] = $row;
     }
 }

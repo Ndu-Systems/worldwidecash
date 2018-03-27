@@ -41,6 +41,11 @@
                                                 <input type="number" class="myInput" ng-model="accountnumber" /><br><br>
                                             </div>
 
+                                             <div class="col-sm-12">
+                                                <label>Are a keeper?</label><br>
+                                                <select ng-model="isAkeeper" class="myInput" ng-options="keeper for keeper in keeperLS"></select><br><br>
+                                            </div>
+
                                             <div class="col-sm-12">
                                                 <label></label><br>
                                                 <input type="button" value="UPDATE" class="myInput" ng-click="Save()" style="background:#2ecc71; color:white; border: none; padding-top:2%;" />

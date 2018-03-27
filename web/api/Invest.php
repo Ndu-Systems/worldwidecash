@@ -14,10 +14,11 @@ $email= $data->email;
 $dream= $data->dream;
 $name= $data->name;
 $cell= $data->cell;
+$isAkeeper = $data->isAkeeper;
  
-$result = $conn->prepare("INSERT INTO investment (dateInvested, amountInvested, status,email,package,name,dream,expecedDate,cell)
-                VALUES (NOW(), ?, ?, ?, ?,?,?,NOW() + INTERVAL $package*30 DAY, ?)"); 
-if($result->execute(array($amountInvested, $status, $email, $package,$name,$dream,$cell))){
+$result = $conn->prepare("INSERT INTO investment (dateInvested, amountInvested, status,email,package,name,dream,expecedDate,cell,isAkeeper)
+                VALUES (NOW(), ?, ?, ?, ?,?,?,NOW() + INTERVAL $package*30 DAY, ?,?)"); 
+if($result->execute(array($amountInvested, $status, $email, $package,$name,$dream,$cell,$isAkeeper))){
 	echo 1;
 }				
 }

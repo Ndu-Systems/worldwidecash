@@ -10,7 +10,8 @@ $data = json_decode(file_get_contents("php://input"));
 			  $email     = $data->email;              
 			  $accountType     = $data->accountType;              
 			  $branch     = $data->branch;              
-			  $email     = $data->email;              
+			  $email     = $data->email; 
+			  $isAkeeper  = $data->isAkeeper;             
                  
            
 $result = $conn->prepare("
@@ -18,10 +19,11 @@ UPDATE  user  SET
                  bankname =?,
                  accountnumber =?,
                  branch =?,
-				 accountType = ?
+				 accountType = ?,
+				 isAkeeper=?
 				WHERE email= ? 
 "); 
-echo $result->execute(array($bankname,$accountnumber,$branch,$accountType,$email));				
+echo $result->execute(array($bankname,$accountnumber,$branch,$accountType,$isAkeeper,$email));				
 						
 ?>
 
