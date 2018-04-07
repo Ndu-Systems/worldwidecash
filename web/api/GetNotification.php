@@ -9,10 +9,10 @@ $email= $data->email;
 $rows = array();
 
 
-$result = $conn->prepare("SELECT * FROM investment WHERE keeperemail = ? AND status=? "); 
-$result->execute(array($email,'paid'));
+$result = $conn->prepare("SELECT * FROM notification WHERE toEmail = ? AND status=?"); 
+$result->execute(array($email,'new'));
 
-if ($result->rowCount() > 0) {
+if ($result->rowCount() > 0) { 
    while($row=$result->fetch(PDO::FETCH_OBJ)) {
 		$rows["data"][]= $row; 
 	}

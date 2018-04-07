@@ -21,7 +21,9 @@ if ($result->rowCount() > 0) {
 		$investement->dream          = $row->dream;
 		$investement->expecedDate          = $row->expecedDate;
         $investement->css            = "dash-box dash-box-color-3";
-        $investement->GetKeepers($conn);
+		$investement->GetKeepers($conn);
+		$investement->userID          = $row->userID;
+		$investement->GetInvestorDetails($conn);
         $rows['data'][] = $investement;
     }
 }
@@ -38,6 +40,21 @@ class Investement
 	public $dream;
 	public $amountKept;
 	public $expecedDate;
+	public $name;
+	public $email;
+	public $userID ;
+	function GetInvestorDetails($conn){
+		$result    = $conn->prepare("SELECT * FROM user WHERE id = ?");
+        $result->execute(array(
+            $this->userID
+		));
+        if ($result->rowCount() > 0) {
+            while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+				$this->name = $row->name. ' '.$row->surname;
+				$this->email =  $row->email;
+			}
+		}
+	}
     function GetKeepers($conn)
     {
         $keepersLS = array();

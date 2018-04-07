@@ -9,14 +9,14 @@
          ?>
       <div class="col-sm-9 ">
          
-        
+         
          <div class="panel panel-default" ng-show="ShowNotification">
             <div class="panel-heading">
                <h3 style="width:100%; text-align:center; padding:2%; color:green"> Notifications ({{notCount}})</h3>
             </div>
             <div class="panel-body" ng-repeat="not in notifications">
                <div class="alert alert-danger">
-                  <strong>Warning!</strong> {{not.name}} Provided help of R{{not.amountInvested}}, If the money reflect on
+                  <strong>Warning!</strong> {{not.senderName}} Provided help of R{{not.amount}}, If the money reflect on
                   your bank please confirm, Else please wait until the money reflects <br>
                   Proof of Payment: <b><a ng-href="{{not.doc}}" target="_blank">View</a> <br>
                </div>

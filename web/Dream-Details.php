@@ -45,11 +45,19 @@
                      <td>{{keeper.status}}</td>
                      <td>
                      <div ng-if="keeper.status == 'pending'">
-                     <button type="button" class="btn btn-success" ng-click="UploadProofOfPayment(keeper)">Upload Proof of Payment</button>
+                     <button type="button" class="btn btn-primary" ng-click="UploadProofOfPayment(keeper)">Upload Proof of Payment</button>
                     </div>
 
                      <div ng-if="keeper.status == 'paid'">
                      <button type="button" class="btn btn-info">
+                       <a ng-href="{{keeper.proofOfPayment}}" target="_blank">
+                       View Proof  of Payment
+                       </a>
+                      </button>
+                    </div>
+
+                     <div ng-if="keeper.status == 'confirmed'">
+                     <button type="button" class="btn btn-success">
                        <a ng-href="{{keeper.proofOfPayment}}" target="_blank">
                        View Proof  of Payment
                        </a>

@@ -7,7 +7,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 			  $id  = $data->id;            
 			
-				$result = $conn->prepare("UPDATE  investment  SET status =? , timeAllocated=NOW() + INTERVAL $package*3 DAY WHERE id= ?"); 
+				$result = $conn->prepare("UPDATE  investment  SET status =? , timeAllocated=NOW() + INTERVAL 3 DAY WHERE id= ?"); 
 				if($result->execute(array('allocated',$id))){
 					echo 1;
 				}			

@@ -15,6 +15,7 @@
 
     $scope.isEmailVerified = localStorage.getItem("isEmailVerified");
     $scope.wait = "Please wait...";
+    Load();
     $scope.success = "";
     $scope.notCount = 0;
     // pannels to show
@@ -47,7 +48,7 @@
             $http.post(GetApiUrl("GetInvestments"), data)
                 .success(function(response, status) {
                     $scope.wait = undefined;
-
+Stop();
                     if (response.data !== undefined) {
                         $scope.investments = response.data;
                     }
@@ -71,7 +72,7 @@
                     $scope.notCount = $scope.notifications.length;
                 }
             });
-    };
+    }; 
     //end get notification
 
     $scope.UploadProofOfPayment = function(investment) {
@@ -88,16 +89,16 @@
     }
 
     $scope.Confirm = function(not) {
+        //1. must go and update keeper status to confimed 
+        //3. must go and update notifucation to  status to old , and updadated date to now  
         var data = {
-            id: not.id,
-            amount: not.amountInvested,
-            email: not.email 
+            keeperID: not.keeperID,
+            id : not.id
         };
 
         $http.post(GetApiUrl("ConfirmPayment"), data)
             .success(function(response, status) {
-
-                $window.location.href = "Thanks-for-Verification";
+               $window.location.href = "Thanks-for-Verification";
             });
 
     }
@@ -136,6 +137,12 @@ app.controller('dreamDreatilsController', function($http, $scope, $window) {
     $scope.UploadProofOfPayment = function(keeper){
         console.log(keeper)
         localStorage.setItem("keeperID",keeper.id);
+        
+        localStorage.setItem("senderName",$scope.dream.name);
+       localStorage.setItem("toEmail",keeper.user.email);
+       localStorage.setItem("amount",keeper.amount);
+       localStorage.setItem("toName",keeper.user.name);
+
     $window.location = "Proof-Of-Payment";
     }
 
@@ -150,7 +157,13 @@ app.controller('dreamDreatilsController', function($http, $scope, $window) {
        });
         if(numberOfPendings==0){
          // All dreams are paid  - change dream status to paid
-
+         let data = {
+            id:parseInt( $scope.dream.id)
+        };
+        $http.post(GetApiUrl("UpdateDreamToPaid"), data)
+        .success(function(response, status) {
+            alert("Dream status changed to : Piad");
+        });
         }
     }
 });
@@ -599,8 +612,10 @@ app.controller('investmentController', function($http, $scope, $window) {
     $scope.keeperID = localStorage.getItem("keeperID");
     $scope.upload = true;
     $scope.back = false;
-
-
+    $scope.senderName = localStorage.getItem("senderName");
+    $scope.toEmail = localStorage.getItem("toEmail");
+    $scope.toName = localStorage.getItem("toName");
+$scope.amount = localStorage.getItem("amount");
     $scope.filesChanged = function(eml) {
         $scope.files = eml.files;
         $scope.filename = $scope.files[0].name;
@@ -628,8 +643,13 @@ app.controller('investmentController', function($http, $scope, $window) {
                     // alert(doc);
                     var data = {
                         doc: doc,
-                        keeperID: $scope.keeperID
+                        keeperID: $scope.keeperID,
+                        senderName: $scope.senderName,
+                        toEmail: $scope.toEmail,
+                        amount: $scope.amount,
+                        toName :$scope.toName
                     };
+           
                     $http.post(GetApiUrl("UpdatePOP"), data).success(function(data, status) {
                         if (parseInt(data) === 1) {
                             //$window.location.href = "Dashboard";

@@ -80,9 +80,12 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
 		if($scope.key ==="keepers"){
 			$window.location.href = "Keepers";
 	}
-
+	
 	if($scope.key ==="withdrawals"){
 		$window.location.href = "Withdrawals";
+}
+if($scope.key ==="paid"){
+	$window.location.href = "Piad-Dreams";
 }
         $timeout(function() {
 		
@@ -205,7 +208,6 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
         $window.location.href = "Login";
     }
     $scope.investmentId = localStorage.getItem("investmentId");
-    $scope.investmentName = localStorage.getItem("investmentName");
     $scope.amountInvested = localStorage.getItem("amountInvested");
 	$scope.investorEmail = localStorage.getItem("pendingbalance");
 	$scope.pendingbalance = localStorage.getItem("pendingbalance");
@@ -239,6 +241,7 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 			 $scope.keepersLS =   investementObj.keepers.keepers;
 			 $scope.keeperSumAmount =  investementObj.amountKept;
 			 $scope.pendingbalance =  $scope.amountInvested  -  $scope.keeperSumAmount;
+			 $scope.investmentName = investementObj.name;
 			 if($scope.pendingbalance ==0 || $scope.pendingbalance == "0"){
 					alert("All amount was allocated successfully");
 					//set the dream to allocated   UpdateDreamToAllocated
@@ -246,10 +249,7 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 						id:parseInt( $scope.investmentId)
 					};
 					$http.post(GetApiUrl("UpdateDreamToAllocated"), data)
-                	.success(function(response, status) {
-					
-					
-                });
+                	.success(function(response, status) {});
 			 }
 			 //  console.log(investementObj );
 			});
@@ -260,7 +260,7 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 	$scope.Allocate = function(withdrawal){
 	Load();
 			let amountInvested = parseFloat($scope.amountInvested);
-			let amount = parseFloat( withdrawal.amount);
+			let amount = parseFloat( withdrawal.balance);
 			let pendingbalance = $scope.pendingbalance;
 			// zero case - exit
 			if(pendingbalance<=0){
@@ -273,7 +273,8 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 				let  data ={
 					amount:pendingbalance,
 					investmentID:parseInt($scope.investmentId),
-					witdrawalID:parseInt(withdrawal.id)
+					witdrawalID:parseInt(withdrawal.id),
+					balance : withdrawal.balance - pendingbalance
 				 };
 				console.log(withdrawal);
 				$http.post(GetApiUrl("AllocateAkeeper"), data)
@@ -288,7 +289,8 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 				let  data ={
 					amount:amount,
 					investmentID:parseInt($scope.investmentId),
-					witdrawalID:parseInt(withdrawal.id)
+					witdrawalID:parseInt(withdrawal.id),
+					balance : withdrawal.balance - amount
 				 };
 				console.log(withdrawal);
 				$http.post(GetApiUrl("AllocateAkeeper"), data)
@@ -626,4 +628,46 @@ app.controller('withdrawalsController', function($http, $scope, $window, $timeou
 		$window.location.href = "Allocate-Funds-To-Keep";
 	}
 
+});
+
+
+app.controller('paidDreamController', function($http, $scope, $window, $timeout) {
+	if (localStorage.getItem("isLoggedIn") !== "true") {
+        $window.location.href = "Login";
+    }
+
+$scope.GetNotifications = function(){
+	let data = {
+		
+	}
+  $timeout(function() {
+		 $http.post(GetApiUrl("GetAllNotifications"), data)
+			.success(function(response, status) {
+				if(response !== undefined){
+					$scope.nots = response.data;
+				console.log(response);
+					
+				}
+			
+			});
+		
+		
+	
+	}, 500)
+
+	$scope.Confirm = function(not) {
+        //1. must go and update keeper status to confimed 
+        //3. must go and update notifucation to  status to old , and updadated date to now  
+        var data = {
+            keeperID: not.keeperID,
+            id : not.id
+        };
+
+        $http.post(GetApiUrl("ConfirmPayment"), data)
+            .success(function(response, status) {
+               $window.location.href = "Thanks-for-Verification -Admin";
+            });
+
+    }
+}
 });

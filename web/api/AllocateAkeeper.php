@@ -10,6 +10,7 @@ if (isset($data->amount) ){
     $status= 'pending';
     $investmentID= $data->investmentID;
     $witdrawalID= $data->witdrawalID;
+    $balance = $data->balance;
 
     $result = $conn->prepare("INSERT INTO keeper (amount, status, investmentID,createdate,witdrawalID) VALUES (?,?,?,NOW(),?)"); 
 if($result->execute(array(
@@ -18,10 +19,18 @@ $status,
 $investmentID,
 $witdrawalID
 ))){
-	echo 1;
+	// update balance 
+$result = $conn->prepare("UPDATE   withdraw SET balance = ? where id = ?"); 	
+if($result->execute(array(
+    $balance,
+    $witdrawalID
+    ))){
+        echo 1;
+    }
 }else{
     echo 0;
-}				
+}	
+		
 }
 
 ?>

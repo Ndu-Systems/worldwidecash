@@ -13,8 +13,7 @@ $data = json_decode(file_get_contents("php://input"));
 				WHERE id= ?"); 
 if($result->execute(array($amount_requested_to_keep,$id))){
 	echo 1;
-}	
-
+}	 
 ?>
 
 

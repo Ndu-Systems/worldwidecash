@@ -2,6 +2,7 @@
 require 'head.php';
 require 'nav.php';
 ?>
+
 		<!--//top-bar-w3-agile-->
 		<!-- banner-text -->
 		<div class="slider">

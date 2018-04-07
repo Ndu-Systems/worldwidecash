@@ -1,8 +1,8 @@
 var extention = ".php/";
 var host = "https://www.funderslife.com/api/";
-var base = "http://www.funderslife.com/Get-Started";
+var base = "https://www.funderslife.com/Get-Started";
 
-var isLocal = true;
+var isLocal =true;
 if(isLocal){
 base = "http://localhost:8080/worldwidecash/web/Get-Started";
 host = "http://localhost:8080/worldwidecash/web/api/";
@@ -10,7 +10,7 @@ host = "http://localhost:8080/worldwidecash/web/api/";
 //host = "http://localhost/worldwidecash/web/api/"; //Freedom
 }
 
-var mail = "https://funderslife.com/api/emailClient2.php";
+var mail = "https://www.funderslife.com/api/emailClient2.php";
 var penultAmount = '400';
 
 function GetApiUrl(serviceName) {

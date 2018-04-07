@@ -36,8 +36,8 @@ $counts->value =$result->rowCount() ;
 $rows["data"][]= $counts;
 
 //paid
-$result = $conn->prepare("SELECT * FROM investment WHERE status = ?"); 
-$result->execute(array('paid'));
+$result = $conn->prepare("SELECT * FROM notification WHERE status = ?"); 
+$result->execute(array('new'));
 
 $counts = new Counts();
 $counts->key ="Paid";
