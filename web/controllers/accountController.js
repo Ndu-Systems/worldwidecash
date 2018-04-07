@@ -192,6 +192,7 @@
                 accountnumber: accountnumber,
                 accountType: accountType,
                 branch: branch,
+                isAkeeper: 'Yes',
                 email: localStorage.getItem("email")
 
             };
@@ -211,6 +212,7 @@
                             localStorage.setItem("accountnumber", $scope.accountnumber);
                             localStorage.setItem("accountType", $scope.accountType);
                             localStorage.setItem("branch", $scope.branch);
+                            localStorage.setItem("isAkeeper",'Yes');
                             $window.location.href = "Dashboard";
                         } else {
                             $scope.message = response;
@@ -277,7 +279,7 @@
                     .success(function (response, status) {
                         if (response.length !== 0) {
                             var user = response.user[0];
-                            localStorage.setItem("id", user.id);
+                            localStorage.setItem("userID", user.id);
                             localStorage.setItem("name", user.name);
                             localStorage.setItem("surname", user.surname);
                             localStorage.setItem("email", user.email);

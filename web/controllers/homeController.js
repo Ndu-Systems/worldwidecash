@@ -11,7 +11,7 @@
     $scope.email = localStorage.getItem("email");
     $scope.code = localStorage.getItem("code");
     $scope.cell = localStorage.getItem("cell");
-
+    $scope.userID =  localStorage.getItem("userID");
 
     $scope.isEmailVerified = localStorage.getItem("isEmailVerified");
     $scope.wait = "Please wait...";
@@ -42,7 +42,7 @@
         $timeout(function() {
             //Get Investments   
             var data = {
-                email: localStorage.getItem("email")
+                userID: $scope.userID
             };
             $http.post(GetApiUrl("GetInvestments"), data)
                 .success(function(response, status) {
@@ -110,10 +110,50 @@
 
     // Call ...
     $scope.IsUserLocked();
-
+//InvestmentDetails
+$scope.InvestmentDetails = function(investment){
+    $http.get(GetApiUrlForID(`GetInvestmentById.php?id=${investment.id}`))
+    .then(function(response) {
+       console.log(response);
+       localStorage.setItem("investmentDetails",JSON.stringify(response));
+      // if(investment.status==="allocated"){
+        $window.location ="Dream-Details";
+    //   }
+      
+    }, function(response) {
+        console.log(response);
+    });
+}
 
 });
+app.controller('dreamDreatilsController', function($http, $scope, $window) {
+    let Res = JSON.parse(localStorage.getItem("investmentDetails"));
+  $scope.dream = Res.data.data[0];
+    $scope.keepers = Res.data.data[0].keepers;
+    console.log("$scope.dream", $scope.dream);
+    CountDownTimer("Sep 5, 2018 15:37:25","test");
+    //
+    $scope.UploadProofOfPayment = function(keeper){
+        console.log(keeper)
+        localStorage.setItem("keeperID",keeper.id);
+    $window.location = "Proof-Of-Payment";
+    }
 
+    // check for pending keeper for alloacted dream
+    if($scope.dream.status==="allocated"){
+       let numberOfPendings = 0;
+       $.each($scope.dream.keepers.keepers,function(index,keeper){
+            let status = keeper.status;
+            if(status=='pending'){
+                numberOfPendings++;
+            }
+       });
+        if(numberOfPendings==0){
+         // All dreams are paid  - change dream status to paid
+
+        }
+    }
+});
 app.controller('emailVerifyController', function($http, $scope, $window) {
     $scope.name = localStorage.getItem("name");
     $scope.email = localStorage.getItem("email");
@@ -445,7 +485,7 @@ app.controller('bonusController', function($http, $scope, $window, $interval) {
                     }, 3000);
                 });
         } else {
-            $scope.error = "Sorry, Your bonus is withdrawable once it riches R500! Refer more people to get more bonuses";
+            $scope.error = "Sorry, Your bonus is withdrawable once it reaches R500! Refer more people to get more bonuses";
         }
     }
 });
@@ -518,9 +558,7 @@ app.controller('ghController', function($http, $scope, $window) {
             dream: dream,
             amount: amount,
             peroid: peroid,
-            email: localStorage.getItem("email"),
-            name: localStorage.getItem("name"),
-            cell: localStorage.getItem("cell"),
+            userID:parseInt(localStorage.getItem("userID")),
             isAkeeper: localStorage.getItem("isAkeeper")
 
         };
@@ -558,7 +596,7 @@ app.controller('investmentController', function($http, $scope, $window) {
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";
     }
-    $scope.proofId = localStorage.getItem("proofId");
+    $scope.keeperID = localStorage.getItem("keeperID");
     $scope.upload = true;
     $scope.back = false;
 
@@ -590,7 +628,7 @@ app.controller('investmentController', function($http, $scope, $window) {
                     // alert(doc);
                     var data = {
                         doc: doc,
-                        id: $scope.proofId
+                        keeperID: $scope.keeperID
                     };
                     $http.post(GetApiUrl("UpdatePOP"), data).success(function(data, status) {
                         if (parseInt(data) === 1) {

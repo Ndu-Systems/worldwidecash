@@ -5,7 +5,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	   <link rel="shortcut icon"  href="images/icon.PNG" />
 	<meta charset="utf-8">
-	
+	<div class="loading">
+	<p>
+
+	<br>
+	<img src="images/load.gif" alt="">
+	<h4>Please wait...</h4>
+	</p>
+	</div>
 		<div class="lock"> <h1>User Locked! <br>
 		<a href="Logout"><span class="glyphicon glyphicon-off"></span> Logout</a> <br>
 		</h1></div>
@@ -23,6 +30,7 @@
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
 	<link href="css/chat.css" rel='stylesheet' type='text/css' />
 	<link href="css/font-awesome.css" rel="stylesheet">
+	<link href="css/client-dash-items.css" rel="stylesheet">
 	<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
 	<!--	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
      <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>

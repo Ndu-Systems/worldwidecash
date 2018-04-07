@@ -1,6 +1,10 @@
 
-  <div class="col-sm-3 sidemenu" ng-controller="sideMenu" ng-init="GetSideItems()">
-    <h1 class="usericon">
+  <div class="col-sm-3 sidemenu" style="height:auto" ng-controller="sideMenu" ng-init="GetSideItems()">
+  
+    
+    <ul class="list-group">
+   <li class="list-group-item">
+   <h1 class="usericon">
         <span class="glyphicon glyphicon-user"></span>
     </h1>
     <h1 class="username">
@@ -36,9 +40,8 @@
     </div>
     
   </div>
-    <p>
-    </p>
-    <ul class="list-group">
+   </li>
+
         <li class="list-group-item" ng-show="showTime"><a href=""><h4 style="color:red"><span class="glyphicon glyphicon-time"></span> {{timeleft}}</h4></a></li>
         <li class="list-group-item"><a href="My-Referrals"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> My-Referrals <span class="badge">{{ members }}</span></a></li>
         <li class="list-group-item"><a href="My-Bonuses"><span class="glyphicon glyphicon-credit-card"></span> Bonuses <span class="badge"> R {{ bonus }}</span></a></li>

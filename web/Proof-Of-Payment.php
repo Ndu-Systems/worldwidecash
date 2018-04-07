@@ -3,11 +3,11 @@
    require 'nav2.php';
    ?>
 <div class="banner_bottom"  style="padding:0">
-<div class="container mainmenu"  ng-controller="dashController" ng-init="GetInvestments()">
+<div class="container mainmenu">
 <?php
    require 'sidemenu.php';
    ?>
-<div class="col-sm-9 mainmenu">
+<div class="col-sm-9">
 
  
    <div class="panel panel-default" ng-controller="investmentController">

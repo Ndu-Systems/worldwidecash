@@ -15,7 +15,7 @@ $data = json_decode(file_get_contents("php://input"));
            
 		   $sql = "
 				UPDATE  user  SET	 
-                 // code ='$code'
+                 code ='$code'
 				WHERE email= '$email' 		
 				";								
 								

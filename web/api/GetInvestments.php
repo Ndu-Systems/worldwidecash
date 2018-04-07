@@ -2,140 +2,155 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-date_default_timezone_set('Africa/Johannesburg');
-
 require "conn.php";
-$data = json_decode(file_get_contents("php://input"));
-
-$email = $data->email;
-$rows = array();
-
-$result = $conn->prepare("SELECT * FROM investment WHERE email = ? ORDER BY id desc"); 
-$result->execute(array($email));
-
+$data   = json_decode(file_get_contents("php://input"));
+$userID = $data->userID;
+$rows   = array();
+$result = $conn->prepare("SELECT * FROM investment WHERE userID = ? ORDER BY id ");
+$result->execute(array(
+    $userID
+));
 if ($result->rowCount() > 0) {
-   while($row=$result->fetch(PDO::FETCH_OBJ)) {
-		// cal months
-		$amount =0;
-		$expectedAmount = $row->amountInvested;
-		$due_date = new DateTime( $row->dateInvested);
-		$due_expecedDate = new DateTime( $row->expecedDate);
-		$today = new DateTime();
-		$months = $due_date->diff($due_expecedDate);
-		 $diff = $months->m;
-		//echo "<br> .................................";
-		//if($diff >0){
-			
-			for( $i =0; $i< $row->package; $i++){
-				//echo $i, "  count" , "<br>";
-				 $expectedAmount= $expectedAmount*1.8;
-			}
-			//echo "________________________________";
-		//}
-		// cal days
-		$amount =0;
-		$amount =  $row->amountInvested;
-		
-		$now = time();
-		$your_date = strtotime( $row->dateInvested);
-		$datediff = $now - $your_date;
-		$diff1 = round($datediff / (60 * 60 * 24));
-		if($diff1 >0){
-			
-			for( $i =1; $i<= $diff1; $i++){
-				$amount= $amount*1.02667;
-			}
-		}
-		// cal  hours rmaining
-		$date = strtotime("+1 day");
-		$the_time= date("Y-m-d H:i:s", $date);
-		 $remainingTime = G3( $row->timeallocated,$the_time);
-		//endcal
-		
-	
-		
-		//create on
-		$investment = new Investment();
-		$investment->id =  $row->id;
-		$investment->dateInvested =  $row->dateInvested;
-		$investment->amountInvested =  $row->amountInvested;
-		$investment->status =  $row->status;
-		$investment->doc =   $row->doc;
-		$investment->email =  $row->email;
-		$investment->package =  $row->package;
-		$investment->dream =  $row->dream;
-		$investment->keepername =  $row->keepername;
-		$investment->keeperemail =  $row->keeperemail;
-		$investment->keepercell =  $row->keepercell;
-		$investment->keeperacc =  $row->keeperacc;
-		$investment->keeperbrancode =  $row->keeperbrancode;
-		$investment->keeperbankname =  $row->keeperbankname;
-		$investment->timeallocated =  $row->timeallocated;
-		$investment->expecedDate =  $row->expecedDate;
-		$investment->expectedAmount = ceil($expectedAmount);
-		$investment->datepaid =  $row->datepaid;
-		$investment->amount = ceil($amount);
-		$investment->remainingTime = $remainingTime;
-		//end create ob
-		$rows["data"][]= $investment;
-	}
-}
-function G3($d1,$d2){
-	//return $d1 ."  -----   ".$d2;
-	$datetime1 = new DateTime($d1);
-	$datetime2 = new DateTime($d2);
-	$interval = $datetime1->diff($datetime2);
-	if ((int)$interval->format("%r%a") <=0){
-		return 0;
-	}
-	
-	return $interval->format('%d')." Day(s) ".$interval->format('%h')." Hour(s) ".$interval->format('%i')." Minute(s)";
-}
-function GetDiffinHoursAndMins2($allcation_time,$the_time ){
-	// time to stamp
-	$timestamp1 = strtotime($allcation_time) + 60*60*24; //  + 24 hours
-	$timestamp2 = strtotime($the_time) ;// 10:09 + 24 hours
-	
-	// diff
-	$diff = $timestamp1-$timestamp2;
-	//return date('H:i:s', $diff);
-	return date('m/d/Y H:i:s', $timestamp1);
+    while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+        $investement                 = new Investement();
+        $investement->id             = $row->id;
+        $investement->amountInvested = $row->amountInvested;
+        $investement->dateInvested   = $row->dateInvested;
+        $investement->status         = $row->status;
+		$investement->dream          = $row->dream;
+		$investement->expecedDate          = $row->expecedDate;
+		$investement->package          = $row->package;
+        $investement->css            = "dash-box dash-box-color-3";
+		$investement->GetKeepers($conn);
+		$investement->GetExpectedAmount($investement->package,$investement->amountInvested);
+        $rows['data'][] = $investement;
+    }
 }
 echo json_encode($rows);
-//$conn->close();
+class Investement
+{
+    public $id;
+    public $amountInvested;
+    public $dateInvested;
+    public $numberOfKeepers;
+    public $keepers;
+    public $css;
+    public $status;
+	public $dream;
+	public $package;
+	public $expectedAmount;
+	public $expecedDate;
+    function GetKeepers($conn)
+    {
+        $keepersLS = array();
+        $result    = $conn->prepare("SELECT * FROM keeper WHERE investmentID = ?");
+        $result->execute(array(
+            $this->id
+		));
+		$this->numberOfKeepers = $result->rowCount();
+        if ($result->rowCount() > 0) {
+            while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+				$keeper                 = new Keeper();
+				$keeper->id             = $row->id;
+				$keeper->amount         = $row->amount;
+				$keeper->status         = $row->status;
+				$keeper->investmentID = $row->investmentID;
+				$keeper->witdrawalID = $row->witdrawalID;
+			 $keeper->GetKepperDetails($conn);
+			 $keeper-> GetProofOgPaymentForAKeeper($conn);
+				$keepersLS['keepers'][] = $keeper;
+            }
+		}
+		
+		$this->keepers =  $keepersLS;
+	}
+	
+	function GetExpectedAmount($package, $amountInvested){
+		$amount =$amountInvested;
+		for($i=0; $i< $package; $i++){
+			$amount =$amount+ $amount*0.8;
+		}
+		$this->expectedAmount = $amount;
+	}
+}
+class Keeper
+{
+    public $id;
+    public $amount;
+	public $status;
+	public $investmentID;
+	public $witdrawalID;
+	public $user;
+	public $proofOfPayment;
 
+	function GetProofOgPaymentForAKeeper($conn){
+  // get doc
+  $result = $conn->prepare("SELECT * FROM document WHERE keeperID = ?");
+  $result->execute(array(
+	 $this->id
+  ));
+  if ($result->rowCount() > 0) {
+	  while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+		  $this->proofOfPayment = $row->doc;
+	}
+
+	
+
+}
+	}
+	
+	function GetKepperDetails($conn){
+   // get users
+   $result = $conn->prepare("SELECT * FROM withdraw WHERE id = ?");
+   $result->execute(array(
+	  $this->witdrawalID
+   ));
+   if ($result->rowCount() > 0) {
+	   while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+		   $investemntId = $row->investmentID;
+		   // get the original investement
+		   $result           = $conn->prepare("SELECT * FROM investment WHERE id = ?");
+		   $result->execute(array(
+			   $investemntId
+		   ));
+		   if ($result->rowCount() > 0) {
+			   while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+				   $userID = $row->userID;
+				   // get the user
+				   $result     = $conn->prepare("SELECT * FROM user WHERE id = ?");
+				   $result->execute(array(
+					   $userID
+				   ));
+				   if ($result->rowCount() > 0) {
+					   while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+						   //get the user here
+						   $user = new User();
+						   $user->id = $row->id;
+						   $user->name = $row->name;
+						   $user->surname = $row->surname;
+						   $user->email = $row->email;
+						   $user->cell = $row->cell;
+						   $user->bankname = $row->bankname;
+						   $user->accountType = $row->accountType;
+						   $user->branch = $row->branch;
+						   $this->user = $user;   
+					   }
+				   }
+			   }
+		   }
+	   }
+   }
+	}
+}
+class User
+{
+    public $id;
+    public $name;
+    public $surname;
+    public $email;
+    public $cell;
+    public $bankname;
+    public $accountType;
+    public $branch;
+}
 ?>
-  <?php
-        class Investment {
-            public $id ;
-            public $dateInvested;
-            public $amountInvested;
-            public $status;
-			public $doc;
-            public $email;
-            public $amount;
-            public $package;
-            public $dream;
-            public $keepername;
-            public $keeperemail;
-            public $keepercell;
-            public $keeperacc;
-            public $keeperbrancode;
-            public $keeperbankname;
-            public $timeallocated;
-            public $datepaid;
-            public $expecedDate;
-            public $expectedAmount;
-            public $remainingTime;
-			
-         // public function __construct( $id ,  $dateInvested ,  $amountInvested ,  $status ,  $doc ,  $email,$amount) {
-		//	$this->$id= $id ;
-         //   $this->$dateInvested= $dateInvested;
-         //   $this->$amountInvested= $amountInvested;
-         //   $this->$status= $status;
-         //   $this->$email= $email;
-         //   $this->$amount= $amount;
-         //   }
-          }
-          
-        ?>

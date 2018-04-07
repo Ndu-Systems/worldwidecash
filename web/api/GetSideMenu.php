@@ -25,7 +25,7 @@ $rows["data"][] = $counts;
 //bonus
 $sql         = 
 $result      =$conn->prepare("SELECT * FROM bonus WHERE email = ? and status =?"); 
-$result->execute(array($email, 'active'));
+$result->execute(array($email, 'active')); 
 $counts      = new Counts();
 $counts->key = "bonus";
 $amount      = 0;

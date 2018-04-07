@@ -5,20 +5,17 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 require "conn.php";
 $data = json_decode(file_get_contents("php://input"));
 
-if (isset($data->email) ){  
-$dateInvested   		=date("Y/m/d");
+if (isset($data->userID) ){  
 $amountInvested        =$data->amount;
 $status               ="Awaiting allocation";
-$email= $data->email;
  $package= $data->peroid;
 $dream= $data->dream;
-$name= $data->name;
-$cell= $data->cell;
 $isAkeeper = $data->isAkeeper;
+$userID = $data->userID;
  
-$result = $conn->prepare("INSERT INTO investment (dateInvested, amountInvested, status,email,package,name,dream,expecedDate,cell,isAkeeper)
-                VALUES (NOW(), ?, ?, ?, ?,?,?,NOW() + INTERVAL $package*30 DAY, ?,?)"); 
-if($result->execute(array($amountInvested, $status, $email, $package,$name,$dream,$cell,$isAkeeper))){
+$result = $conn->prepare("INSERT INTO investment (dateInvested,expecedDate, amountInvested, status,package,dream,isAkeeper,userID)
+                VALUES (NOW(),NOW() + INTERVAL $package*30 DAY ,?, ?, ?,?,?,?)"); 
+if($result->execute(array($amountInvested, $status, $package,$dream,$isAkeeper,$userID))){
 	echo 1;
 }				
 }

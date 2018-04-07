@@ -14,13 +14,14 @@ app.controller('adminDashController', function($http, $scope, $window, $timeout)
     $scope.email = localStorage.getItem("email");
     $scope.wait = "Please wait...";
     $scope.GetCounts = function() {
-
+Load();
         $timeout(function() {
             $http.post(GetApiUrl("GetAdminDashCounts"), {})
                 .success(function(response, status) {
                     if (response !== undefined || response !== null) {
                         $scope.counts = response.data;
-                        $scope.wait = "";
+						$scope.wait = "";
+						Stop();
                     } else {
                         //   $scope.message = "Oops! Your username or password is incorrect please CHECK and try again.";
                     }
@@ -61,6 +62,7 @@ app.controller('amountKeptController', function($http, $scope, $window, $timeout
     };
 });
 app.controller('selectController', function($http, $scope, $window, $timeout) {
+	Load();
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";
     }
@@ -90,7 +92,8 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
                 .success(function(response, status) {
                     if (response !== undefined || response !== null) {
                         $scope.investments = response.data;
-                        $scope.wait = "";
+						$scope.wait = "";
+						Stop();
                     } else {
                         //   $scope.message = "Oops! Your username or password is incorrect please CHECK and try again.";
                     }
@@ -104,7 +107,8 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
                 .success(function(response, status) {
                     if (response !== undefined || response !== null) {
                         $scope.investments = response.data;
-                        $scope.wait = "";
+						$scope.wait = "";
+						Stop();
                     } else {
                         //   $scope.message = "Oops! Your username or password is incorrect please CHECK and try again.";
                     }
@@ -120,7 +124,8 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
        localStorage.setItem("investmentName", investment.name);
        localStorage.setItem("amountInvested", investment.amountInvested);
        localStorage.setItem("investorEmail", investment.email);
-       localStorage.setItem("investorCell", investment.cell);
+	   localStorage.setItem("investorCell", investment.cell);
+	   localStorage.setItem("pendingbalance", investment.pendingbalance);
       	$window.location.href = "Allocate";
     } 
 	$scope.Delete = function(user) {
@@ -141,14 +146,7 @@ app.controller('selectController', function($http, $scope, $window, $timeout) {
 		$http.post(GetApiUrl("VerifyPayMentAdmin"), data).success(function(data, status) {
 				alert("Payment verfied by Admin : " + d);
 				$window.location.href = "Admin-dashboard";
-			/*
-			
-			nvestment`(`id`, `dateInvested`, `amountInvested`, `status`, `doc`, `email`, `package`,
-			 `dream`, `name`, `keeperemail`, `keepername`, `keepercell`, `keeperacc`, `keeperbrancode`, 
-			`keeperbankname`, `timeallocated`, `datepaid`, `expecedDate`, `cell`, `amountkept`, 
-			`amountkeepable`, `amount_requested_to_keep`, `comment`, `isAkeeper`) 
-			*/
-			
+		
 		})
 	}
 	$scope.UnLock = function(user){
@@ -202,30 +200,114 @@ app.controller('confirmController', function($http, $scope, $window, $timeout) {
 
 
 app.controller('allocateController', function($http, $scope, $window, $timeout) {
+	Load();
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";
     }
     $scope.investmentId = localStorage.getItem("investmentId");
     $scope.investmentName = localStorage.getItem("investmentName");
     $scope.amountInvested = localStorage.getItem("amountInvested");
-    $scope.investorEmail = localStorage.getItem("investorEmail");
+	$scope.investorEmail = localStorage.getItem("pendingbalance");
+	$scope.pendingbalance = localStorage.getItem("pendingbalance");
+	$scope.userID = localStorage.getItem("userID");
     $scope.cell = localStorage.getItem("investorCell");
 	
-	$scope.GetWithdrawals = function(withdrowal){
+	$scope.GetWithdrawals = function(){
 	 $timeout(function() {
-            $http.post(GetApiUrl("GetWithdraw"), {email:$scope.investorEmail})
+            $http.post(GetApiUrl("GetWithdraw"), {investmentId:$scope.investmentId})
                 .success(function(response, status) {
                     if (response !== undefined || response !== null) {
-                        $scope.withdrawals = response.data;
+						$scope.withdrawals = response.data;
+						$scope.GetInvestmentById($scope.investmentId);
+						Stop();
                         $scope.wait = "";
                     } else {
                         //   $scope.message = "Oops! Your username or password is incorrect please CHECK and try again.";
                     }
 
                 });
-        }, 2000)
+		}, 2000)
+		
 	};
-	$scope.Allocate = function(withdrowal){
+
+	$scope.GetInvestmentById = function(id){
+		$http.get(GetApiUrlForID(`GetInvestmentById.php?id=${id}`))
+    	.then(function(response) {
+			console.log(response);
+			 let investementObj = response.data.data[0];
+			 $scope.numberOfKeepers =  investementObj.numberOfKeepers;
+			 $scope.keepersLS =   investementObj.keepers.keepers;
+			 $scope.keeperSumAmount =  investementObj.amountKept;
+			 $scope.pendingbalance =  $scope.amountInvested  -  $scope.keeperSumAmount;
+			 if($scope.pendingbalance ==0 || $scope.pendingbalance == "0"){
+					alert("All amount was allocated successfully");
+					//set the dream to allocated   UpdateDreamToAllocated
+					let data = {
+						id:parseInt( $scope.investmentId)
+					};
+					$http.post(GetApiUrl("UpdateDreamToAllocated"), data)
+                	.success(function(response, status) {
+					
+					
+                });
+			 }
+			 //  console.log(investementObj );
+			});
+	
+	};
+	
+	
+	$scope.Allocate = function(withdrawal){
+	Load();
+			let amountInvested = parseFloat($scope.amountInvested);
+			let amount = parseFloat( withdrawal.amount);
+			let pendingbalance = $scope.pendingbalance;
+			// zero case - exit
+			if(pendingbalance<=0){
+				alert("All amount is kept!");
+				Stop();
+				return false;
+			}
+			// case one : donate R1000 to person who need to get paid R3000, correct!
+			if(pendingbalance <= amount){
+				let  data ={
+					amount:pendingbalance,
+					investmentID:parseInt($scope.investmentId),
+					witdrawalID:parseInt(withdrawal.id)
+				 };
+				console.log(withdrawal);
+				$http.post(GetApiUrl("AllocateAkeeper"), data)
+                .success(function(response, status) {
+					console.log(response);
+					
+                });
+
+			}
+
+			if(pendingbalance > amount){
+				let  data ={
+					amount:amount,
+					investmentID:parseInt($scope.investmentId),
+					witdrawalID:parseInt(withdrawal.id)
+				 };
+				console.log(withdrawal);
+				$http.post(GetApiUrl("AllocateAkeeper"), data)
+                .success(function(response, status) {
+					console.log(response);
+					if(pendingbalance<=0){
+						alert("All amount is kept!");
+						return false;
+					}
+                });
+
+			}
+				if(amountInvested > amount){
+					console.log($scope.amountInvested);
+				}
+			$scope.GetWithdrawals();
+	
+			
+		/*
 		var pendingBalance=0;
 		if(withdrowal.pendingbalance === "--"){
 		 pendingBalance = parseFloat(withdrowal.balance) - parseFloat($scope.amountInvested);
@@ -266,7 +348,7 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 			$window.location.href = "Admin-dashboard";
                 });
 			
-		}
+		}*/
 	}
    
 });

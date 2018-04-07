@@ -7,7 +7,7 @@
             <?php
    require 'sidemenu.php';
    ?>
-                <div class="col-sm-9 mainmenu">
+                <div class="col-sm-9 ">
 
 
                     <div class="panel panel-default">
