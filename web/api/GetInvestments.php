@@ -25,6 +25,7 @@ if ($result->rowCount() > 0) {
 		$investement->userID          = $row->userID;
 		$investement->GetInvestorDetails($conn);
 		$investement->GetExpectedAmount($investement->package,$investement->amountInvested);
+		$investement->GetDailyGrowth();
         $rows['data'][] = $investement;
     }
 }
@@ -45,6 +46,18 @@ class Investement
 	public $name;
 	public $email;
 	public $userID ;
+	public $growth;
+	function GetDailyGrowth(){
+		$date1=date_create($this->dateInvested);
+		$date2=date_create(date("Y/m/d"));
+		$diff=date_diff($date1,$date2);
+		$days =  $diff->format("%a");
+		$growthToday = $this->amountInvested;
+		for($i=-1; $i<$days; $i++ ){
+			$growthToday  = $growthToday+$growthToday*0.03;
+		}
+		$this->growth = round($growthToday);
+	}
 	function GetInvestorDetails($conn){
 		$result    = $conn->prepare("SELECT * FROM user WHERE id = ?");
         $result->execute(array(

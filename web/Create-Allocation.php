@@ -21,7 +21,7 @@ require 'head.php';
 					  <div class="col-sm-4">
 					  Email: <b>{{ user.email }}</b> <br>
 					  Cell: <b>{{ user.cell }}</b> <br>
-					  Address: <b>{{ user.address }}</b> <br>
+					  Address: <b>{{ user.address }}</b> <br> 
 					  Country: <b>{{ user.country }}</b> <br>
 					  Id NO.: <b>{{ user.idnum }}</b> <br>
 					  </div>

@@ -69,7 +69,7 @@
 						<span class="dash-box-count" style="font-size:18px">On Maturity: R {{investment.expectedAmount}}</span>
                         <span class="dash-box-title">{{investment.expecedDate}}</span>
 						<hr>
-						<span class="dash-box-count" style="font-size:18px">Growth: R {{investment.amountInvested}}</span>
+						<span class="dash-box-count" style="font-size:18px">Growth: R {{investment.growth}}</span>
 						<hr>
 						<span class="dash-box-count" style="font-size:18px">Status: <button type="button" class="btn btn-primary">{{investment.status}}</button></span>
 						<hr>

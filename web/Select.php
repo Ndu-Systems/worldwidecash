@@ -63,6 +63,8 @@
 			     <!-- PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING - PENDING -->
 			   <div ng-if="investment.status == 'Awaiting allocation'">
 			    <div class="panel-heading" style="background:#f1c40f; color:black; text-align:center">
+
+				
 				<b>{{ investment.name }} requested to provide help of R {{ investment.amountInvested }} for {{investment.package}} Months</b>
 				</div>
                   <div class="row">

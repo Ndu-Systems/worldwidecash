@@ -105,8 +105,8 @@ if($scope.key ==="paid"){
 			}
 			
 			else{
-				var data = {table:"investment", condition:" status= '"+$scope.key +"'"}
-				 $http.post(GetApiUrl("Get"), data)
+				var data = {status:$scope.key}
+				 $http.post(GetApiUrl("GetInvestmentsByStatus"), data)
                 .success(function(response, status) {
                     if (response !== undefined || response !== null) {
                         $scope.investments = response.data;
@@ -446,7 +446,7 @@ app.controller('CreateAllocationController', function($http, $scope, $window, $t
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";
     }
-
+ 
 	// get users list 
 	$scope.GetUsers = function(withdrowal){
 	  $timeout(function() {
@@ -470,7 +470,9 @@ app.controller('CreateAllocationController', function($http, $scope, $window, $t
 	$scope.Select = function(user){
 		$scope.email = user.email;
 	    $scope.userName = user.name;
-	    $scope.cellNo =user.cell;
+		$scope.cellNo =user.cell;
+		$scope.search = user.email;
+		$scope.userID = user.id;
 	}
 
 	$scope.Withdraw = function () {
@@ -480,6 +482,7 @@ app.controller('CreateAllocationController', function($http, $scope, $window, $t
 				return false;
 				}
 		var data = {
+			userID : $scope.userID,
 			email:$scope.email,
 			investemntId: 0,
 			amount: $scope.amount,
@@ -487,7 +490,7 @@ app.controller('CreateAllocationController', function($http, $scope, $window, $t
 			balance: $scope.amount,
 			dream: "Allocated dream"
 		};
-		$http.post(GetApiUrl("Withdraw"), data)
+		$http.post(GetApiUrl("CreateAllocationForAUser"), data)
 			.success(function (response, status) {
 				$scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
 				$scope.showDonateButton = false;
@@ -497,7 +500,7 @@ app.controller('CreateAllocationController', function($http, $scope, $window, $t
 				var msg = "Your request has been submitted, we will notify you as soon as allocation is found!";
 				SendMail("noreply@funderslife.com", $scope.email, $scope.name, "Withdrawal Notification " + $scope.dream, msg);
 				alert("withdrawal request  created!");
-	$window.location.href = "Allocate";
+				$window.location.href = "Allocate";
 				
 			});
 			}else{
