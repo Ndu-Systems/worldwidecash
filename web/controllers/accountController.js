@@ -343,7 +343,7 @@
                             
                             To change your password, click the link below:   <br><br>
                             
-                            <a href='http://funderslife.com/Create_New_Password?code=${$scope.code}&email=${$scope.emailforotp}'><b>Reset Password </b></a> <br><br>
+                            <a href='https://www.funderslife.com/Create_New_Password?code=${$scope.code}&email=${$scope.emailforotp}'><b>Reset Password </b></a> <br><br>
                             
                             Funder Life `;
                                 localStorage.setItem("code", $scope.code);
