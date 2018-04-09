@@ -534,9 +534,11 @@ app.controller('keepersController', function($http, $scope, $window, $timeout) {
 
 	$scope.MoreOptions = function(investment){
 		localStorage.setItem("keep_id", investment.id);
-		localStorage.setItem("keep_amountkeepable", investment.amountkeepable);
+		localStorage.setItem("keep_amountkeepable", investment.amount);
 		localStorage.setItem("keep_name", investment.name);
 		localStorage.setItem("keep_email", investment.email);
+		localStorage.setItem("keptamountID", investment.id);
+		localStorage.setItem("userID", investment.userID);
 		$window.location.href = "Allocate-Funds-To-Keep";
 	}
 
@@ -549,13 +551,15 @@ $scope.id = localStorage.getItem("keep_id");
 $scope.amountkeepable = localStorage.getItem("keep_amountkeepable");
 $scope.name = localStorage.getItem("keep_name");
 $scope.email = localStorage.getItem("keep_email");
-
+$scope.keptamountID =  localStorage.getItem("keptamountID");
+$scope.userID =  localStorage.getItem("userID");
 $scope.Allocate = function(){
 	$scope.error= undefined;
 	if($scope.amount_requested_to_keep && $scope.amount_requested_to_keep <= $scope.amountkeepable  ){
 		let data = {
-			amount_requested_to_keep:$scope.amount_requested_to_keep,
-			id: $scope.id
+			keptamountID: $scope.keptamountID,
+			userID : $scope.userID,
+			amount: $scope.amount_requested_to_keep
 		}
 
 		$http.post(GetApiUrl("AllocateAmountToKeep"),data)
@@ -565,7 +569,9 @@ $scope.Allocate = function(){
 				let msg = `You have been allocated to keep funds of R ${$scope.amount_requested_to_keep}. Please confirm the payment as soon as you receive it.`;
 				SendMail("no-reply@funderslife.com",$scope.email ,$scope.name,subject,msg);
 				// Create withdrwal
-				$scope.CreateWithDrawalForFundKeepings();
+				//$scope.CreateWithDrawalForFundKeepings();
+				alert("Amount was located successfuly");
+				$window.location.href = "Admin-dashboard";
 			}
 		  
 		});
@@ -576,25 +582,8 @@ $scope.Allocate = function(){
 }
 
 
-$scope.CreateWithDrawalForFundKeepings = function() {
-	$scope.error = "";
-
-		var data = {
-			email: $scope.email,
-			investemntId: 0,
-			amount: $scope.amount_requested_to_keep,
-			name: $scope.name,
-			balance: $scope.amount_requested_to_keep,
-			dream: "You have been allocated to keep funds",
-			isBonus: false
-		};
-		$http.post(GetApiUrl("Withdraw"), data)
-			.success(function(response, status) {
-				alert(`Allocation to keep funds of R ${ $scope.amount_requested_to_keep} created!`);
-				$window.location.href = "Admin-dashboard";
-			});
 	
-}
+
 });
 
 app.controller('withdrawalsController', function($http, $scope, $window, $timeout) {

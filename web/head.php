@@ -42,7 +42,12 @@
 	<script type="text/javascript" src="services/getData.js"></script>
 	 <script src="js/dirPagination.js"></script>
 
+	<script type="text/javascript" src="controllers/commonController.js"></script>
 	<script type="text/javascript" src="controllers/accountController.js"></script>
 	<script type="text/javascript" src="controllers/homeController.js"></script>
 	<script type="text/javascript" src="controllers/adminController.js"></script>
 </head>
+
+<div ng-controller="commonController">
+
+</div>

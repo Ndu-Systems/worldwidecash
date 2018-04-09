@@ -48,13 +48,13 @@
             $http.post(GetApiUrl("GetInvestments"), data)
                 .success(function(response, status) {
                     $scope.wait = undefined;
-Stop();
+            Stop();
                     if (response.data !== undefined) {
                         $scope.investments = response.data;
                     }
                 });
 
-        }, 100)
+        }, 3000)
         $scope.GetNotifications();
     };
 
@@ -98,7 +98,7 @@ Stop();
 
         $http.post(GetApiUrl("ConfirmPayment"), data)
             .success(function(response, status) {
-               $window.location.href = "Thanks-for-Verification";
+              $window.location.href = "Thanks-for-Verification";
             });
 
     }

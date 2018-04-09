@@ -7,8 +7,8 @@ $data       = json_decode(file_get_contents("php://input"));
 
 $rows = array();
 
-$result = $conn->prepare("SELECT * from investment WHERE amountkeepable > ? AND  isAkeeper=?"); 
-$result->execute(array(0,'Yes'));
+$result = $conn->prepare("SELECT * from keptamounts"); 
+$result->execute(array());
 
 
 if ($result->rowCount() > 0) {

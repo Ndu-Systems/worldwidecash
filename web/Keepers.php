@@ -27,25 +27,23 @@
          <table class="table">
     <thead>
       <tr>
+      <th> Investment ID</th>
         <th> Name</th>
         <th>Email</th>
-        <th>Amount Invested</th>
-        <th>Date Invested</th>
-        <th>Maturity date</th>
+        <th>Status</th>
         <th>Amount Keepable</th>
         <th>Action</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody> 
       <tr ng-repeat="investment in investments | filter:search">
+      <td>#{{investment.investmentID}}</td>
       <td>{{investment.name}}</td>
       <td>{{investment.email}}</td>
-      <td>{{investment.amountInvested}}</td>
-       <td>{{investment.dateInvested}}</td>
-       <td>{{investment.expecedDate}}</td>
-       <td>R {{investment.amountkeepable}}</td>
+      <td>{{investment.status}}</td>
+      <td>R {{investment.amount}}</td>
       <td>
-      <button type="button" class="btn btn-success" ng-click="MoreOptions(investment)">More</button>
+      <button type="button" ng-if ="investment.status=='unkept'" class="btn btn-success" ng-click="MoreOptions(investment)">More</button>
       </td>
       </tr>
     </tbody>

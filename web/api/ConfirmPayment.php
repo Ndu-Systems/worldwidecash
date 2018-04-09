@@ -16,7 +16,9 @@ $result = $conn->prepare("UPDATE notification SET status = ? WHERE id = ?");
 if($result->execute(array('old',$id))){
 	echo 1;
 }
-					
+// mark dream as active 
+
+
 ?>
 
 
