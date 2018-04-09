@@ -78,8 +78,8 @@ $rows["data"][]= $counts;
 // Keepers
 
 
-$result = $conn->prepare("SELECT * from investment WHERE amountkeepable > ? AND  isAkeeper=? AND amount_requested_to_keep < ?"); 
-$result->execute(array(0,'Yes',1));
+$result = $conn->prepare("SELECT * from keptamounts"); 
+$result->execute(array());
 
 
 $counts = new Counts();

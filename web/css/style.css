@@ -6,6 +6,10 @@ body {
 	font-family: 'Trebuchet MS';
 	background: #fff;
 }
+#timeCountDown{
+	font-family: 'Microsoft Yi Baiti';
+	color: red;
+}
 .loading {
 	background:#ecf0f1;
 	position: fixed;

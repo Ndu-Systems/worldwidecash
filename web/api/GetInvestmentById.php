@@ -20,6 +20,7 @@ if ($result->rowCount() > 0) {
         $investement->status         = $row->status;
 		$investement->dream          = $row->dream;
 		$investement->expecedDate          = $row->expecedDate;
+		$investement->timeAllocated = $row->timeAllocated;
         $investement->css            = "dash-box dash-box-color-3";
 		$investement->GetKeepers($conn);
 		$investement->userID          = $row->userID;
@@ -43,6 +44,7 @@ class Investement
 	public $name;
 	public $email;
 	public $userID ;
+	public $investement;
 	function GetInvestorDetails($conn){
 		$result    = $conn->prepare("SELECT * FROM user WHERE id = ?");
         $result->execute(array(

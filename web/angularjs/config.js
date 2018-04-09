@@ -3,6 +3,7 @@ var host = "https://www.funderslife.com/api/";
 var base = "https://www.funderslife.com/Get-Started";
 
 var isLocal =false;
+
 if(isLocal){
 base = "http://localhost:8080/worldwidecash/web/Get-Started";
 host = "http://localhost:8080/worldwidecash/web/api/";
@@ -79,7 +80,7 @@ var x = setInterval(function() {
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
   // Display the result in the element with id="demo"
-  document.getElementById(stringDisplayID).innerHTML = days + "d " + hours + "h "
+  document.getElementById(stringDisplayID).innerHTML ="Time remaining : " +days + "d " + hours + "h "
   + minutes + "m " + seconds + "s ";
 
   // If the count down is finished, write some text 

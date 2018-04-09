@@ -1,4 +1,4 @@
-﻿app.controller('commonController', function($http, $scope, $window, $timeout) {
+﻿app.controller('commonController', function($http, $scope, $window, $timeout,$location) {
 	// common jobs 
 	// set investment to active
 	$scope.MakeDreamsActive = function() {
@@ -59,5 +59,18 @@
 
         }, 3000)
 	};
+
+	$scope.CheckURL = function(){
+		if(!isLocal){
+			var baseUrlMain = $location.absUrl();
+			const BASEURLMAIN_SECURE = "https://www.funderslife.com";
+			var res = baseUrlMain.substring(0, 29);
+			if(res != BASEURLMAIN_SECURE){
+					$window.location = BASEURLMAIN_SECURE;
+			}
+		}
+	
+	}
+	$scope.CheckURL();
 	$scope.MakeDreamsActive();
 });

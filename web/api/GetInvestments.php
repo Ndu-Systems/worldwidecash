@@ -6,9 +6,9 @@ require "conn.php";
 $data   = json_decode(file_get_contents("php://input"));
 $userID = $data->userID;
 $rows   = array();
-$result = $conn->prepare("SELECT * FROM investment WHERE userID = ? ORDER BY id ");
+$result = $conn->prepare("SELECT * FROM investment WHERE userID = ? and status in (?,?,?,?) ");
 $result->execute(array(
-    $userID
+    $userID, 'paid', 'active', 'allocated','Awaiting allocation'
 ));
 if ($result->rowCount() > 0) {
     while ($row = $result->fetch(PDO::FETCH_OBJ)) {
@@ -23,6 +23,7 @@ if ($result->rowCount() > 0) {
         $investement->css            = "dash-box dash-box-color-3";
 		$investement->GetKeepers($conn);
 		$investement->userID          = $row->userID;
+		$investement->timeAllocated = $row->timeAllocated;
 		$investement->GetInvestorDetails($conn);
 		$investement->GetExpectedAmount($investement->package,$investement->amountInvested);
 		$investement->GetDailyGrowth();
@@ -47,6 +48,7 @@ class Investement
 	public $email;
 	public $userID ;
 	public $growth;
+	public $timeAllocated;
 	function GetDailyGrowth(){
 		$date1=date_create($this->dateInvested);
 		$date2=date_create(date("Y/m/d"));

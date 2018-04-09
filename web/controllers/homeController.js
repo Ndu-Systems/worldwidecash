@@ -132,7 +132,10 @@ app.controller('dreamDreatilsController', function($http, $scope, $window) {
   $scope.dream = Res.data.data[0];
     $scope.keepers = Res.data.data[0].keepers;
     console.log("$scope.dream", $scope.dream);
-    CountDownTimer("Sep 5, 2018 15:37:25","test");
+    if($scope.dream.status == 'allocated'){
+        CountDownTimer($scope.dream.timeAllocated,"timeCountDown");
+    }
+  
     //
     $scope.UploadProofOfPayment = function(keeper){
         console.log(keeper)
