@@ -22,7 +22,7 @@ require 'head.php';
 			<div class="inner_sec_info_wthree_agile">
 				<div class="ab_info">
 
-	<a href="Admin-Dashboard"><input type="button" value="GO TO MY DASHBOARD" class="myInput" style="background:#2ecc71; color:white; border: none"/></a>
+	<a href="Admin-dashboard"><input type="button" value="GO TO MY DASHBOARD" class="myInput" style="background:#2ecc71; color:white; border: none"/></a>
 
 
 				<h4></h4>

@@ -279,6 +279,7 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
     $scope.email = localStorage.getItem("email");
     $scope.name = localStorage.getItem("name");
     $scope.mylink = localStorage.getItem("mylink");
+    $scope.userID = localStorage.getItem("userID");
     $scope.isAkeeper = localStorage.getItem("isAkeeper");
     if(parseInt( $scope.isAkeeper)===1){
         $scope.keeperChecked = true;        
@@ -291,7 +292,8 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
     $scope.GetSideItems = function() {
         var data = {
             parentlink: $scope.mylink,
-            email: $scope.email
+            email: $scope.email,
+            userID :$scope.userID
         };
         $http.post(GetApiUrl("GetSideMenu"), data)
             .success(function(response, status) {
@@ -462,14 +464,15 @@ app.controller('bonusController', function($http, $scope, $window, $interval) {
     $scope.email = localStorage.getItem("email");
     $scope.name = localStorage.getItem("name");
     $scope.mylink = localStorage.getItem("mylink");
+    $scope.userID = localStorage.getItem("userID");
     $scope.showBonus = true;
     $scope.bonus = parseFloat(localStorage.getItem("mybonus"));
     $scope.GetBonus = function() {
         var data = {
-            table: "bonus",
-            condition: " email = '" + $scope.email + "' AND status='active'"
+          userID:$scope.userID,
+          status:'active'
         };
-        $http.post(GetApiUrl("Get"), data)
+        $http.post(GetApiUrl("GetBonuses"), data)
             .success(function(response, status) {
                 $scope.bonuses = response.data;
             });
@@ -676,7 +679,7 @@ $scope.amount = localStorage.getItem("amount");
     }
 
     $scope.Back = function() {
-        $window.location.href = "Dashboard";
+        $window.location.href = "Dream-Details";
     }
 
 });

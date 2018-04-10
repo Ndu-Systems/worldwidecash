@@ -6,7 +6,7 @@ require "conn.php";
 $data       = json_decode(file_get_contents("php://input"));
 $parentlink = $data->parentlink;
 $email      = $data->email;
-
+$userID =   $data->userID;
 $rows = array();
 
 //members
@@ -24,8 +24,8 @@ $rows["data"][] = $counts;
 
 //bonus
 $sql         = 
-$result      =$conn->prepare("SELECT * FROM bonus WHERE email = ? and status =?"); 
-$result->execute(array($email, 'active')); 
+$result      =$conn->prepare("SELECT * FROM bonus WHERE userID = ? and status =?"); 
+$result->execute(array($userID, 'active')); 
 $counts      = new Counts();
 $counts->key = "bonus";
 $amount      = 0;
