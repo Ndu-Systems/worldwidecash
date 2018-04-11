@@ -555,7 +555,7 @@ $scope.keptamountID =  localStorage.getItem("keptamountID");
 $scope.userID =  localStorage.getItem("userID");
 $scope.Allocate = function(){
 	$scope.error= undefined;
-	if($scope.amount_requested_to_keep && $scope.amount_requested_to_keep <= $scope.amountkeepable  ){
+	if($scope.amount_requested_to_keep <= $scope.amountkeepable  ){
 		let data = {
 			keptamountID: $scope.keptamountID,
 			userID : $scope.userID,

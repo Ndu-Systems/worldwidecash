@@ -132,9 +132,8 @@ app.controller('dreamDreatilsController', function($http, $scope, $window) {
   $scope.dream = Res.data.data[0];
     $scope.keepers = Res.data.data[0].keepers;
     console.log("$scope.dream", $scope.dream);
-    if($scope.dream.status == 'allocated'){
-        CountDownTimer($scope.dream.timeAllocated,"timeCountDown");
-    }
+    localStorage.setItem("_investmentID",$scope.dream.id);
+    
   
     //
     $scope.UploadProofOfPayment = function(keeper){
@@ -165,8 +164,14 @@ app.controller('dreamDreatilsController', function($http, $scope, $window) {
         };
         $http.post(GetApiUrl("UpdateDreamToPaid"), data)
         .success(function(response, status) {
+            $scope.dream.status = "paid";
             alert("Dream status changed to : Piad");
+           
         });
+        }else{
+            if($scope.dream.status == 'allocated'){
+                CountDownTimer($scope.dream.timeAllocated,"timeCountDown");
+            }
         }
     }
 });
@@ -275,7 +280,7 @@ app.controller('homeController', function($http, $scope, $window) {
 
 });
 
-app.controller('sideMenu', function($http, $scope, $window, $interval) {
+app.controller('sideMenu', function($http, $scope, $window, $interval,$timeout ) {
     $scope.email = localStorage.getItem("email");
     $scope.name = localStorage.getItem("name");
     $scope.mylink = localStorage.getItem("mylink");
@@ -295,6 +300,7 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
             email: $scope.email,
             userID :$scope.userID
         };
+        $timeout(function() {
         $http.post(GetApiUrl("GetSideMenu"), data)
             .success(function(response, status) {
                 $scope.members = response.data[0].value;
@@ -302,7 +308,6 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
                 $scope.pending = response.data[2].value;
                 $scope.pending_investment = response.data[3].value;
                 $scope.allocated = response.data[4].value;
-                $scope.keepableAmount =response.data[5].value;
                 $scope.amountkept =  response.data[6].value;
                 localStorage.setItem("mybonus", $scope.bonus)
                 localStorage.setItem("keepableAmount", $scope.keepableAmount)
@@ -310,6 +315,7 @@ app.controller('sideMenu', function($http, $scope, $window, $interval) {
                 $scope.CountDown();
                 //alert($scope.members);
             });
+        }, 3000)
     }
 
     // chats
@@ -483,16 +489,12 @@ app.controller('bonusController', function($http, $scope, $window, $interval) {
         $scope.error = "";
         if ($scope.bonus >= 500) {
             var data = {
-                email: $scope.email,
-                investemntId: 0,
                 amount: $scope.bonus,
-                name: $scope.name,
-                balance: $scope.bonus,
-                dream: "My Bonus",
-                isBonus: true
+                userID: $scope.userID
             };
-            $http.post(GetApiUrl("Withdraw"), data)
+            $http.post(GetApiUrl("CashOutABonus"), data)
                 .success(function(response, status) {
+                    console.log(response);
                     $scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
                     $scope.showBonus = false;
 
@@ -615,6 +617,7 @@ app.controller('investmentController', function($http, $scope, $window) {
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";
     }
+    $scope.investmentID =  localStorage.getItem("_investmentID");
     $scope.keeperID = localStorage.getItem("keeperID");
     $scope.upload = true;
     $scope.back = false;
@@ -629,6 +632,7 @@ $scope.amount = localStorage.getItem("amount");
         $scope.$apply();
     };
     $scope.Invest = function() {
+        Load();
         if ($scope.filename !== undefined) {
             var doc = "";
             var formData = new FormData();
@@ -659,6 +663,7 @@ $scope.amount = localStorage.getItem("amount");
                     $http.post(GetApiUrl("UpdatePOP"), data).success(function(data, status) {
                         if (parseInt(data) === 1) {
                             //$window.location.href = "Dashboard";
+                            Stop();
                             $scope.success = "Thanks for your Proof of payment, we will verify and let you know as soon as possible.";
                             $scope.msg = localStorage.getItem("name") + " Uploaded the proof of payment , please check your account balance and confirm the payment!";
                             $scope.error = undefined;
@@ -679,8 +684,23 @@ $scope.amount = localStorage.getItem("amount");
     }
 
     $scope.Back = function() {
-        $window.location.href = "Dream-Details";
+        $scope.InvestmentDetails();
     }
+
+    //InvestmentDetails
+$scope.InvestmentDetails = function(){
+    $http.get(GetApiUrlForID(`GetInvestmentById.php?id=${$scope.investmentID}`))
+    .then(function(response) {
+       console.log(response);
+       localStorage.setItem("investmentDetails",JSON.stringify(response));
+      // if(investment.status==="allocated"){
+        $window.location ="Dream-Details";
+    //   }
+      
+    }, function(response) {
+        console.log(response);
+    });
+}
 
 });
 

@@ -61,7 +61,7 @@
                   <td> {{withdrawal.email}}</td>
                   <td>R {{withdrawal.amount}}</td>
                   <td>R {{withdrawal.balance}}</td>
-                  <td>{{withdrawal.dream}}</td>
+                  <td>{{withdrawal.notes}}</td>
                   <td><button type="button" class="btn btn-primary" ng-click="Allocate(withdrawal)">Allocate</button></td>
                </tr>
             </tbody>

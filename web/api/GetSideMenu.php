@@ -84,13 +84,13 @@ $counts->value  = $keepableAmount;
 $rows["data"][] = $counts;
 
 //get amount kept
-$result      =$conn->prepare("SELECT * FROM investment WHERE  email=? AND amountkept <> ?"); 
-$result->execute(array($email, ''));
+$result      =$conn->prepare("SELECT * FROM keptamounts WHERE  userID=? AND status = ?"); 
+$result->execute(array($userID, 'kept'));
 
 $amountkept = 0;
 if ($result->rowCount() > 0) {
    while ($row = $result->fetch(PDO::FETCH_OBJ)){
-      $amountkept = $amountkept +$row->amountkept;
+      $amountkept = $amountkept +$row->amount;
   }
 }
 $counts         = new Counts();

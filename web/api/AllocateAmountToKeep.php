@@ -29,9 +29,9 @@ if($result->execute(array($amountInvested, $status, $package,$dream,$isAkeeper,$
                 }
 }		
 $result = $conn->prepare("UPDATE  keptamounts  SET	 
-status =?
+status =?, amount = ?
 WHERE id= ?"); 
-if($result->execute(array('kept',$keptamountID))){
+if($result->execute(array('kept',$amountInvested,$keptamountID))){
 echo 1;
 }			
 }
