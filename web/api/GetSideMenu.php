@@ -3,10 +3,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 require "conn.php";
-$data       = json_decode(file_get_contents("php://input"));
-$parentlink = $data->parentlink;
-$email      = $data->email;
-$userID =   $data->userID;
+$parentlink = $_GET['parentlink'];
+$email = $_GET['email'];
+$userID = $_GET['userID'];
+
+
 $rows = array();
 
 //members
@@ -80,7 +81,7 @@ if ($result->rowCount() > 0) {
 }
 $counts         = new Counts();
 $counts->key    = "keepableAmount";
-$counts->value  = $keepableAmount;
+$counts->value  = $keepableAmount; 
 $rows["data"][] = $counts;
 
 //get amount kept

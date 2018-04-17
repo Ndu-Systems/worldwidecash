@@ -8,35 +8,44 @@
    require 'sidemenu.php';
    ?>
 <div class="col-sm-9 ">
-
- <div class="panel panel-default">
+   <div class="panel panel-default">
       <div class="panel-heading">
-         <h3 style="width:100%; text-align:center; padding:2%; color:green; text-transform:capitalize">My Pending Withdraw</h3>
+         <h3 style="width:100%; text-align:center; padding:2%; color:green; text-transform:capitalize">My  Withdrawals</h3>
       </div>
       <div class="panel-body">
-        <div class="form-group">
-  <input type="text" class="form-control" ng-model="search">
-</div>
-               <h3 class="wait">{{wait}}</h3>
-     <div dir-paginate="pending in pendings | filter:search |itemsPerPage:1000" class="panel panel-default" style="margin:2%; padding:1%">
-			   
-			    <!-- client-->
-			  
-			    <div class="panel-heading" style="background:#3498db; color:#ecf0f1; text-align:center">
-				Date Created: <b>{{ pending.createdate }} </b> <br>
-				Description: <b>{{ pending.dream }} </b> <br>
-				Amount: <b>R {{ pending.amount }} </b> <br>
-			
-				</div>
-                  <div class="row">
-					
-				</div>
-               </div>   
-			   <br>
-			   <h1 style="color:red">{{error}}</h1>
-
-
-   </div> 
+         <div class="form-group">
+            <input type="text" class="form-control" ng-model="search">
+         </div>
+         <h3 class="wait">{{wait}}</h3>
+         <div class="container">
+            <div class="row">
+               <div class="col-md-5"  ng-repeat="pending in myWithdrals | filter:search">
+                  <div class="card"  ng-repeat="amount in pending.withdrawals.withdrawal">
+                    
+                     <div class="card-block">
+                        <div class="card-title">
+                           <h4>{{ amount.notes }} : R{{ amount.amount }}</h4><br>
+                           <h4><i class="fa fa-users"></i> Providers  <span class="badge">{{amount.providers.provider.length}}</span></h4>
+                        </div>
+                        <ul class="list-inline"  ng-repeat="provider in amount.providers.provider">
+                           <li><i class="fa fa-user"></i> {{provider.user.name}}</li>
+                           <li><i class="fa fa-envelope"></i> {{provider.user.email}}</li>
+                           <li><i class="fa fa-phone"></i> {{provider.user.cell}}</li>
+                           <li><i class="fa fa-wifi"></i>{{provider.status}}</li>
+                           <li><i class="fa fa-registered"></i>R {{provider.amount}}</li>
+                          
+                        </ul>
+                    
+                        
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+       
+         <br>
+         <h1 style="color:red">{{error}}</h1>
+      </div>
    </div>
 </div>
 <!-- //stats -->

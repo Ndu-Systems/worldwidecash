@@ -8,7 +8,7 @@ $data = json_decode(file_get_contents("php://input"));
 $id     = $data->id;
 $name   = $data->name;
 $amount = $data->amount;
-$status = 'unkept';
+$status = $data->status;
 $id     = $data->id;
 $email  = $data->email;
 $userID = $data->userID;
@@ -16,28 +16,32 @@ $userID = $data->userID;
 
 $result = $conn->prepare("UPDATE  investment  SET status =?  WHERE id= ?");
 if ($result->execute(array(
-    'active',
+    $status,
     $id
 ))) {
-    echo 1;
+    //echo 1;
 }
 
 // keptamounts 
+//echo $status, '\n' , ' >> ';
+if($status=="active"){  // if status is active_allocated -> dont give a bunus  and do not keep funds for the payment
 if($amount>=1000){
+   // echo $amount*0.5;
 $result = $conn->prepare("INSERT INTO keptamounts ( createdate, name ,  amount ,  status ,  investmentID,email,userID)
                                     VALUES (NOW(),?,?,?,?,?,?)");
 if ($result->execute(array(
     $name,
     $amount * 0.5,
-    $status,
+   'unkept',
     $id,
     $email,
     $userID
 ))) {
-    echo 1;
+  //  echo 1;
 }
 }
-GiveABonus($conn, $userID,$amount);
+GiveABonus($conn, $userID,$amount, $status);
+}
 //give bonuses 
 function GetUserParentForAUser($conn, $userID){
     $result = $conn->prepare("SELECT * FROM user WHERE id=?");
@@ -70,7 +74,7 @@ function GetNumberOfInvestemntsForThisUser($conn, $userID){
     }
 }
 
-function GiveABonus($conn, $userID,$amount){
+function GiveABonus($conn, $userID,$amount, $status){
     $bonusPercentage = 0.1;
     if(GetNumberOfInvestemntsForThisUser($conn,$userID)>1){
         $bonusPercentage = 0.02;
@@ -83,12 +87,12 @@ function GiveABonus($conn, $userID,$amount){
                                     VALUES (NOW(),?,?,?,?)");
 if ($result->execute(array(
     $amountToGive,
-    'active',
+    $status,
     $userID,
     $parentID
    
 ))) {
-    echo 'done';
+ //   echo 'done';
 }
 
 }

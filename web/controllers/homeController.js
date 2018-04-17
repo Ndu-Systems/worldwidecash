@@ -40,22 +40,17 @@
     }
 
     $scope.GetInvestments = function() {
-        $timeout(function() {
-            //Get Investments   
-            var data = {
-                userID: $scope.userID
-            };
-            $http.post(GetApiUrl("GetInvestments"), data)
-                .success(function(response, status) {
-                    $scope.wait = undefined;
-            Stop();
-                    if (response.data !== undefined) {
-                        $scope.investments = response.data;
-                    }
-                });
 
-        }, 3000)
+        $timeout(function() {
+            $http.get(GetApiUrlForID(`GetInvestments.php?userID=${$scope.userID}`))
+        .then(function(response) {
+            console.log("Log invesmensyt",response)
+            $scope.investments = response.data.data;
+            Stop();
+        });
         $scope.GetNotifications();
+        }, 300);
+      
     };
 
     // Get Notification 
@@ -115,14 +110,14 @@
 $scope.InvestmentDetails = function(investment){
     $http.get(GetApiUrlForID(`GetInvestmentById.php?id=${investment.id}`))
     .then(function(response) {
-       console.log(response);
+     //  console.log(response);
        localStorage.setItem("investmentDetails",JSON.stringify(response));
       // if(investment.status==="allocated"){
         $window.location ="Dream-Details";
     //   }
       
     }, function(response) {
-        console.log(response);
+     //   console.log(response);
     });
 }
 
@@ -131,7 +126,7 @@ app.controller('dreamDreatilsController', function($http, $scope, $window) {
     let Res = JSON.parse(localStorage.getItem("investmentDetails"));
   $scope.dream = Res.data.data[0];
     $scope.keepers = Res.data.data[0].keepers;
-    console.log("$scope.dream", $scope.dream);
+   // console.log("$scope.dream", $scope.dream);
     localStorage.setItem("_investmentID",$scope.dream.id);
     
   
@@ -165,7 +160,7 @@ app.controller('dreamDreatilsController', function($http, $scope, $window) {
         $http.post(GetApiUrl("UpdateDreamToPaid"), data)
         .success(function(response, status) {
             $scope.dream.status = "paid";
-            alert("Dream status changed to : Piad");
+            alert("Dream status changed to : Paid");
            
         });
         }else{
@@ -293,29 +288,50 @@ app.controller('sideMenu', function($http, $scope, $window, $interval,$timeout )
    }
     
     $scope.showTime = false;
-
+   
+    $scope.GetWithdrals = function(){
+        $http.get(GetApiUrlForID(`GetWithdralsForTheUser.php?id=${$scope.userID}`))
+        .then(function(response) {
+            if(response.data){ 
+              
+                $scope.dreams = [];
+                $.each(response.data.data, function(i , item){
+                 
+                    if(item.hasWithdrawals===1){
+                        $scope.dreams.push(item);
+                    }
+                });
+               
+                localStorage.setItem("myWithdrawals",JSON.stringify($scope.dreams));
+               $scope.pendingWithdrawals =  $scope.dreams.length;
+            }else{
+                console.log("No investmenst yet");
+            }
+         
+        }, function(response) {
+           // console.log(response);
+        });
+    }
+    $scope.GetWithdrals();
     $scope.GetSideItems = function() {
-        var data = {
-            parentlink: $scope.mylink,
-            email: $scope.email,
-            userID :$scope.userID
-        };
         $timeout(function() {
-        $http.post(GetApiUrl("GetSideMenu"), data)
-            .success(function(response, status) {
-                $scope.members = response.data[0].value;
-                $scope.bonus = response.data[1].value;
-                $scope.pending = response.data[2].value;
-                $scope.pending_investment = response.data[3].value;
-                $scope.allocated = response.data[4].value;
-                $scope.amountkept =  response.data[6].value;
-                localStorage.setItem("mybonus", $scope.bonus)
-                localStorage.setItem("keepableAmount", $scope.keepableAmount)
-                $scope.ShowDonateLink();
-                $scope.CountDown();
-                //alert($scope.members);
+            $http.get(GetApiUrlForID(`GetSideMenu.php?parentlink=${$scope.mylink}&email=${$scope.email}&userID=${$scope.userID}`))
+            .then(function(response) {
+                console.log("Data side menu", response);
+               $scope.members = response.data.data[0].value;
+               console.log("  $scope.members",   $scope.members);
+               $scope.bonus = response.data.data[1].value;
+               $scope.pending = response.data.data[2].value;
+               $scope.pending_investment = response.data.data[3].value;
+               $scope.allocated = response.data.data[4].value;
+               $scope.amountkept =  response.data.data[6].value;
+               localStorage.setItem("mybonus", $scope.bonus)
+               localStorage.setItem("keepableAmount", $scope.keepableAmount)
+               $scope.ShowDonateLink();
+               $scope.CountDown();
             });
-        }, 3000)
+        }, 3000);
+     
     }
 
     // chats
@@ -494,7 +510,7 @@ app.controller('bonusController', function($http, $scope, $window, $interval) {
             };
             $http.post(GetApiUrl("CashOutABonus"), data)
                 .success(function(response, status) {
-                    console.log(response);
+                //    console.log(response);
                     $scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
                     $scope.showBonus = false;
 
@@ -515,45 +531,8 @@ app.controller('pendingController', function($http, $scope, $window, $interval) 
     $scope.email = localStorage.getItem("email");
     $scope.name = localStorage.getItem("name");
     $scope.mylink = localStorage.getItem("mylink");
-    $scope.bonus = parseFloat(localStorage.getItem("mybonus"));
-    $scope.GetPending = function() {
-        var data = {
-            table: "withdraw",
-            condition: " email = '" + $scope.email + "' AND status='pending'"
-        };
-        $http.post(GetApiUrl("Get"), data)
-            .success(function(response, status) {
-                $scope.pendings = response.data;
-            });
-
-    }
-    $scope.CashOut = function() {
-        $scope.error = "";
-        if ($scope.bonus >= 500) {
-            var data = {
-                email: $scope.email,
-                investemntId: 0,
-                amount: $scope.amount,
-                name: $scope.name,
-                balance: $scope.bonus,
-                dream: "My Bonus",
-                isBonus: true
-            };
-            $http.post(GetApiUrl("Withdraw"), data)
-                .success(function(response, status) {
-                    $scope.message = "Your request has been submitted, we will notify you as soon as allocation is found!"
-                    $scope.showDonateButton = false;
-                    $scope.showDashteButton = true;
-                    localStorage.setItem("mybonus", 0);
-                    // notify
-                    var msg = "Your request has been submitted, we will notify you as soon as allocation is found!";
-                    SendMail("noreply@funderslife.com", $scope.email, $scope.name, "Withdrawal Notification " + $scope.dream, msg);
-
-                });
-        } else {
-            $scope.error = "Sorry, Your bonus is withdrawable once it riches R500! Refer more people to get more bonuses";
-        }
-    }
+    $scope.myWithdrals = JSON.parse(localStorage.getItem("myWithdrawals"));
+   // console.log($scope.myWithdrals );
 });
 
 
@@ -689,17 +668,17 @@ $scope.amount = localStorage.getItem("amount");
 
     //InvestmentDetails
 $scope.InvestmentDetails = function(){
+    $timeout(function() {
     $http.get(GetApiUrlForID(`GetInvestmentById.php?id=${$scope.investmentID}`))
     .then(function(response) {
-       console.log(response);
+      // console.log(response);
        localStorage.setItem("investmentDetails",JSON.stringify(response));
       // if(investment.status==="allocated"){
         $window.location ="Dream-Details";
     //   }
       
-    }, function(response) {
-        console.log(response);
-    });
+    })
+}, 300)
 }
 
 });

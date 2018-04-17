@@ -207,13 +207,11 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
     if (localStorage.getItem("isLoggedIn") !== "true") {
         $window.location.href = "Login";
     }
-    $scope.investmentId = localStorage.getItem("investmentId");
-    $scope.amountInvested = localStorage.getItem("amountInvested");
+    $scope.investmentId = parseInt(localStorage.getItem("investmentId"));
 	$scope.investorEmail = localStorage.getItem("pendingbalance");
 	$scope.pendingbalance = localStorage.getItem("pendingbalance");
 	$scope.userID = localStorage.getItem("userID");
     $scope.cell = localStorage.getItem("investorCell");
-	
 	$scope.GetWithdrawals = function(){
 	 $timeout(function() {
             $http.post(GetApiUrl("GetWithdraw"), {investmentId:$scope.investmentId})
@@ -235,9 +233,12 @@ app.controller('allocateController', function($http, $scope, $window, $timeout) 
 	$scope.GetInvestmentById = function(id){
 		$http.get(GetApiUrlForID(`GetInvestmentById.php?id=${id}`))
     	.then(function(response) {
+			console.log(GetApiUrlForID(`GetInvestmentById.php?id=${id}`));
 			console.log(response);
 			 let investementObj = response.data.data[0];
 			 $scope.numberOfKeepers =  investementObj.numberOfKeepers;
+			 $scope.amountInvested = investementObj.amountInvested;
+
 			 $scope.keepersLS =   investementObj.keepers.keepers;
 			 $scope.keeperSumAmount =  investementObj.amountKept;
 			 $scope.pendingbalance =  $scope.amountInvested  -  $scope.keeperSumAmount;
@@ -539,8 +540,18 @@ app.controller('keepersController', function($http, $scope, $window, $timeout) {
 		localStorage.setItem("keep_email", investment.email);
 		localStorage.setItem("keptamountID", investment.id);
 		localStorage.setItem("userID", investment.userID);
+		
 		$window.location.href = "Allocate-Funds-To-Keep";
 	}
+
+	$scope.AllocateKeptFunder = function(investment){
+		localStorage.setItem("keptamountID", investment.id);
+		localStorage.setItem("amountKept", investment.amount);
+		localStorage.setItem("userID", investment.userID);
+		localStorage.setItem("keepername", investment.name);
+		$window.location.href = "Allocate-Kept-Funds-To-Dreamer";
+	}
+	
 
 });
 app.controller('allocateFundsToKeepController', function($http, $scope, $window, $timeout) {
@@ -663,3 +674,58 @@ $scope.GetNotifications = function(){
     }
 }
 });
+
+
+app.controller('allocatedKeptAmountController', function($http, $scope, $window, $timeout) {
+	if (localStorage.getItem("isLoggedIn") !== "true") {
+        $window.location.href = "Login";
+    }
+	$scope.keptamountID =  parseInt(localStorage.getItem("keptamountID"));
+	$scope.userID =  localStorage.getItem("userID");
+	$scope.amountKept =  localStorage.getItem("amountKept");
+	$scope.keepername =  localStorage.getItem("keepername");
+	$scope.keep_status ='allocated';
+	//AllocateKeptAmountToSomeOne
+	
+	$scope.Allocate = function(){
+		$scope.error  = undefined;
+		if($scope.amountToAllocate){
+		if($scope.amountToAllocate <= parseFloat($scope.amountKept)){
+			$scope.balance = 	$scope.amountKept  - $scope.amountToAllocate;
+			console.log("Balance", $scope.balance);
+		if($scope.balance <= 0){
+			$scope.kept_amount_status = 'allocated';
+			$scope.balance = $scope.amountToAllocate;
+		}
+		else{
+			$scope.kept_amount_status= 'kept';
+		}
+
+			var data = {
+				userID: $scope.userID,
+				amount:$scope.amountToAllocate,
+				keptamountID:$scope.keptamountID,
+				keep_status : $scope.kept_amount_status,
+				balance :$scope.balance
+			}
+			console.log("data", data);
+			$http.post(GetApiUrl("AllocateKeptAmountToSomeOne"), data)
+		.success(function(response, status) {
+			console.log("New Id",response);
+			// redirect to allocate
+			if(response){
+				localStorage.setItem("investmentId",response);
+				$window.location.href = "Allocate";
+			}
+		   //$window.location.href = "Thanks-for-Verification -Admin";
+		});
+		}else{
+			$scope.error = `Amount to allocate must be less or equal to ${$scope.amountKept}`;
+		}
+	}else{
+		$scope.error = "Enter the amount to allocate";
+	}
+	
+	}
+});
+

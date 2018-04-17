@@ -3,9 +3,10 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 require "conn.php";
-$data   = json_decode(file_get_contents("php://input"));
-$userID = $data->userID;
+$userID = $_GET['userID'];
+
 $rows   = array();
+
 $result = $conn->prepare("SELECT * FROM investment WHERE userID = ? and status in (?,?,?,?) ");
 $result->execute(array(
     $userID, 'paid', 'active', 'allocated','Awaiting allocation'
@@ -29,7 +30,7 @@ if ($result->rowCount() > 0) {
 		$investement->GetDailyGrowth();
         $rows['data'][] = $investement;
     }
-}
+} 
 echo json_encode($rows);
 class Investement
 {

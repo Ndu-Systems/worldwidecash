@@ -45,7 +45,7 @@
         <li class="list-group-item" ng-show="showTime"><a href=""><h4 style="color:red"><span class="glyphicon glyphicon-time"></span> {{timeleft}}</h4></a></li>
         <li class="list-group-item"><a href="My-Referrals"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> My-Referrals <span class="badge">{{ members }}</span></a></li>
         <li class="list-group-item"><a href="My-Bonuses"><span class="glyphicon glyphicon-credit-card"></span> Bonuses <span class="badge"> R {{ bonus }}</span></a></li>
-        <li class="list-group-item"><a href="My-Pending-Withdraw"><span class="glyphicon glyphicon-credit-card"></span> Pending Withdraw <span class="badge">  {{ pending }}</span></a></li>
+        <li class="list-group-item"><a href="My-Pending-Withdraw"><span class="glyphicon glyphicon-credit-card"></span> My Withdrawals <span class="badge">  {{ pendingWithdrawals }}</span></a></li>
           <!--  <li class="list-group-item"><a href="Amount-You-Can-Keep"><span class="glyphicon glyphicon-apple"></span> Amount you can keep <span class="badge"> R {{ keepableAmount }}</span></a></li>    -->
         <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-apple"></span> Amount kept <span class="badge"> R {{ amountkept }}</span></a></li>
         <li  ng-show="showDonateLink" class="list-group-item"><a href="Give-Help"><span class="glyphicon glyphicon-heart-empty"></span> Create dream</a></li>

@@ -44,6 +44,7 @@
       <td>R {{investment.amount}}</td>
       <td>
       <button type="button" ng-if ="investment.status=='unkept'" class="btn btn-success" ng-click="MoreOptions(investment)">More</button>
+      <button type="button" ng-if ="investment.status=='kept'" class="btn btn-primary" ng-click="AllocateKeptFunder(investment)">Allocate</button>
       </td>
       </tr>
     </tbody>

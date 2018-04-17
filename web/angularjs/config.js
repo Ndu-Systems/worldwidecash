@@ -9,7 +9,7 @@ base = "http://localhost:8080/worldwidecash/web/Get-Started";
 host = "http://localhost:8080/worldwidecash/web/api/";
 //base = "http://localhost/worldwidecash/web/Get-Started";//freedom
 //host = "http://localhost/worldwidecash/web/api/"; //Freedom
-}
+} 
 
 var mail = "https://www.funderslife.com/api/emailClient2.php";
 var penultAmount = '400';

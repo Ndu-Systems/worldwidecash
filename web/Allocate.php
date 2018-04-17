@@ -16,7 +16,7 @@
          <h4>Total Kept  Amount <span class="badge"> R {{keeperSumAmount}}</span></h4><br>
          <h4>  <font color="red">Pending Balance <span class="badge"> R {{pendingbalance}}</span></font></h4><br>
             <table class="table table-bordered">
-               <thead>
+               <thead> 
                   <tr>
                      <th>Keeper Name</th>
                      <th>Keeper Email</th>
