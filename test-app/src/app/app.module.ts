@@ -13,9 +13,11 @@ import {RouterModule,Routes} from '@angular/router'
 import { UserDataService } from './shared/services/user-data.service';
 import { DreamsComponent } from './user-dashboard/dreams/dreams.component';
 import { SideMenuComponent } from './user-dashboard/side-menu/side-menu.component';
+import { CreateDreamComponent } from './create-dream/create-dream.component';
 const appRoutes = [
   {path:'', component:UserLoginComponent},
-  {path: 'user-dashboard', component:UserDashboardComponent}
+  {path: 'user-dashboard', component:UserDashboardComponent},
+  {path: 'create-dream', component:CreateDreamComponent}
 ];
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ const appRoutes = [
     UserDashboardComponent,
     DreamsComponent,
     SideMenuComponent
-  ],
+,
+    CreateDreamComponent
+],
   imports: [
     BrowserModule,
     FormsModule,

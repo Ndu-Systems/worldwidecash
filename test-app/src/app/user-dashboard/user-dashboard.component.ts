@@ -16,14 +16,15 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userDataService.getUser();
-    console.log(this.user);
+    console.log("service user",this.user);
     this.dreams =  this.user.dreams.data;
     this.sidemenu = {
       name: this.user.name,
-      mylink:this.user.mylink
+      mylink:this.user.mylink,
+      myrefferals : this.user.myrefferals,
+      bonus : this.user.bonus,
+      amountkept : this.user.amountkept,
     };
-  
-
 
   }
 

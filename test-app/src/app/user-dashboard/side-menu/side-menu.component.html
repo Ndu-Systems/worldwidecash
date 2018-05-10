@@ -29,7 +29,7 @@
               <p>Share this link and get bonuses!</p>
               <p>
                 <b>
-                  <font color=green>{{mylink}}</font>
+                  <font color=green>{{user.mylink}}</font>
                 </b>
               </p>
             </div>
@@ -48,13 +48,13 @@
     <a href="#!/My-Referrals">
       <span class="glyphicon glyphicon-user"></span>
       <span class="glyphicon glyphicon-user"></span> My-Referrals
-      <span class="badge">{{ myrefferals }}</span>
+      <span class="badge">{{ user.myrefferals }}</span>
     </a>
   </li>
   <li class="list-group-item">
     <a href="#!/My-Bonuses">
       <span class="glyphicon glyphicon-credit-card"></span> Bonuses
-      <span class="badge"> R {{ bonus }}</span>
+      <span class="badge"> R {{ user.bonus }}</span>
     </a>
   </li>
   <li class="list-group-item">
@@ -67,11 +67,11 @@
   <li class="list-group-item">
     <a href="">
       <span class="glyphicon glyphicon-apple"></span>
-      Amount kept <span class="badge"> R {{ amountkept }}</span>
+      Amount kept <span class="badge"> R {{user.amountkept }}</span>
     </a>
   </li>
   <li ng-show="showDonateLink" class="list-group-item">
-    <a href="#!/Create-Dream">
+    <a href="/create-dream">
       <span class="glyphicon glyphicon-heart-empty"></span> Create dream</a>
   </li>
   <li class="list-group-item">
