@@ -21,7 +21,8 @@ const appRoutes = [
     AppComponent,
     HomeComponent,
     UserLoginComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    DreamsComponent
   ],
   imports: [
     BrowserModule,
