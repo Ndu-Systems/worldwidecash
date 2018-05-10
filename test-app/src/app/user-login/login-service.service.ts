@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class LoginServiceService {
  //API_PATH = "https://www.funderslife.com/api1";
-  API_PATH = "http://localhost:8080/fl/api";
+  API_PATH = "http://localhost:8080/worldwidecash/api";
   constructor(private httpClient:HttpClient ) { }
 
   loginUser(email:string, password:string):Observable<any>{
