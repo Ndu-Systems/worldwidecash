@@ -1,3 +1,4 @@
+import { RegisterService } from './user-registration/Register.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http'
@@ -14,10 +15,12 @@ import { UserDataService } from './shared/services/user-data.service';
 import { DreamsComponent } from './user-dashboard/dreams/dreams.component';
 import { SideMenuComponent } from './user-dashboard/side-menu/side-menu.component';
 import { CreateDreamComponent } from './create-dream/create-dream.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
 const appRoutes = [
   {path:'', component:UserLoginComponent},
   {path: 'user-dashboard', component:UserDashboardComponent},
-  {path: 'create-dream', component:CreateDreamComponent}
+  {path: 'create-dream', component:CreateDreamComponent},
+  {path: 'Get-Started', component:UserRegistrationComponent}
 ];
 @NgModule({
   declarations: [
@@ -26,9 +29,9 @@ const appRoutes = [
     UserLoginComponent,
     UserDashboardComponent,
     DreamsComponent,
-    SideMenuComponent
-,
-    CreateDreamComponent
+    SideMenuComponent,
+    CreateDreamComponent,
+    UserRegistrationComponent
 ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ const appRoutes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [LoginServiceService,UserDataService],
+  providers: [LoginServiceService,UserDataService,RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
