@@ -1,3 +1,43 @@
-<p>
-  dreams works!
-</p>
+  <div class="panel panel-default"  *ngIf="(dreams) as userdreams">
+      <div class="panel-heading">
+          <h3 style="width:100%; text-align:center; padding:2%; color:green">My Dreams</h3>  
+      </div>
+      <div class="panel-body">
+          <h3 class="wait">{{wait}}</h3>
+          <div class="panel panel-default">
+              <div class="container" style="width:100%">
+                  <div class="row">
+                      <div class="col-md-4" *ngFor="let investment of userdreams">
+                          <div class="dash-box dash-box-color-3">
+                              <div class="dash-box-icon">
+                                  <i class="glyphicon glyphicon-registration-mark"></i>
+                              </div>
+                              <div class="dash-box-body">
+                                  <span class="dash-box-count" style="font-size:18px"># {{investment.id}}</span>
+                                  <span class="dash-box-count" style="font-size:18px">{{investment.dream}}</span>
+                                  <hr>
+                                  <span class="dash-box-count" style="font-size:18px">Invested: R {{investment.amountInvested}}</span>
+                                  <span class="dash-box-title">{{investment.dateInvested}}</span>
+                                  <hr>
+                                  <span class="dash-box-count" style="font-size:18px">On Maturity: R {{investment.expectedAmount}}</span>
+                                  <span class="dash-box-title">{{investment.expecedDate}}</span>
+                                  <hr>
+                                  <span class="dash-box-count" style="font-size:18px">Growth: R {{investment.growth}}</span>
+                                  <hr>
+                                  <span class="dash-box-count" style="font-size:18px">Status: <button type="button" class="btn btn-primary">{{investment.status}}</button></span>
+                                  <hr>
+                                  <span class="dash-box-count" style="font-size:18px">Keepers  <span class="badge"> {{investment.numberOfKeepers}}</span></span>
+                                  <hr>
+                              </div>
+                              <div class="dash-box-action">
+                                  <button ng-click="InvestmentDetails(investment)">More Info</button>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
