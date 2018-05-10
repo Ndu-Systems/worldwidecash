@@ -20,8 +20,13 @@ export class UserLoginComponent implements OnInit {
   Login(){
   this.loginServiceService.loginUser(this.email, this.password)
   .subscribe((data)=>{
-    this.userDataService.saveUser(data);
-    this.router.navigate(['user-dashboard']);
+    if(data.name){
+      this.userDataService.saveUser(data);
+      this.router.navigate(['user-dashboard']);
+
+    }else{
+      this.message = "Oops! Your user name or password is incorrect please CHECK and try again.";
+    }
   })
   }
 
