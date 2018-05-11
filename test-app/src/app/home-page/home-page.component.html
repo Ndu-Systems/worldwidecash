@@ -1,4 +1,4 @@
-
+<app-nav-home></app-nav-home>
 <div class="slider">
     <div class="callbacks_container">
         <ul class="rslides callbacks callbacks1" id="slider4">
@@ -46,7 +46,7 @@
         <div class="news-main">
             <div class="col-md-6 news-left">
                 <div class="col-md-6 b_left">
-                    <img src="assets/images/ab.jpg" alt=" " class="img-responsive">
+                    <img src="assets/images/ab.jpg" alt=" " style="width:100%" class="img-responsive">
 
                 </div>
                 <div class="col-md-6 b_right">
@@ -75,20 +75,4 @@
         </div>
     </div>
 </div>
-<script>
-    $(function () {
-        $("#slider4").responsiveSlides({
-            auto: true,
-            pager: true,
-            nav: true,
-            speed: 1000,
-            namespace: "callbacks",
-            before: function () {
-                $('.events').append("<li>before event fired.</li>");
-            },
-            after: function () {
-                $('.events').append("<li>after event fired.</li>");
-            }
-        });
-    });
-</script>
+

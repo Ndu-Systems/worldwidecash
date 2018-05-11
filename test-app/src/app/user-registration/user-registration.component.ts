@@ -13,6 +13,7 @@ export class UserRegistrationComponent implements OnInit {
  
 
   register: Register;
+  message:string;
   constructor(private regisitserService: RegisterService,private router:Router) { }
 
   ngOnInit() {

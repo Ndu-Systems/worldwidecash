@@ -18,6 +18,8 @@ import { CreateDreamComponent } from './create-dream/create-dream.component';
 import { MyReferralsComponent } from './my-referrals/my-referrals.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { NavHomeComponent } from './nav-home/nav-home.component';
+import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 const appRoutes = [
   
   {path:'', component:HomePageComponent},
@@ -26,6 +28,7 @@ const appRoutes = [
   {path: 'user-dashboard', component:UserDashboardComponent},
   {path: 'create-dream', component:CreateDreamComponent},
   {path: 'my-referrals', component:MyReferralsComponent},
+  {path: 'how-it-works', component:HowItWorksComponent},
   {path: 'get-started', component:UserRegistrationComponent},
 
 ];
@@ -44,6 +47,10 @@ const appRoutes = [
     UserRegistrationComponent
 ,
     HomePageComponent
+,
+    NavHomeComponent
+,
+    HowItWorksComponent
 ],
   imports: [
     BrowserModule,
