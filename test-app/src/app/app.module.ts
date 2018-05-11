@@ -14,10 +14,12 @@ import { UserDataService } from './shared/services/user-data.service';
 import { DreamsComponent } from './user-dashboard/dreams/dreams.component';
 import { SideMenuComponent } from './user-dashboard/side-menu/side-menu.component';
 import { CreateDreamComponent } from './create-dream/create-dream.component';
+import { MyReferralsComponent } from './my-referrals/my-referrals.component';
 const appRoutes = [
   {path:'', component:UserLoginComponent},
   {path: 'user-dashboard', component:UserDashboardComponent},
-  {path: 'create-dream', component:CreateDreamComponent}
+  {path: 'create-dream', component:CreateDreamComponent},
+  {path: 'my-referrals', component:MyReferralsComponent}
 ];
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ const appRoutes = [
     SideMenuComponent
 ,
     CreateDreamComponent
+,
+    MyReferralsComponent
 ],
   imports: [
     BrowserModule,

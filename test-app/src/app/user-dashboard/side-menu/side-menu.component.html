@@ -45,27 +45,27 @@
   </li>
 
   <li class="list-group-item">
-    <a href="#!/My-Referrals">
+    <a routerLink="/my-referrals">
       <span class="glyphicon glyphicon-user"></span>
       <span class="glyphicon glyphicon-user"></span> My-Referrals
       <span class="badge">{{ user.myrefferals }}</span>
     </a>
   </li>
   <li class="list-group-item">
-    <a href="#!/My-Bonuses">
+    <a routerLink="#!/My-Bonuses">
       <span class="glyphicon glyphicon-credit-card"></span> Bonuses
       <span class="badge"> R {{ user.bonus }}</span>
     </a>
   </li>
   <li class="list-group-item">
-    <a href="#!/My-Withdraws">
+    <a routerLink="#!/My-Withdraws">
       <span class="glyphicon glyphicon-credit-card"></span> My Withdrawals
       <span class="badge"> {{ myWithdrawals }}</span>
     </a>
   </li>
   <!--  <li class="list-group-item"><a href="Amount-You-Can-Keep"><span class="glyphicon glyphicon-apple"></span> Amount you can keep <span class="badge"> R {{ keepableAmount }}</span></a></li>    -->
   <li class="list-group-item">
-    <a href="">
+    <a routerLink="">
       <span class="glyphicon glyphicon-apple"></span>
       Amount kept <span class="badge"> R {{user.amountkept }}</span>
     </a>
@@ -75,12 +75,12 @@
       <span class="glyphicon glyphicon-heart-empty"></span> Create dream</a>
   </li>
   <li class="list-group-item">
-    <a href="#!/Dashboard">
+    <a routerLink="/user-dashboard">
       <span class="glyphicon glyphicon-th"></span> Dashboard</a>
   </li>
   <!--  <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-th-list"></span> History</a></li> -->
   <li class="list-group-item">
-    <a href="#!/logout">
+    <a routerLink="#!/logout">
       <span class="glyphicon glyphicon-off"></span> Logout</a>
   </li>
 </ul>
