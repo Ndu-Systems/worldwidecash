@@ -1,0 +1,47 @@
+<div class="inner_banner">
+</div>
+<div class="services-breadcrumb">
+    <div class="inner_breadcrumb">
+    </div>
+</div>
+<div class="banner_bottom">
+  <div class="container">
+      <div class="tittle_head">
+          <h3 class="tittle">Sign up for free <span></span></h3>
+      </div>
+      <div class="inner_sec_info_wthree_agile">
+          <div class="inner_sec_info_wthree_agile">
+              <div class="form">
+          <div class="row">           
+          
+              <div class="col-sm-6">
+                  <label>Your Name</label><br>
+                  <input type="text" name="Name"   #Name="ngModel" class="myInput" [(ngModel)]="register.name" />
+              </div>
+              <div class="col-sm-6">
+                  <label>Your Surname</label><br>
+                  <input type="text"  name="Surname"   #Surname="ngModel" class="myInput" [(ngModel)]="register.surname" />
+              </div>
+                  <div class="col-sm-12">
+                      <label>Your Email</label><br>
+                      <input type="email"  name="Email"   #Email="ngModel" class="myInput" [(ngModel)]="register.email" />
+                  </div>
+                  <div class="col-sm-12">
+                      <label>Choose Password</label><br>
+                      <input type="password"  name="Password"   #Password="ngModel" class="myInput" [(ngModel)]="register.password" />
+                  </div>
+                  <div class="col-sm-12">
+                      <label></label><br>
+                      <input type="button" value="GET STARTED" class="myInput btn-submit" ng-click="Join()" style="background:#2ecc71; color:white; border: none" />
+                  </div>
+                  <div class="col-sm-12">
+                      <label></label><br>
+                      <h4 class="message">  {{message}}</h4>
+                      <p>Have An Account? <a href="">Sign In!</a></p>
+                  </div>             
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>

@@ -1,3 +1,4 @@
+import { RegisterService } from './user-registration/Register.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http'
@@ -15,11 +16,13 @@ import { DreamsComponent } from './user-dashboard/dreams/dreams.component';
 import { SideMenuComponent } from './user-dashboard/side-menu/side-menu.component';
 import { CreateDreamComponent } from './create-dream/create-dream.component';
 import { MyReferralsComponent } from './my-referrals/my-referrals.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
 const appRoutes = [
   {path:'', component:UserLoginComponent},
   {path: 'user-dashboard', component:UserDashboardComponent},
   {path: 'create-dream', component:CreateDreamComponent},
-  {path: 'my-referrals', component:MyReferralsComponent}
+  {path: 'my-referrals', component:MyReferralsComponent},
+  {path: 'Get-Started', component:UserRegistrationComponent}
 ];
 @NgModule({
   declarations: [
@@ -28,11 +31,12 @@ const appRoutes = [
     UserLoginComponent,
     UserDashboardComponent,
     DreamsComponent,
-    SideMenuComponent
-,
-    CreateDreamComponent
-,
-    MyReferralsComponent
+    SideMenuComponent,
+    CreateDreamComponent,
+    MyReferralsComponent,
+    SideMenuComponent,
+    CreateDreamComponent,
+    UserRegistrationComponent
 ],
   imports: [
     BrowserModule,
@@ -40,7 +44,7 @@ const appRoutes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [LoginServiceService,UserDataService],
+  providers: [LoginServiceService,UserDataService,RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
