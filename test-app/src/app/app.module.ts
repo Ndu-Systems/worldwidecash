@@ -17,12 +17,17 @@ import { SideMenuComponent } from './user-dashboard/side-menu/side-menu.componen
 import { CreateDreamComponent } from './create-dream/create-dream.component';
 import { MyReferralsComponent } from './my-referrals/my-referrals.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { HomePageComponent } from './home-page/home-page.component';
 const appRoutes = [
-  {path:'', component:UserLoginComponent},
+  
+  {path:'', component:HomePageComponent},
+  {path:'home', component:HomePageComponent},
+  {path:'user-login', component:UserLoginComponent},
   {path: 'user-dashboard', component:UserDashboardComponent},
   {path: 'create-dream', component:CreateDreamComponent},
   {path: 'my-referrals', component:MyReferralsComponent},
-  {path: 'Get-Started', component:UserRegistrationComponent}
+  {path: 'get-started', component:UserRegistrationComponent},
+
 ];
 @NgModule({
   declarations: [
@@ -37,6 +42,8 @@ const appRoutes = [
     SideMenuComponent,
     CreateDreamComponent,
     UserRegistrationComponent
+,
+    HomePageComponent
 ],
   imports: [
     BrowserModule,
