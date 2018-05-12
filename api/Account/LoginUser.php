@@ -2,10 +2,10 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-require "conn.php";
-require "Models/Investements.php";
-require "Models/Keeper.php";
-require "Models/Person.php";
+require "../conn.php";
+require "../Models/Investements.php";
+require "../Models/Keeper.php";
+require "../Models/Person.php";
 $data = json_decode(file_get_contents("php://input"));
 $email = $_GET['email'];
 $pass= $_GET['password'];

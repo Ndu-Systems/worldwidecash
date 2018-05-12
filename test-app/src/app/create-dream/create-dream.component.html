@@ -1,6 +1,47 @@
+<app-client-nav></app-client-nav>
+<div class="banner_bottom" style="padding:0">
+  <div class="container mainmenu">
 
+      <div class="col-sm-12 ">
 
-  <h1>
-    <a routerLink="/user-dashboard">Back</a>
-  </h1>
+`
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h2 style="width:100%; text-align:center; padding:2%; color:green">Give Help</h2>
+              </div>
+              <div class="panel-body">
+                  <div>
+                      <div class="col-md-3"></div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <b>Name Your Dream </b>
+                              <textarea class="myInput" [(ngModel)]="dream" placeholder="EG: To Buy a BMW 320i"></textarea> 
+                          </div>
+                          <div class="form-group">
+                              <b>Select Amount </b>
+                              <select class="form-control" id="amount"  [(ngModel)]="amount" required>
+                                <option *ngFor="let amount of packeges" [value]="amount">{{amount}}</option>
+                              </select> 
+                          </div>
+                          <div class="form-group">
+                              <b>Select Investment Period in Months </b>
+                              <select class="form-control" id="peroid"   [(ngModel)]="peroid" required>
+                                <option *ngFor="let peroid of peroids" [value]="peroid">{{peroid}}</option>
+                              </select>
+                           
+                          </div>
+                          <hr />
+                          <div class="form-group">
+                              <input type="button" ng-show="showDonateButton" value="DONATE" class="myInput" (click)="Donate()" style="background:#2ecc71; color:white; border: none; padding-top:2%;" />
 
+                          </div>
+                      </div>
+                      <div class="col-md-3"></div>
+                  </div>
+
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>

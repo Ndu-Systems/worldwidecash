@@ -11,6 +11,7 @@ body {
 	font-family: 'Microsoft Yi Baiti';
 	color: red;
 }
+
 .loading {
 	background:#ecf0f1;
 	position: fixed;
@@ -431,7 +432,7 @@ ul.top-right-info_w3ls {
 }
 
 .navbar-default {
-	background-color: #fff;
+	background-color: black;
 	border-color: #fff;
 }
 
@@ -630,7 +631,7 @@ b.fa.fa-caret-right {
 		margin: 0;
 		margin-left: 0em;
 		width: 100%;
-		background: #eee;
+		background:#343a40;
 		margin-top: 1em;
 	}
 	.activedream table{
@@ -1964,7 +1965,7 @@ a.facebook:hover {
 		margin: 0;
 		margin-left: 0em;
 		width: 100%;
-		background: #eee;
+		background: #343a40;
 		margin-top: 1em;
 	}
 		.navbar>.container .navbar-brand,
@@ -1975,7 +1976,7 @@ a.facebook:hover {
 		float: none;
 		margin: 0;
 		margin-left: 0em;
-		background: #eee;
+		background:#343a40;
 		margin-top: 1em;
 		padding: 1em 1em;
 	}

@@ -20,6 +20,9 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { HomePageComponent } from './home-page/home-page.component';
 import { NavHomeComponent } from './nav-home/nav-home.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
+import { DreamService } from './create-dream/Dream.service';
+import { ClientNavComponent } from './client-nav/client-nav.component';
+import { ResetUserService } from './shared/reset-user.service';
 const appRoutes = [
   
   {path:'', component:HomePageComponent},
@@ -51,6 +54,8 @@ const appRoutes = [
     NavHomeComponent
 ,
     HowItWorksComponent
+,
+    ClientNavComponent
 ],
   imports: [
     BrowserModule,
@@ -58,7 +63,7 @@ const appRoutes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [LoginServiceService,UserDataService,RegisterService],
+  providers: [LoginServiceService,UserDataService,RegisterService,DreamService,ResetUserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

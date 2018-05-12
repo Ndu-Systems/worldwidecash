@@ -1,12 +1,13 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class UserDataService {
 user:any;
 constructor() { }
-saveUser(user:any){
-    this.user = user;
+saveUser(user:any):Observable<any>{
     localStorage.setItem('user', JSON.stringify(user));
+  return  this.user = user;
 }
 getUser(): any{
     if(this.user){
