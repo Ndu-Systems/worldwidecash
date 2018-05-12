@@ -11,12 +11,10 @@ saveUser(user:any):Observable<any>{
 }
 getUser(): any{
     if(this.user){
-        console.log('1', this.user)
         return this.user;
     }
     if(JSON.parse(localStorage.getItem('user'))){
         this.user = JSON.parse(localStorage.getItem('user'));
-        console.log('2', this.user)
         return this.user;
     }
     return null;

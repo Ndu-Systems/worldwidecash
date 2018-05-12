@@ -27,6 +27,10 @@ import { DreamDetailsService } from "./dream-detail/dream-details.service";
 import { ProofOfPaymentComponent } from './proof-of-payment/proof-of-payment.component';
 import { UploadService } from "./proof-of-payment/upload.service";
 import { EmailService } from "./shared/services/email.service";
+import { MyBonusesComponent } from './my-bonuses/my-bonuses.component';
+import { BonusService } from "./my-bonuses/bonus.service";
+import { MyWithdrawsComponent } from './my-withdraws/my-withdraws.component';
+import { SideMenuService } from "./user-dashboard/side-menu/side-menu.service";
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -37,7 +41,9 @@ const appRoutes = [
   { path: "how-it-works", component: HowItWorksComponent },
   { path: "get-started", component: UserRegistrationComponent },
   { path: "dream/:id", component: DreamDetailComponent },
-  { path: "proof-of-payment", component: ProofOfPaymentComponent}
+  { path: "proof-of-payment", component: ProofOfPaymentComponent},
+  { path: "my-bonuses", component: MyBonusesComponent},
+  { path: "my-withdraws", component: MyWithdrawsComponent}
 ];
 @NgModule({
   declarations: [
@@ -59,6 +65,10 @@ const appRoutes = [
     DreamDetailComponent
 ,
     ProofOfPaymentComponent
+,
+    MyBonusesComponent
+,
+    MyWithdrawsComponent
 ],
   imports: [
     BrowserModule,
@@ -74,7 +84,9 @@ const appRoutes = [
     ResetUserService,
     DreamDetailsService,
     UploadService,
-    EmailService
+    EmailService,
+    BonusService,
+    SideMenuService
   ],
   bootstrap: [AppComponent]
 })
