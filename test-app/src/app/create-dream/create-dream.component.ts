@@ -40,7 +40,7 @@ export class CreateDreamComponent implements OnInit {
   Donate() {
     this.message = undefined;
     this.isValid = true;
-    //				bankname, accountnumber
+    //bankname, accountnumber
     let dream = this.dream;
     let amount = this.amount;
     let peroid = this.peroid;
@@ -71,11 +71,9 @@ export class CreateDreamComponent implements OnInit {
             if(res.name){
               this.userDataService.saveUser(res);
               alert('Dream was created succefully');
-              this.router.navigate(['user-dashboard']);
-        
+              this.router.navigate(['user-dashboard']);        
             }
-          });
-         
+          });         
         }
       });
     } else {

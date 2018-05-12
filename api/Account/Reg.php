@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-require "conn.php";
+require "../conn.php";
 $data = json_decode(file_get_contents("php://input"));
 
 if (isset($data->email) ){  
@@ -10,9 +10,10 @@ if (isset($data->email) ){
  $surname 	=$data->surname;
  $email 	=$data->email;
  $password 	=$data->password;
- $code 	=$data->code;
- $parentlink 	=$data->parentlink;
- $mylink 	=$data->baseUrl."?link=".time().$code;
+ $code 	= 1234;
+ $parentlink 	="";
+ // $mylink 	=$data->baseUrl."?link=".time().$code;
+ $mylink ="";
  
  // check if user exits
 $result = $conn->prepare("SELECT * FROM user WHERE email = ?"); 
@@ -24,13 +25,13 @@ $result = $conn->prepare("INSERT INTO user (name, surname, email, password, crea
 if($result->execute(array($name, $surname, $email,$password,'Client',$code,0,$mylink,$parentlink,'Yes'))){
 	 echo 1;
 }else{
-	echo "error while trying to register client step 1 of 3";
+	echo json_encode("error while trying to register client step 1 of 3");
 }		
 
 	
 }else{
 	
-	echo "Your account already exists, please go to login";
+	echo json_encode("Your account already exists, please go to login");
 }
  
  

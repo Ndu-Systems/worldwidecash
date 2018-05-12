@@ -27,6 +27,9 @@ import { DreamDetailsService } from "./dream-detail/dream-details.service";
 import { ProofOfPaymentComponent } from './proof-of-payment/proof-of-payment.component';
 import { UploadService } from "./proof-of-payment/upload.service";
 import { EmailService } from "./shared/services/email.service";
+import { BankingDetailsComponent } from './user-registration/banking-details/banking-details.component';
+import { PersonalInformationComponent } from './user-registration/personal-information/personal-information.component';
+ 
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -37,7 +40,9 @@ const appRoutes = [
   { path: "how-it-works", component: HowItWorksComponent },
   { path: "get-started", component: UserRegistrationComponent },
   { path: "dream/:id", component: DreamDetailComponent },
-  { path: "proof-of-payment", component: ProofOfPaymentComponent}
+  { path: "proof-of-payment", component: ProofOfPaymentComponent},
+  { path: "personal-information", component: PersonalInformationComponent},
+  { path: "banking-details", component:BankingDetailsComponent}
 ];
 @NgModule({
   declarations: [
@@ -56,7 +61,9 @@ const appRoutes = [
     NavHomeComponent,
     HowItWorksComponent,
     ClientNavComponent,
-    DreamDetailComponent
+    DreamDetailComponent,
+    PersonalInformationComponent,
+    BankingDetailsComponent
 ,
     ProofOfPaymentComponent
 ],
