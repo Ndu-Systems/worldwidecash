@@ -27,16 +27,13 @@ import { DreamDetailsService } from "./dream-detail/dream-details.service";
 import { ProofOfPaymentComponent } from './proof-of-payment/proof-of-payment.component';
 import { UploadService } from "./proof-of-payment/upload.service";
 import { EmailService } from "./shared/services/email.service";
-<<<<<<< HEAD
 import { BankingDetailsComponent } from './user-registration/banking-details/banking-details.component';
 import { PersonalInformationComponent } from './user-registration/personal-information/personal-information.component';
  
-=======
 import { MyBonusesComponent } from './my-bonuses/my-bonuses.component';
 import { BonusService } from "./my-bonuses/bonus.service";
 import { MyWithdrawsComponent } from './my-withdraws/my-withdraws.component';
 import { SideMenuService } from "./user-dashboard/side-menu/side-menu.service";
->>>>>>> b751673a88f41b3366b10e5701011c821873f81d
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -48,13 +45,10 @@ const appRoutes = [
   { path: "get-started", component: UserRegistrationComponent },
   { path: "dream/:id", component: DreamDetailComponent },
   { path: "proof-of-payment", component: ProofOfPaymentComponent},
-<<<<<<< HEAD
   { path: "personal-information", component: PersonalInformationComponent},
-  { path: "banking-details", component:BankingDetailsComponent}
-=======
+  { path: "banking-details", component:BankingDetailsComponent},
   { path: "my-bonuses", component: MyBonusesComponent},
   { path: "my-withdraws", component: MyWithdrawsComponent}
->>>>>>> b751673a88f41b3366b10e5701011c821873f81d
 ];
 @NgModule({
   declarations: [
