@@ -26,6 +26,7 @@ import { DreamDetailComponent } from "./dream-detail/dream-detail.component";
 import { DreamDetailsService } from "./dream-detail/dream-details.service";
 import { ProofOfPaymentComponent } from './proof-of-payment/proof-of-payment.component';
 import { UploadService } from "./proof-of-payment/upload.service";
+import { EmailService } from "./shared/services/email.service";
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -72,7 +73,8 @@ const appRoutes = [
     DreamService,
     ResetUserService,
     DreamDetailsService,
-    UploadService
+    UploadService,
+    EmailService
   ],
   bootstrap: [AppComponent]
 })
