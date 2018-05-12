@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserDataService } from '../shared/services/user-data.service';
 
 @Component({
   selector: 'app-my-referrals',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-referrals.component.css']
 })
 export class MyReferralsComponent implements OnInit {
-
-  constructor() { }
+users:any;
+  constructor(private userDataService:UserDataService) { }
 
   ngOnInit() {
+    this.getMyRefferals();
   }
-
+getMyRefferals(){
+let user = this.userDataService.getUser();
+this.users = user.myrefferalsLS.data;
+}
 }
