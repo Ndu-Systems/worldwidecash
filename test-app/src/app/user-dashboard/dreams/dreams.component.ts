@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dreams',
@@ -7,9 +8,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DreamsComponent implements OnInit {
 @Input() dreams;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
+  InvestmentDetails(dream){
+this.router.navigate(['/dream', dream.id]);
 
+  }
 }
