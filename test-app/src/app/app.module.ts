@@ -23,6 +23,9 @@ import { DreamService } from "./create-dream/Dream.service";
 import { ClientNavComponent } from "./client-nav/client-nav.component";
 import { ResetUserService } from "./shared/reset-user.service";
 import { DreamDetailComponent } from "./dream-detail/dream-detail.component";
+import { DreamDetailsService } from "./dream-detail/dream-details.service";
+import { ProofOfPaymentComponent } from './proof-of-payment/proof-of-payment.component';
+import { UploadService } from "./proof-of-payment/upload.service";
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -32,7 +35,8 @@ const appRoutes = [
   { path: "my-referrals", component: MyReferralsComponent },
   { path: "how-it-works", component: HowItWorksComponent },
   { path: "get-started", component: UserRegistrationComponent },
-  { path: "dream/:id", component: DreamDetailComponent }
+  { path: "dream/:id", component: DreamDetailComponent },
+  { path: "proof-of-payment", component: ProofOfPaymentComponent}
 ];
 @NgModule({
   declarations: [
@@ -52,7 +56,9 @@ const appRoutes = [
     HowItWorksComponent,
     ClientNavComponent,
     DreamDetailComponent
-  ],
+,
+    ProofOfPaymentComponent
+],
   imports: [
     BrowserModule,
     FormsModule,
@@ -64,7 +70,9 @@ const appRoutes = [
     UserDataService,
     RegisterService,
     DreamService,
-    ResetUserService
+    ResetUserService,
+    DreamDetailsService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })
