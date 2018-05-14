@@ -11,7 +11,7 @@ if (isset($data->email) ){
  $email 	=$data->email;
  $password 	=$data->password;
  $code 	= $data->code;
- $parentlink 	="";
+ $parentlink 	= $data->parentlink;
  // $mylink 	=$data->baseUrl."?link=".time().$code;
  $mylink ="";
  

@@ -8,17 +8,22 @@ $data = json_decode(file_get_contents("php://input"));
 
 $userID = $data->userID;
 $code  = $data->code;
+$mylink  = $data->mylink;
+$userLink = $mylink."/get-started?link=".$userID.time();
 
 $result = $conn->prepare("UPDATE  user  SET     
                  isEmailVerified =?,
-                 code =?
+                 code =?,
+				 mylink = ?
                 WHERE id= ?");
 if ($result->execute(array(
     1,
     $code,
+	$userLink,
     $userID
+	
 ))) {
-echo 1;
+echo json_encode($userLink);
 }
 
 ?>

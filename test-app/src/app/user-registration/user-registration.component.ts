@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { UserDataService } from "../shared/services/user-data.service";
 import { ResetUserService } from "../shared/reset-user.service";
 import { Router } from '@angular/router';
+import {LocationStrategy} from '@angular/common';
 
 @Component({
   selector: 'app-user-registration',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-registration.component.css']
 })
 export class UserRegistrationComponent implements OnInit {
+  parentlink: string;
   // register: Register;
   name:string;
   surname:string;
@@ -28,10 +30,18 @@ export class UserRegistrationComponent implements OnInit {
     private router:Router,
      private userDataService: UserDataService,
      private resetUserService:ResetUserService,
-     private emailService:EmailService
+     private emailService:EmailService,
+     private location:LocationStrategy
     ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    let baseUrlMain = (<any>this.location)._platformLocation.location.href;
+    if (baseUrlMain.toLowerCase().includes("link=")) {
+       this.parentlink = baseUrlMain.toLowerCase();
+    } else {
+        this.parentlink = "";
+    }
+  }
 
   Join(){
     this.code =Math.floor(4000 * (Math.random() + 1));
@@ -73,7 +83,8 @@ export class UserRegistrationComponent implements OnInit {
         surname:this.surname,
         email:this.email, 
         password:this.password,
-        code: this.code 
+        code: this.code ,
+        parentlink: this.parentlink
       };
       this.http.registerUser(data).subscribe(response =>{
         if(response===1){
