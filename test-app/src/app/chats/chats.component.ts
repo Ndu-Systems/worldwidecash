@@ -25,7 +25,6 @@ getChats(){
       this.chats = data.data;
 
     }
-console.log(this.chats)
   });
 }
 

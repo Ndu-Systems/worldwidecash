@@ -40,6 +40,8 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { VerifyEmailService } from "./verify-email/verify-email.service";
 import { ChatsComponent } from './chats/chats.component';
 import { ChatsService } from "./chats/chats.service";
+import { AutomateComponent } from './automate/automate.component';
+import { AutomateService } from "./automate/automate.service";
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -95,6 +97,8 @@ const appRoutes = [
     VerifyEmailComponent
 ,
     ChatsComponent
+,
+    AutomateComponent
 ],
   imports: [
     BrowserModule,
@@ -114,7 +118,8 @@ const appRoutes = [
     BonusService,
     SideMenuService,
     VerifyEmailService,
-    ChatsService
+    ChatsService,
+    AutomateService
   ],
   bootstrap: [AppComponent]
 })
