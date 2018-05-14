@@ -10,5 +10,6 @@ saveUser(user:any):Observable<any>{
 }
 getUser(): any{
 return this.user;
+ 
 }
 }

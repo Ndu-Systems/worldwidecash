@@ -81,7 +81,7 @@ const appRoutes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes) 
   ],
   providers: [
     LoginServiceService,
