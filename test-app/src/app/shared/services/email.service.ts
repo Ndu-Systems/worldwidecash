@@ -10,8 +10,8 @@ export class EmailService {
     API_PATH = EMAIL;
     constructor(private httpClient:HttpClient ) { }
   
-    sendEmail(email):Observable<any>{
-         return this.httpClient.post(this.API_PATH, email);
+    sendEmail(email:Email):Observable<any>{
+         return this.httpClient.post(this.API_PATH, email)
     }
 
 }

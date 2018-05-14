@@ -10,7 +10,7 @@ if (isset($data->email) ){
  $surname 	=$data->surname;
  $email 	=$data->email;
  $password 	=$data->password;
- $code 	= 1234;
+ $code 	= $data->code;
  $parentlink 	="";
  // $mylink 	=$data->baseUrl."?link=".time().$code;
  $mylink ="";

@@ -1,3 +1,4 @@
+import { EmailService } from './../shared/services/email.service';
 import { Email } from './../Models/Email';
 import { RegisterService } from './Register.service';
 import { Component, OnInit } from '@angular/core';
@@ -21,13 +22,20 @@ export class UserRegistrationComponent implements OnInit {
   message: any;
   isValid: boolean;
   passwordConfirm: string;
+  code:number;
 
-  constructor(private http: RegisterService,private router:Router, private userDataService: UserDataService, private resetUserService:ResetUserService) { }
+  constructor(private http: RegisterService,
+    private router:Router,
+     private userDataService: UserDataService,
+     private resetUserService:ResetUserService,
+     private emailService:EmailService
+    ) { }
 
   ngOnInit() {}
 
   Join(){
-    debugger
+    this.code =Math.floor(4000 * (Math.random() + 1));
+
     this.isValid = true;
     if (this.name == undefined || this.surname == undefined) {
       this.isValid = false;
@@ -64,15 +72,28 @@ export class UserRegistrationComponent implements OnInit {
         name : this.name,
         surname:this.surname,
         email:this.email, 
-        password:this.password   
+        password:this.password,
+        code: this.code 
       };
-      debugger
       this.http.registerUser(data).subscribe(response =>{
         if(response===1){
           alert("User Saved");
           this.resetUserService.resurtUser(data.email,data.password)
             .subscribe((res)=>{
               this.userDataService.saveUser(res);
+              //Code genarate 
+             
+              let email={
+                emailFrom:"welcome@funderslife.com",
+                to:this.email,
+                name:this.name,
+                subject:"Email Verification",
+                msg: `Welcome to Funders Life,Your verification code is ${this.code}`
+              }
+              this.emailService.sendEmail(email)
+              .subscribe((data)=>{
+                console.log("Email sent");
+              })
               this.router.navigate(['personal-information']);  
             });
         }

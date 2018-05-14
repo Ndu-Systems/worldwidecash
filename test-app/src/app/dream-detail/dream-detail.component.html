@@ -2,7 +2,7 @@
 <div class="banner_bottom" style="padding:0">
   <div class="container mainmenu">
 
-      <div class="col-sm-9 ">
+      <div class="container">
           <div class="panel panel-default" *ngIf="dream as dream">
               <div class="panel-heading">
                   <h3 style="width:100%; text-align:center; padding:2%; color:green; text-transform:capitalize">{{dream.dream}} : R {{dream.amountInvested}}</h3>
@@ -14,7 +14,7 @@
                       <h3 id="timeCountDown"></h3>
                       <div class="row">
 
-                          <div class="col-md-12" *ngFor ="let keeper of dream.keepers.keepers">
+                          <div class="col-sm-4" *ngFor ="let keeper of dream.keepers.keepers">
                               <div class="thumbnail">
 
                                   <div class="alert alert-info">

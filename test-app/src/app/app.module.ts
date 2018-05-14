@@ -34,6 +34,10 @@ import { MyBonusesComponent } from './my-bonuses/my-bonuses.component';
 import { BonusService } from "./my-bonuses/bonus.service";
 import { MyWithdrawsComponent } from './my-withdraws/my-withdraws.component';
 import { SideMenuService } from "./user-dashboard/side-menu/side-menu.service";
+import { LogoutComponent } from './logout/logout.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { VerifyEmailService } from "./verify-email/verify-email.service";
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -48,7 +52,11 @@ const appRoutes = [
   { path: "personal-information", component: PersonalInformationComponent},
   { path: "banking-details", component:BankingDetailsComponent},
   { path: "my-bonuses", component: MyBonusesComponent},
-  { path: "my-withdraws", component: MyWithdrawsComponent}
+  { path: "my-withdraws", component: MyWithdrawsComponent},
+  { path: "logout", component: LogoutComponent},
+  { path: "verify-email", component: VerifyEmailComponent},
+  { path: "unauthorized", component: UnauthorizedComponent}
+
 ];
 @NgModule({
   declarations: [
@@ -76,6 +84,13 @@ const appRoutes = [
     MyBonusesComponent
 ,
     MyWithdrawsComponent
+,
+    LogoutComponent,
+    LogoutComponent
+,
+    UnauthorizedComponent
+,
+    VerifyEmailComponent
 ],
   imports: [
     BrowserModule,
@@ -93,7 +108,8 @@ const appRoutes = [
     UploadService,
     EmailService,
     BonusService,
-    SideMenuService
+    SideMenuService,
+    VerifyEmailService
   ],
   bootstrap: [AppComponent]
 })
