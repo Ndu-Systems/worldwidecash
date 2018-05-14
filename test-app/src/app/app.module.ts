@@ -38,6 +38,8 @@ import { LogoutComponent } from './logout/logout.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { VerifyEmailService } from "./verify-email/verify-email.service";
+import { ChatsComponent } from './chats/chats.component';
+import { ChatsService } from "./chats/chats.service";
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -91,6 +93,8 @@ const appRoutes = [
     UnauthorizedComponent
 ,
     VerifyEmailComponent
+,
+    ChatsComponent
 ],
   imports: [
     BrowserModule,
@@ -109,7 +113,8 @@ const appRoutes = [
     EmailService,
     BonusService,
     SideMenuService,
-    VerifyEmailService
+    VerifyEmailService,
+    ChatsService
   ],
   bootstrap: [AppComponent]
 })
