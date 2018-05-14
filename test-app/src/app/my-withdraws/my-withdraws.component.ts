@@ -8,6 +8,7 @@ import { SideMenuService } from '../user-dashboard/side-menu/side-menu.service';
 })
 export class MyWithdrawsComponent implements OnInit {
   myWithdrals:any;
+  error:string;
   constructor(private sideMenuService:SideMenuService) { }
 
   ngOnInit() {
