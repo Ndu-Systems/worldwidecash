@@ -42,6 +42,8 @@ import { ChatsComponent } from './chats/chats.component';
 import { ChatsService } from "./chats/chats.service";
 import { AutomateComponent } from './automate/automate.component';
 import { AutomateService } from "./automate/automate.service";
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { ProfileService } from "./my-profile/profile.service";
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -59,7 +61,8 @@ const appRoutes = [
   { path: "my-withdraws", component: MyWithdrawsComponent},
   { path: "logout", component: LogoutComponent},
   { path: "verify-email", component: VerifyEmailComponent},
-  { path: "unauthorized", component: UnauthorizedComponent}
+  { path: "unauthorized", component: UnauthorizedComponent},
+  { path: "my-profile", component: MyProfileComponent}
 
 ];
 @NgModule({
@@ -99,6 +102,8 @@ const appRoutes = [
     ChatsComponent
 ,
     AutomateComponent
+,
+    MyProfileComponent
 ],
   imports: [
     BrowserModule,
@@ -119,7 +124,8 @@ const appRoutes = [
     SideMenuService,
     VerifyEmailService,
     ChatsService,
-    AutomateService
+    AutomateService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

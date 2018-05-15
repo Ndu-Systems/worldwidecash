@@ -1,11 +1,13 @@
 <app-client-nav></app-client-nav>
 <div class="banner_bottom" style="padding:0">
-  <div class="container mainmenu">
+    <div class="banner_bottom" style="background:#000000c9; border-top:10px solid green">
 
       <div class="container">
-          <div class="panel panel-default" *ngIf="dream as dream">
+          <div  *ngIf="dream as dream">
               <div class="panel-heading">
-                  <h3 style="width:100%; text-align:center; padding:2%; color:green; text-transform:capitalize">{{dream.dream}} : R {{dream.amountInvested}}</h3>
+                    <div class="tittle_head">
+                            <h3 class="tittle"> <span> {{dream.dream}} : R {{dream.amountInvested}} </span></h3>
+                        </div>
                   <div class="keepers">
                       <h4>Keepers  <span class="badge"> {{dream.numberOfKeepers}}</span></h4>
                       <br>
