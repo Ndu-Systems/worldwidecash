@@ -1,3 +1,4 @@
+import { EmailService } from './../shared/services/email.service';
 import { Component, OnInit } from "@angular/core";
 import { DreamService } from "./Dream.service";
 import { UserDataService } from "../shared/services/user-data.service";
@@ -10,6 +11,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./create-dream.component.css"]
 })
 export class CreateDreamComponent implements OnInit {
+  user:any;
   message: any;
   isValid: boolean;
   dream: string;
@@ -34,9 +36,11 @@ export class CreateDreamComponent implements OnInit {
     50000
   ];
   peroids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  constructor(private router:Router, private http: DreamService, private userDataService: UserDataService, private resetUserService:ResetUserService) {}
+  constructor(private router:Router, private http: DreamService, private userDataService: UserDataService, private resetUserService:ResetUserService,private emailService:EmailService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user =this.userDataService.getUser();
+  }
   Donate() {
     this.message = undefined;
     this.isValid = true;
@@ -71,6 +75,19 @@ export class CreateDreamComponent implements OnInit {
             if(res.name){
               this.userDataService.saveUser(res);
               alert('Dream was created succefully');
+              
+              let email={
+                emailFrom:"welcome@funderslife.com",
+                to:this.user.email,
+                name:this.user.name,
+                subject:"Email Verification",
+                msg: `Your dream was created successfully, Please wait for a member to be assigned to you.
+                `
+              }
+              this.emailService.sendEmail(email)
+              .subscribe((data)=>{
+                console.log("Email sent");
+              })
               this.router.navigate(['user-dashboard']);        
             }
           });         

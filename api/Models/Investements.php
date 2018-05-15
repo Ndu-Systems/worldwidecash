@@ -24,7 +24,7 @@ class Investement
 		$diff=date_diff($date1,$date2);
 		$days =  $diff->format("%a");
 		$growthToday = $this->amountInvested;
-		for($i=-1; $i<$days; $i++ ){
+		for($i=0; $i<$days; $i++ ){
 			$growthToday  = $growthToday+$growthToday*0.03;
 		}
 		$this->growth = round($growthToday);
