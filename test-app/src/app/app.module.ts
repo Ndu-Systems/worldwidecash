@@ -44,6 +44,7 @@ import { AutomateComponent } from './automate/automate.component';
 import { AutomateService } from "./automate/automate.service";
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ProfileService } from "./my-profile/profile.service";
+import { CashOutDreamComponent } from './cash-out-dream/cash-out-dream.component';
 
 const appRoutes = [
   { path: "", component: HomePageComponent },
@@ -55,6 +56,7 @@ const appRoutes = [
   { path: "how-it-works", component: HowItWorksComponent },
   { path: "get-started", component: UserRegistrationComponent },
   { path: "dream/:id", component: DreamDetailComponent },
+  { path: "cash-out-dream/:id", component: CashOutDreamComponent },
   { path: "proof-of-payment", component: ProofOfPaymentComponent},
   { path: "personal-information", component: PersonalInformationComponent},
   { path: "banking-details", component:BankingDetailsComponent},
@@ -106,6 +108,8 @@ const appRoutes = [
     AutomateComponent
 ,
     MyProfileComponent
+,
+    CashOutDreamComponent
 ],
   imports: [
     BrowserModule,

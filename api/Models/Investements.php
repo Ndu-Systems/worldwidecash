@@ -71,7 +71,7 @@ class Investement
 		for($i=0; $i< $package; $i++){
 			$amount =$amount+ $amount*0.8;
 		}
-		$this->expectedAmount = $amount;
+		$this->expectedAmount = round($amount);
 	}
 }
 

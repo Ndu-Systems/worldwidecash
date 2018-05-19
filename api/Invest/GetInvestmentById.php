@@ -19,12 +19,14 @@ if ($result->rowCount() > 0) {
         $investement->dateInvested   = $row->dateInvested;
         $investement->status         = $row->status;
 		$investement->dream          = $row->dream;
+		$investement->package          = $row->package;
 		$investement->expecedDate          = $row->expecedDate;
 		$investement->timeAllocated = $row->timeAllocated;
         $investement->css            = "dash-box dash-box-color-3";
 		$investement->GetKeepers($conn);
 		$investement->userID          = $row->userID;
 		$investement->GetInvestorDetails($conn);
+		$investement->GetExpectedAmount($investement->package, $investement->amountInvested );
         $rows['data'][] = $investement;
     }
 }
@@ -40,11 +42,21 @@ class Investement
     public $status;
 	public $dream;
 	public $amountKept;
+	public $package;
 	public $expecedDate;
+	public $expectedAmount;
 	public $name;
 	public $email;
 	public $userID ;
 	public $investement;
+
+	function GetExpectedAmount($package, $amountInvested){
+		$amount =$amountInvested;
+		for($i=0; $i< $package; $i++){
+			$amount =$amount+ $amount*0.8;
+		}
+		$this->expectedAmount = round($amount);
+	}
 	function GetInvestorDetails($conn){
 		$result    = $conn->prepare("SELECT * FROM user WHERE id = ?");
         $result->execute(array(

@@ -16,4 +16,8 @@ export class DreamsComponent implements OnInit {
 this.router.navigate(['/dream', dream.id]);
 
   }
+  NavigateToWithdraw(dream){
+this.router.navigate(['/cash-out-dream', dream.id]);
+
+  }
 }

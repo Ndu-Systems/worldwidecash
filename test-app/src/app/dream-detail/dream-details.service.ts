@@ -41,4 +41,12 @@ export class DreamDetailsService {
       data
     );
   }
+  WithDrawDream(data): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.API_PATH}/Invest/WithDrawDream.php`,
+      data
+    );
+  }
+
+
 }

@@ -127,9 +127,9 @@ function GetAmountKept($conn){
     $this->amountkept  = $amountkept;
 }
     function GetDreams($conn){
-        $result = $conn->prepare("SELECT * FROM investment WHERE userID = ? and status in (?,?,?,?) ");
+        $result = $conn->prepare("SELECT * FROM investment WHERE userID = ? and status in (?,?,?,?,?) ");
         $result->execute(array(
-           $this->id, 'paid', 'active', 'allocated','Awaiting allocation'
+           $this->id, 'paid', 'active', 'allocated','Awaiting allocation','matured'
         ));
         $investements  = array();
 if ($result->rowCount() > 0) {

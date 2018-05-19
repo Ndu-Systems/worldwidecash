@@ -1,0 +1,20 @@
+<app-client-nav></app-client-nav>
+<div class="banner_bottom" style="padding:0">
+    <div class="banner_bottom" style="background:#000000c9; border-top:10px solid green">
+
+      <div class="container">
+          <div  *ngIf="dream as dream">
+              <div class="panel-heading">
+                    <div class="tittle_head">
+                            <h3 class="tittle"> <span>You are about to withdraw ({{dream.dream}}) : R {{dream.amountInvested}} </span>
+                            
+                              <button type="button" (click)="Confirm()" class="btn btn-success">Confirm</button>
+                            </h3>
+                           
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>
+
