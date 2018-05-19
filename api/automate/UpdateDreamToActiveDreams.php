@@ -7,24 +7,24 @@ require "../emailClientApiSide.php";
 $data     = json_decode(file_get_contents("php://input"));
 $rows     = array();
 $response = array();
-$result   = $conn->prepare("SELECT * FROM investment WHERE status = ?");
-$result->execute(array(
+$investments   = $conn->prepare("SELECT * FROM investment WHERE status = ?");
+$investments->execute(array(
     'paid'
 ));
-if ($result->rowCount() > 0) {
-    while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+if ($investments->rowCount() > 0) {
+    while ($row = $investments->fetch(PDO::FETCH_OBJ)) {
 		$investmentID     = $row->id;
 		$dream =  $row->dream;
 		$userID =  $row->userID;
         $keeperStatusList = array();
         
         // get keepers
-        $result = $conn->prepare("SELECT * FROM keeper WHERE investmentID = ?");
-        $result->execute(array(
+        $keepers = $conn->prepare("SELECT * FROM keeper WHERE investmentID = ?");
+        $keepers->execute(array(
             $investmentID
         ));
-        if ($result->rowCount() > 0) {
-            while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+        if ($keepers->rowCount() > 0) {
+            while ($row = $keepers->fetch(PDO::FETCH_OBJ)) {
                 $keeperStatusList[] = $row->status;
             }
         }
@@ -48,12 +48,12 @@ if ($result->rowCount() > 0) {
 			$to ='';
 			$subject='Dream changed to Active';
 			$msg ='Congratulations! your dream '.$dream. ' was changed to active!';
-			   $result = $conn->prepare("SELECT * FROM user WHERE id = ?");
-			   $result->execute(array(
+			   $userdata = $conn->prepare("SELECT * FROM user WHERE id = ?");
+			   $userdata->execute(array(
 				$userID
 			   ));
-			   if ($result->rowCount() > 0) {
-				   while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+			   if ($userdata->rowCount() > 0) {
+				   while ($row = $userdata->fetch(PDO::FETCH_OBJ)) {
 					   $name = $row->name;
 					   $to= $row->email;
 				   }

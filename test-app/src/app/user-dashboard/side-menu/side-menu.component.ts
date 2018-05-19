@@ -29,15 +29,11 @@ export class SideMenuComponent implements OnInit {
     this.sideMenuService.getWithdawals(this.user.id).subscribe(response => {
       console.log(response)
       if (response) {
-        let dreams = [];
-        for (let item of response.data) {
-          if (item.hasWithdrawals === 1) {
-            dreams.push(item);
-          }
-        }
+        let dreams = response.data.filter(x=>x.hasWithdrawals>0);
         this.myWithdrawals = dreams.length;
-       this.sideMenuService.saveWithdwals(dreams)
-       console.log("dreams", dreams)
+       this.sideMenuService.saveWithdwals(dreams);
+       console.log("Withdrals", dreams)
+
       } 
     });
   }

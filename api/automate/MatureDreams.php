@@ -6,12 +6,12 @@ require "../conn.php";
 $data   = json_decode(file_get_contents("php://input"));
 $rows   = array();
 $response = array();
-$result = $conn->prepare("SELECT * FROM investment WHERE status = ?");
-$result->execute(array(
+$investments = $conn->prepare("SELECT * FROM investment WHERE status = ?");
+$investments->execute(array(
   'active'
 ));
-        if ($result->rowCount() > 0) {
-            while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+        if ($investments->rowCount() > 0) {
+            while ($row = $investments->fetch(PDO::FETCH_OBJ)) {
 
 				 $dateInvested = $row->dateInvested;
 				 $expecedDate = $row->expecedDate;
@@ -34,12 +34,12 @@ $result->execute(array(
 			$to ='';
 			$subject='Dream changed to matured';
 			$msg ='Congratulations! your dream '.$dream. ' is matured!, you can login and withdraw it!';
-			   $result = $conn->prepare("SELECT * FROM user WHERE id = ?");
-			   $result->execute(array(
+			   $userdata = $conn->prepare("SELECT * FROM user WHERE id = ?");
+			   $userdata->execute(array(
 				$userID
 			   ));
-			   if ($result->rowCount() > 0) {
-				   while ($row = $result->fetch(PDO::FETCH_OBJ)) {
+			   if ($userdata->rowCount() > 0) {
+				   while ($row = $userdata->fetch(PDO::FETCH_OBJ)) {
 					   $name = $row->name;
 					   $to= $row->email;
 				   }
