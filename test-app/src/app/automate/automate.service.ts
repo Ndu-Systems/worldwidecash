@@ -12,8 +12,11 @@ export class AutomateService {
          return this.httpClient.get<any>(`${this.API_PATH}/automate/GetAllInvestments.php`);
     }
 
-    makeDreamActive(dream):Observable<any>{
-        return this.httpClient.post(`${this.API_PATH}/automate/MakeDreamActiveAuto.php`,dream);
-        }
+    makeDreamActive():Observable<any>{
+        return this.httpClient.get<any>(`${this.API_PATH}/automate/UpdateDreamToActiveDreams.php`);
+    }
+    MakeDreamsMature():Observable<any>{
+        return this.httpClient.get<any>(`${this.API_PATH}/automate/MatureDreams.php`);
+    }
 
 }

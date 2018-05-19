@@ -6,12 +6,12 @@
             <div class="scrollable">
                 <p>
             <li class="list-group-item" *ngFor="let chat of chats">
-                <div ng-if="chat.senderName == 'Admin'" class="received">
+                <div *ngIf="chat.senderName == 'Admin'" class="received">
                     {{chat.message}}
                     <p class="time" style="color:white">Received: {{chat.timeSent}}</p>
 
                 </div>
-                <div ng-if="chat.senderName != 'Admin'" class="sent">
+                <div *ngIf="chat.senderName != 'Admin'" class="sent">
                     {{chat.message}}
                     <p class="time">Sent: {{chat.timeSent}}</p>
 

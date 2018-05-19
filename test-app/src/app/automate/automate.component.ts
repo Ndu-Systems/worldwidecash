@@ -13,40 +13,16 @@ export class AutomateComponent implements OnInit {
 
   ngOnInit() {
     this.MakeDreamsActive();
+    this.MakeDreamsMature();
+  }
+  MakeDreamsMature() {
+    this.AutomateService.MakeDreamsMature().subscribe((data)=>{
+      console.log(data);
+    })
   }
   MakeDreamsActive() {
-    let investment_To_activate_LS = [];
-    this.AutomateService.getAllDreams().subscribe(response => {
-      if (response) {
-        var dreams = response.data.filter(x => x.numberOfKeepers > 0);
-        for (let dream of dreams) {
-          let isPaid = true;
-          for (let keeper of dream.keepers) {
-            if (keeper.status !== "confirmed") {
-              isPaid = false;
-            }
-          }
-          if (isPaid) {
-            let status = "active";
-            if (dream.dream == "Keep Funds Allocated to another dreamer") {
-              status = "active_from_kept";
-            }
-            var data = {
-              id: dream.id,
-              name: dream.name,
-              amount: dream.amountInvested,
-              email: dream.email,
-              userID: dream.userID,
-              status: status
-            };
-            // call service
-            console.log("data", data);
-
-            this.AutomateService.makeDreamActive(data).subscribe(r=> console.log(r));
-          }
-        }
-      }
-    });
+    this.AutomateService.makeDreamActive().subscribe((data)=>{
+      console.log('to active',data);
+    })
   }
-  AreAllStatusConfrimed(array) {}
 }

@@ -2,7 +2,7 @@ import { RegisterService } from "./user-registration/Register.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, Component } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
-
+import { HashLocationStrategy,LocationStrategy } from "@angular/common";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { UserLoginComponent } from "./user-login/user-login.component";
@@ -44,6 +44,7 @@ import { AutomateComponent } from './automate/automate.component';
 import { AutomateService } from "./automate/automate.service";
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ProfileService } from "./my-profile/profile.service";
+
 const appRoutes = [
   { path: "", component: HomePageComponent },
   { path: "home", component: HomePageComponent },
@@ -62,7 +63,8 @@ const appRoutes = [
   { path: "logout", component: LogoutComponent},
   { path: "verify-email", component: VerifyEmailComponent},
   { path: "unauthorized", component: UnauthorizedComponent},
-  { path: "my-profile", component: MyProfileComponent}
+  { path: "my-profile", component: MyProfileComponent},
+  { path: "**", component: HomePageComponent}
 
 ];
 @NgModule({
@@ -109,7 +111,7 @@ const appRoutes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes) 
+    RouterModule.forRoot(appRoutes,{useHash:true}) 
   ],
   providers: [
     LoginServiceService,
@@ -126,6 +128,7 @@ const appRoutes = [
     ChatsService,
     AutomateService,
     ProfileService
+
   ],
   bootstrap: [AppComponent]
 })
