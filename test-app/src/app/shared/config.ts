@@ -9,3 +9,5 @@ export const EMAIL= "https://www.funderslife.com/api1/emailClient2.php";
 export function GetImagePath(imageUrl){
 return `${API_URL}/Invest/${imageUrl}`;
 }
+export const IS_LOCAL = false;
+
