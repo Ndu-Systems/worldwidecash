@@ -1,57 +1,54 @@
 <app-client-nav></app-client-nav>
-<div class="banner_bottom" style="padding:0">
-  <div class="container mainmenu">
-    <div class="col-sm-9 ">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 style="width:100%; text-align:center; padding:2%; color:green; text-transform:capitalize">My Withdrawals</h3>
-        </div>
-        <div class="panel-body">
-          <div class="form-group">
-            <input type="text" class="form-control" ng-model="search">
-          </div>
-          <div class="container" *ngIf="myWithdrals && myWithdrals.length">
-            <div class="row">
-              <div class="col-md-5" *ngFor="let pending of myWithdrals">
-                <div class="card" *ngFor="let amount of pending.withdrawals.withdrawal">
+<div class="banner_bottom" style="background:white">
+  <div class="container">
+    <div class="tittle_head">
+        <h3 class="tittle">My Withdrawals - <a routerLink="/user-dashboard">Back</a></h3>
+    </div>
+    <div class="inner_sec_info_wthree_agile" *ngIf="myWithdrals && myWithdrals.length">
+     
+        <div class="row">
+            <div class="col-md-5" *ngFor="let pending of myWithdrals">
+              <div class="card" *ngFor="let amount of pending.withdrawals.withdrawal">
 
-                  <div class="card-block">
-                    <div class="card-title">
-                      <h4>{{ amount.notes }} : R{{ amount.amount }}</h4>
-                      <br>
-                      <h4>
-                        <i class="fa fa-users"></i> Providers
-                        <div  *ngIf="amount.providers">
-                        <span *ngIf="amount.providers" class="badge">{{amount.providers.provider.length}}</span>
-                        </div>
-                      </h4>
-                    </div>
-                    <div  *ngIf="amount.providers">
-                    <ul  class="list-inline" *ngFor="let provider of  amount.providers.provider">
-                        <li  *ngIf="provider.user">
-                        <i class="fa fa-user"></i> {{provider.user.name}}</li>
-                        <li  *ngIf="provider.user">
-                        <i class="fa fa-envelope"></i> {{provider.user.email}}</li>
-                      <li  *ngIf="provider.user">
-                        <i class="fa fa-phone"></i> {{provider.user.cell}}</li>
-                      <li>
-                        <i class="fa fa-wifi"></i>{{provider.status}}</li>
-                      <li>
-                        <i class="fa fa-registered"></i>R {{provider.amount}}</li>
-
-                    </ul>
-                    </div>
-
+                <div class="card-block">
+                  <div class="card-title">
+                    <h4>{{ amount.notes }} : R{{ amount.amount }}</h4>
+                    <br>
+                    <h4>
+                      <i class="fa fa-users"></i> Providers
+                      <div  *ngIf="amount.providers">
+                      <span *ngIf="amount.providers" class="badge">{{amount.providers.provider.length}}</span>
+                      </div>
+                    </h4>
                   </div>
+                  <div  *ngIf="amount.providers">
+                  <ul  class="list-inline" *ngFor="let provider of  amount.providers.provider">
+                      <li  *ngIf="provider.user">
+                      <i class="fa fa-user"></i> {{provider.user.name}}</li>
+                      <li  *ngIf="provider.user">
+                      <i class="fa fa-envelope"></i> {{provider.user.email}}</li>
+                    <li  *ngIf="provider.user">
+                      <i class="fa fa-phone"></i> {{provider.user.cell}}</li>
+                    <li>
+                      <i class="fa fa-wifi"></i>{{provider.status}}</li>
+                    <li>
+                      <i class="fa fa-registered"></i>R {{provider.amount}}</li>
+
+                  </ul>
+                  </div>
+
                 </div>
               </div>
             </div>
+            <h1 style="color:red">{{error}}</h1>
           </div>
 
-          <br>
-          <h1 style="color:red">{{error}}</h1>
-        </div>
-      </div>
     </div>
-  </div>
+
+    <div class="inner_sec_info_wthree_agile">
+      <p>
+        {{error}}
+      </p>
+    </div>
+</div>
 </div>

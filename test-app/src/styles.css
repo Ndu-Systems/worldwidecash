@@ -5,17 +5,8 @@ body {
     margin: 0;
     font-size: 100%;
     font-family: 'Trebuchet MS';
-    background: black;
-    color: #D4AF37;
-    /* The image used */
-    background-image: url("assets/images/home.jpg");
-    /* Set a specific height */
-    height: 500px;
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: white;
+    color: black;
 }
 #timeCountDown{
 	font-family: 'Microsoft Yi Baiti';
@@ -271,9 +262,9 @@ h6 {
 
 p {
 	margin: 0;
-	color: #888;
+	color:black;
 	font-weight: 400;
-	font-size:1.85em;
+	font-size:100%;
 	line-height: 1.9em;
 }
 
@@ -1187,7 +1178,7 @@ p.sub_p {
 }
 
 h3.tittle {
-    color: white;
+    color: black;
     text-align: center;
     font-size: 2.5em;
     font-weight: 600;

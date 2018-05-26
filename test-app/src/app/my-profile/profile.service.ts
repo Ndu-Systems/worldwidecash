@@ -9,7 +9,7 @@ export class ProfileService {
     url: string = API_URL;
     constructor(private http:HttpClient) { }
     updateProfile(dream):Observable<any>{
-    return this.http.post(`${this.url}/Invest/Invest.php`,dream);
-    }
-
+        return this.http.post(`${this.url}/Account/UpdateProfile.php`,dream);
+        }
+    
 }

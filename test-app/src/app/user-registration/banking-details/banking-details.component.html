@@ -1,52 +1,51 @@
 <app-nav-home></app-nav-home>
-<div class="inner_banner">
-  </div>
-<div class="services-breadcrumb">
-    <div class="inner_breadcrumb">
-    </div>
-</div>
 <div class="banner_bottom">
   <div class="container">
-      <div class="tittle_head">
-          <h3 class="tittle">Banking-Details<span></span></h3>
+    <div class="tittle_head">
+      <h3 class="tittle">Banking-Details
+        <span></span>
+      </h3>
+    </div>
+    <div class="inner_sec_info_wthree_agile">
+      <div class="row">
+
+        <div class="col-sm-12">
+          <label>Select Bank Name</label>
+          <br>
+          <select class="form-control" id="bankname" [(ngModel)]="bankname" required>
+            <option *ngFor="let bankname of banks" [value]="bankname">{{bankname}}</option>
+          </select>
+        </div>
+        <div class="col-sm-12">
+          <label>Branch Name/Code</label>
+          <br>
+          <input type="text" class="myInput" [(ngModel)]="branch" />
+        </div>
+        <div class="col-sm-12">
+          <label>Account Number</label>
+          <br>
+          <input type="text" class="myInput" [(ngModel)]="accountnumber" />
+        </div>
+        <div class="col-sm-12">
+          <label>Account Type </label>
+          <select class="form-control" id="accountType" [(ngModel)]="accountType" required>
+            <option *ngFor="let accountType of accounts" [value]="accountType">{{accountType}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-12">
+          <label></label>
+          <br>
+          <input type="button" value="GET STARTED" class="myInput btn-submit" (click)="Save()" style="background:#2ecc71; color:white; border: none"
+          />
+        </div>
+        <div class="col-sm-12">
+          <label></label>
+          <br>
+          <h4 class="message"> {{message}}</h4>
+        </div>
       </div>
-      <div class="inner_sec_info_wthree_agile">
-          <div class="inner_sec_info_wthree_agile">
-              <div class="form">
-          <div class="row">          
-          
-              <div class="col-sm-12">
-                  <label>Select Bank Name</label><br>
-                  <select class="form-control" id="bankname"  [(ngModel)]="bankname" required>
-                    <option *ngFor="let bankname of banks" [value]="bankname">{{bankname}}</option>
-                  </select> 
-              </div>
-              <div class="col-sm-12">
-                <label>Branch Name/Code</label><br>
-                <input type="text" class="myInput" [(ngModel)]="branch" />
-            </div>
-            <div class="col-sm-12">
-              <label>Account Number</label><br>
-              <input type="text" class="myInput" [(ngModel)]="accountnumber" />
-            </div>           
-            <div class="col-sm-12">
-              <label>Account Type </label>
-              <select class="form-control" id="accountType"  [(ngModel)]="accountType" required>
-                <option *ngFor="let accountType of accounts" [value]="accountType">{{accountType}}</option>
-              </select> 
-            </div>
-    
-                <div class="col-sm-12">
-                      <label></label><br>
-                      <input type="button" value="GET STARTED" class="myInput btn-submit" (click)="Save()" style="background:#2ecc71; color:white; border: none" />
-                  </div>
-                  <div class="col-sm-12">
-                      <label></label><br>
-                      <h4 class="message">  {{message}}</h4>                      
-                  </div>             
-          </div>
-      </div>
+
+    </div>
   </div>
-</div>
-</div>
 </div>

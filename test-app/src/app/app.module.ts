@@ -38,13 +38,12 @@ import { LogoutComponent } from './logout/logout.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { VerifyEmailService } from "./verify-email/verify-email.service";
-import { ChatsComponent } from './chats/chats.component';
-import { ChatsService } from "./chats/chats.service";
 import { AutomateComponent } from './automate/automate.component';
 import { AutomateService } from "./automate/automate.service";
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ProfileService } from "./my-profile/profile.service";
 import { CashOutDreamComponent } from './cash-out-dream/cash-out-dream.component';
+import { UserLockedComponent } from './user-locked/user-locked.component';
 
 const appRoutes = [
   { path: "", component: HomePageComponent },
@@ -66,6 +65,7 @@ const appRoutes = [
   { path: "verify-email", component: VerifyEmailComponent},
   { path: "unauthorized", component: UnauthorizedComponent},
   { path: "my-profile", component: MyProfileComponent},
+  { path: "user-locked", component: UserLockedComponent},
   { path: "**", component: HomePageComponent}
 
 ];
@@ -103,13 +103,13 @@ const appRoutes = [
 ,
     VerifyEmailComponent
 ,
-    ChatsComponent
-,
     AutomateComponent
 ,
     MyProfileComponent
 ,
     CashOutDreamComponent
+,
+    UserLockedComponent
 ],
   imports: [
     BrowserModule,
@@ -129,7 +129,6 @@ const appRoutes = [
     BonusService,
     SideMenuService,
     VerifyEmailService,
-    ChatsService,
     AutomateService,
     ProfileService
 

@@ -6,10 +6,13 @@
     <h1 class="username">
       Hello {{user.name}}
       <br>
-      <a routerLink="/my-profile">
-        <button type="button" class="btn btn-info">My Profile</button>
-      </a>
-
+      <br><br>
+      <label for="">My Refferal Link</label>
+            <div class="btn-group" style="width: 100%; margin-bottom: 2%">
+                        <input type="text" class="form-control" [(ngModel)]="mylink" #userinput>
+                        <button type="button" class="btn btn-info" (click)="copyLink(userinput)">Copy</button>
+                      </div>
+                  
     </h1>
 
     <div class="container">
@@ -24,7 +27,12 @@
 
     </div>
   </li>
-
+  <li class="list-group-item">
+      <a routerLink="/my-profile">
+        <span class="glyphicon glyphicon-user"></span>
+        <span class="glyphicon glyphicon-user"></span> My Profile
+      </a>
+    </li>
   <li class="list-group-item">
     <a routerLink="/my-referrals">
       <span class="glyphicon glyphicon-user"></span>
@@ -46,7 +54,7 @@
   </li>
   <!--  <li class="list-group-item"><a href="Amount-You-Can-Keep"><span class="glyphicon glyphicon-apple"></span> Amount you can keep <span class="badge"> R {{ keepableAmount }}</span></a></li>    -->
   <li class="list-group-item">
-    <a routerLink="">
+    <a>
       <span class="glyphicon glyphicon-apple"></span>
       Amount kept <span class="badge"> R {{user.amountkept }}</span>
     </a>

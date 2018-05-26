@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserDataService } from '../shared/services/user-data.service';
 
@@ -8,13 +9,18 @@ import { UserDataService } from '../shared/services/user-data.service';
 })
 export class MyReferralsComponent implements OnInit {
 users:any;
-  constructor(private userDataService:UserDataService) { }
+error:string;
+  constructor(private userDataService:UserDataService, private router:Router) { }
 
   ngOnInit() {
     this.getMyRefferals();
   }
 getMyRefferals(){
 let user = this.userDataService.getUser();
+if (!user) {
+  this.router.navigate(["unauthorized"]);
+  return;
+}
 this.users = user.myrefferalsLS.data;
 }
 }

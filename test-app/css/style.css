@@ -1163,7 +1163,7 @@ b.fa.fa-caret-right {
 	font-weight: 500;
 }
 
-p.sub_p {
+p.sub_{
 	margin: 1.2em 0;
 }
 
@@ -1178,7 +1178,7 @@ h3.tittle {
     font-weight: 600;
 }
 h3.tittle.ser {
-	color:#fff;
+	color:black;
 }
 .ab_info {
     margin-bottom: 2em;
@@ -1850,10 +1850,10 @@ a.facebook:hover {
 	 .history-grid:nth-child(3){
 		     margin-top:1.8em;
 	 }
-	 . footer-grid_w3ls_agile:nth-child(2){
+	 .footer-grid_w3ls_agile:nth-child(2){
         margin:2em 0;
 	 }
-	 . footer-grid_w3ls_agile:nth-child(3){
+	 .footer-grid_w3ls_agile:nth-child(3){
         margin-bottom: 1em;
 	 }
 	 .copyrightbottom {
@@ -2230,7 +2230,7 @@ a.facebook:hover {
 		margin-bottom: 20px;
 		letter-spacing: 0;
 	}
-	. footer-grid_w3ls_agile {
+	.footer-grid_w3ls_agile {
 		padding: 0;
 	}
 }

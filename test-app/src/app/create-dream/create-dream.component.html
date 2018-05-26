@@ -1,47 +1,40 @@
 <app-client-nav></app-client-nav>
-<div class="banner_bottom" style="padding:0">
-    <div class="banner_bottom" style="background:#000000c9; border-top:10px solid green">
-
-      <div class="col-sm-12 ">
-
-`
-   
-              <div class="tittle_head">
-                <h3 class="tittle">Give <span> Help </span></h3>
-            </div>
-              <div class="panel-body">
-                  <div>
-                      <div class="col-md-3"></div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <b>Name Your Dream </b>
-                              <textarea class="myInput" [(ngModel)]="dream" placeholder="EG: To Buy a BMW 320i"></textarea> 
-                          </div>
-                          <div class="form-group">
-                              <b>Select Amount </b>
-                              <select class="form-control" id="amount"  [(ngModel)]="amount" required>
-                                <option *ngFor="let amount of packeges" [value]="amount">{{amount}}</option>
-                              </select> 
-                          </div>
-                          <div class="form-group">
-                              <b>Select Investment Period in Months </b>
-                              <select class="form-control" id="peroid"   [(ngModel)]="peroid" required>
-                                <option *ngFor="let peroid of peroids" [value]="peroid">{{peroid}}</option>
-                              </select>
-                           
-                          </div>
-                          <hr />
-                          <div class="form-group">
-                              <input type="button" ng-show="showDonateButton" value="DONATE" class="myInput" (click)="Donate()" style="background:#2ecc71; color:white; border: none; padding-top:2%;" />
-
-                          </div>
-                          <h4>{{message}}</h4>
-                      </div>
-                      <div class="col-md-3"></div>
-                  </div>
-
-              </div>
-
+<div class="banner_bottom">
+  <div class="container">
+    <div class="tittle_head">
+      <h3 class="tittle">Create dream</h3>
+    </div>
+    <div class="inner_sec_info_wthree_agile">
+      <div class="row">
+        <div class="col-sm-12">
+          <b>Name Your Dream </b>
+          <br>
+          <textarea class="myInput" [(ngModel)]="dream" placeholder="EG: To Buy a BMW 320i"></textarea>
+        </div>
+        <div class="col-sm-12">
+          <b>Select Amount </b>
+          <br>
+          <select class="myInput" id="amount" [(ngModel)]="amount" required>
+            <option *ngFor="let amount of packeges" [value]="amount">{{amount}}</option>
+          </select>
+        </div>
+        <div class="col-sm-12">
+          <b>Select Investment Period in Months </b>
+          <br>
+          <select class="myInput" id="peroid" [(ngModel)]="peroid" required>
+            <option *ngFor="let peroid of peroids" [value]="peroid">{{peroid}}</option>
+          </select>
+        </div>
+        <div class="col-sm-12"><br>
+          <button type="button" (click)="Donate()" class="btn btn-info">Save Dream</button>
+        </div>
+        <div class="col-sm-12"><br>
+           <p>
+               {{message}}
+           </p>
+          </div>
       </div>
+    </div>
+
   </div>
 </div>

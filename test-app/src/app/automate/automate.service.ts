@@ -18,5 +18,8 @@ export class AutomateService {
     MakeDreamsMature():Observable<any>{
         return this.httpClient.get<any>(`${this.API_PATH}/automate/MatureDreams.php`);
     }
+    lockUser():Observable<any>{
+        return this.httpClient.get<any>(`${this.API_PATH}/automate/LockUsers.php`);
+    }
 
 }

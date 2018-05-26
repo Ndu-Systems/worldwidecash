@@ -1,6 +1,8 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserDataService } from '../shared/services/user-data.service';
 import { ProfileService } from './profile.service';
+import { ResetUserService } from '../shared/reset-user.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -30,10 +32,14 @@ export class MyProfileComponent implements OnInit {
   code: any;
   email: any;
   name: any;
-  constructor(private UserDataService:UserDataService, private ProfileService:ProfileService) { }
+  constructor(private UserDataService:UserDataService, private ProfileService:ProfileService, private resetUserService:ResetUserService, private router: Router) { }
 
   ngOnInit() {
     this.user =this.UserDataService.getUser();
+    if (!this.user) {
+      this.router.navigate(["unauthorized"]);
+      return;
+    }
     console.log(this.user)
    this.name = this.user.name;
    this.email = this.user.email;
@@ -83,7 +89,12 @@ export class MyProfileComponent implements OnInit {
          accountType: accountType,
          branch: branch,
          email:this.email,
-         isAkeeper:this.isAkeeper
+         isAkeeper:this.isAkeeper,
+         cell: this.cell,
+         address: this.address,
+         idnum:this.id,
+         city:this.city
+
 
      };
      if (bankname == undefined || accountnumber == undefined || accountType == undefined || branch == undefined) {
@@ -93,7 +104,18 @@ export class MyProfileComponent implements OnInit {
      }
 
      if (this.isValid) {
-      this.ProfileService.updateProfile(data).subscribe((data)=>{alert(data)})
+      this.ProfileService.updateProfile(data).subscribe((res)=>{
+        if(res){
+          this.resetUserService.resurtUser(this.user.email,this.user.password)
+          .subscribe((res)=>{
+            if(res.name){
+              this.UserDataService.saveUser(res);
+              alert('Profile Updated');
+              this.router.navigate(['user-dashboard']);        
+            }
+          }); 
+        }
+      })
 
      } else {
         this.message = "Please make sure that all required fields are NOT empty"

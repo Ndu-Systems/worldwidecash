@@ -39,7 +39,18 @@ export class CreateDreamComponent implements OnInit {
   constructor(private router:Router, private http: DreamService, private userDataService: UserDataService, private resetUserService:ResetUserService,private emailService:EmailService) {}
 
   ngOnInit() {
-    this.user =this.userDataService.getUser();
+    this.user = this.userDataService.getUser();
+    if(!this.user){
+      this.router.navigate(['unauthorized']);
+    }
+    if(this.user.dreams.data){
+      let dreams:any[] = this.user.dreams.data.filter(x=>x.status !='active' && x.status !='matured');
+      if(dreams.length>0){
+        alert(`Sorry ${this.user.name} you can not create a dream at this time, all your dreams must be active or matured`);
+        this.router.navigate(['user-dashboard']);        
+  
+      }
+    }
   }
   Donate() {
     this.message = undefined;
@@ -59,6 +70,7 @@ export class CreateDreamComponent implements OnInit {
       userID: userID,
       isAkeeper: isAkeeper
     };
+    console.log(data)
     if (peroid == undefined || amount == undefined || dream == undefined) {
       this.isValid = false;
       this.message = "Please fill in the form completely";
@@ -80,7 +92,7 @@ export class CreateDreamComponent implements OnInit {
                 emailFrom:"welcome@funderslife.com",
                 to:this.user.email,
                 name:this.user.name,
-                subject:"Email Verification",
+                subject:"Dream was created succefully",
                 msg: `Your dream was created successfully, Please wait for a member to be assigned to you.
                 `
               }

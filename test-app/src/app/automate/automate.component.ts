@@ -21,7 +21,8 @@ export class AutomateComponent implements OnInit {
   ngOnInit() {
     this.MakeDreamsActive();
     this.MakeDreamsMature();
-    this.CheckURL
+    this.LockUser();
+    this.CheckURL();
   }
   MakeDreamsMature() {
     this.AutomateService.MakeDreamsMature().subscribe(data => {
@@ -33,15 +34,20 @@ export class AutomateComponent implements OnInit {
       console.log("to active", data);
     });
   }
+  LockUser() {
+    this.AutomateService.lockUser().subscribe(data => {
+      console.log("to lock user", data);
+    });
+  }
 
   CheckURL() {
+    debugger
     if (!IS_LOCAL) {
       let baseUrlMain = (<any>this.location)._platformLocation.location.href;
       const BASE_URLMAIN_SECURE = "https://www.funderslife.com";
       var res = baseUrlMain.substring(0, 27);
       if (res != BASE_URLMAIN_SECURE) {
-        alert("site not secure");
-        this.router.navigate([BASE_URLMAIN_SECURE]);
+        window.location.href = BASE_URLMAIN_SECURE;
       }
     }
   }

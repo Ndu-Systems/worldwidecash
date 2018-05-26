@@ -12,6 +12,7 @@ export class SideMenuComponent implements OnInit {
   @Input() sidemenu: SideMenu;
   myWithdrawals = 0;
   user:any;
+  mylink:string;
   constructor(
     private sideMenuService: SideMenuService,
     private userDataService: UserDataService
@@ -19,11 +20,17 @@ export class SideMenuComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userDataService.getUser();
+    this.mylink = this.user.mylink;
     if(this.user){
       this.getWithdawals();
-
     }
   }
+  copyLink(inputElement){
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, 0);
+  }
+
   getWithdawals() {
    
     this.sideMenuService.getWithdawals(this.user.id).subscribe(response => {

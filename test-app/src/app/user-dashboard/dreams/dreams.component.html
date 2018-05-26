@@ -24,7 +24,7 @@
                                   <hr>
                                   <span *ngIf="investment.status=='active'" class="dash-box-count" style="font-size:18px">Growth: R {{investment.growth}}</span>
                                   <hr>
-                                  <span class="dash-box-count" style="font-size:18px">Status: <button type="button" class="btn btn-primary">{{investment.status}}</button></span>
+                                  <span class="dash-box-count" style="font-size:18px">Status: <span class="dream-status">{{investment.status}}</span> </span>
                                   <hr>
                                   <span class="dash-box-count" style="font-size:18px">Keepers  <span class="badge"> {{investment.numberOfKeepers}}</span></span>
                                   <hr>

@@ -9,8 +9,8 @@ import { UserDataService } from '../shared/services/user-data.service';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
-  email = '';
-  password ='';
+  email = 'ndu@mail.com';
+  password ='ndumiso01';
   message='';
   constructor(private loginServiceService:LoginServiceService, private router:Router,private userDataService:UserDataService) { }
 
